@@ -1,3 +1,5 @@
-.navbar{
-color: red;
+.main {
+  display: flex;
+  justify-content: space-around;
+  padding: 5rem 0;
 }
