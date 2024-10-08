@@ -1,0 +1,36 @@
+.dropzone {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  border: 2px dashed #aaa;
+  border-radius: var(--border-radius);
+  background-color: #f9f9f9;
+  cursor: pointer;
+  padding: 20px;
+  text-align: center;
+}
+
+.dropzone p {
+  font-size: 16px;
+  color: #555;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.fileInfo {
+  text-align: center;
+  ;
+}
+
+.fileInfo p {
+  padding: 2rem;
+  border: 2px dashed rgb(4, 209, 4);
+  margin: 1rem 0;
+  border-radius: var(--border-radius);
+}

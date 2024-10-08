@@ -1,24 +1,9 @@
 .nav {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: rgb(238, 238, 238);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);   
+    background-color: var(--super-light-gray);
+    box-shadow: var(--box-shadow)
 }
 
-.logo{
-}
-
-.loginDiv{
-
-}
-
-.logoDiv{
-}
-
-.loginDiv p{
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: rgb(0, 154, 128);
-}

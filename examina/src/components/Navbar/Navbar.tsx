@@ -1,14 +1,23 @@
 import Image from "next/image"
 import styles from "./Navbar.module.css"
+import Button from "../Button/Button"
+import Link from "next/link"
 
 export default function Navbar() {
     return <nav className={styles.nav}>
         <div className={styles.logoDiv}>
-            <Image src="/examina-logo.jpg
-" alt="logo" className={styles.logo} width={200} height={100} />
+        <Link href="/" passHref>
+                    <Image 
+                        src="/examina-logo.png" 
+                        alt="logo" 
+                        className={styles.logo} 
+                        width={150} 
+                        height={35} 
+                    />
+                </Link>
         </div>
         <div className={styles.loginDiv}>
-            <p>Login / Register</p>
+            <Button label="Login / Register" />
         </div>
     </nav>
 }
