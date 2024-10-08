@@ -10,6 +10,7 @@
     font-weight: bold;
     display: flex;
     align-items: center;
+    font-size: 1.3rem;
 }
 
 .card:hover {
@@ -17,8 +18,13 @@
     color: var(--white);
 }
 
+.card:hover>.icon {
+    color: var(--white);
+}
+
 .icon {
     width: 2rem;
     height: 2rem;
     margin-right: 1rem;
+    color: var(--teal);
 }
