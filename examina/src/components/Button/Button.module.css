@@ -1,4 +1,4 @@
-.button{
+.button {
     font-weight: bold;
     font-size: 1.2rem;
     border: none;
@@ -10,9 +10,11 @@
     color: var(--purple);
     font-weight: bold;
     font-family: "Afacad Flux", sans-serif;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .button:hover {
     background-color: var(--purple-hover);
     color: var(--white);
+    transform: translateY(-1px);
 }

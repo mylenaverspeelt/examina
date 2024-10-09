@@ -11,11 +11,13 @@
     display: flex;
     align-items: center;
     font-size: 1.3rem;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .card:hover {
     background-color: var(--purple-hover);
     color: var(--white);
+    transform: translateY(-4px);
 }
 
 .card:hover>.icon {
