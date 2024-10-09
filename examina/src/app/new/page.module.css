@@ -1,8 +1,15 @@
-
-.title{
+.title {
     color: #3E0649;
     text-align: center;
-    padding: 2rem 0 ;
     font-size: 1.7rem;
+    padding-bottom: 2rem;
+}
 
+.new {
+    background-color: var(--white);
+    padding: 3rem;
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+    height: 100%;
+    width: 100%;
 }

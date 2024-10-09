@@ -1,0 +1,30 @@
+.main {
+    background-color: var(--white);
+    padding: 3rem;
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    overflow: auto;
+    scroll-behavior: smooth;
+}
+
+.main h1 {
+    color: #3E0649;
+    text-align: center;
+    font-size: 1.7rem;
+    padding-bottom: 2rem;
+}
+
+.main::-webkit-scrollbar {
+    width: 0px;
+}
+
+.main::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
+.main::-webkit-scrollbar-thumb:hover {
+    background-color: #aaa;
+}

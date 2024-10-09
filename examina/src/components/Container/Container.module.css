@@ -1,0 +1,21 @@
+.container {
+    background-color: var(--super-light-gray);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    width: 55%;
+    height: 70vh;
+    margin: 5rem auto;
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        height: 70vh;
+        padding: 1rem;
+        margin: 4.5rem auto;
+    }
+}

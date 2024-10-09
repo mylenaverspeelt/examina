@@ -9,6 +9,11 @@
   cursor: pointer;
   padding: 20px;
   text-align: center;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.dropzone:hover{
+  transform: translateY(-4px);
 }
 
 .dropzone p {

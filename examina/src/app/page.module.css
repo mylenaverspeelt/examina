@@ -1,22 +1,18 @@
 .main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 3rem 0 1rem;
-  margin: 8rem auto;
-  background-color: var(--super-light-gray);
-  border-radius: var(--border-radius);
+  background-color: var(--white);
+  padding: 3rem 3rem 1rem 3rem;
   box-shadow: var(--box-shadow);
-  width: 20vw;
+  border-radius: var(--border-radius);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .main {
-    width: 80vw;
-    margin: 2rem auto;
+    padding: 2m;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
   }
+
 }
-
-
-
-
