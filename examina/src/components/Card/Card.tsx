@@ -14,6 +14,4 @@ export default function Card({ title, icon, href }: CardProps) {
         <FontAwesomeIcon className={styles.icon} icon={icon} />
         {title}
     </Link>
-
-
 }
