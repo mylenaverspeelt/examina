@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 import { PrismaClient } from '@prisma/client';
-import PDFParser from 'pdf2json';
 import path from 'path';
 
 const prisma = new PrismaClient();
@@ -55,22 +54,22 @@ export async function POST(req: NextRequest) {
     console.log('Arquivo salvo temporariamente em:', tempFilePath);
 
     // Armazena o texto extraído no PDF com o pdf2json
-    const pdfParser = new PDFParser();
-    let parsedText = '';
+    // const pdfParser = new PDFParser();
+    // let parsedText = '';
 
-    await new Promise<void>((resolve, reject) => {
-      pdfParser.on('pdfParser_dataError', (errData: { parserError: Error }) => {
-        console.error(errData.parserError.message);
-        reject(new Error('Erro ao parsear o PDF'));
-      });
+    // await new Promise<void>((resolve, reject) => {
+    //   pdfParser.on('pdfParser_dataError', (errData: { parserError: Error }) => {
+    //     console.error(errData.parserError.message);
+    //     reject(new Error('Erro ao parsear o PDF'));
+    //   });
 
-      pdfParser.on('pdfParser_dataReady', () => {
-        parsedText = pdfParser.getRawTextContent();
-        resolve();
-      });
+    //   pdfParser.on('pdfParser_dataReady', () => {
+    //     parsedText = pdfParser.getRawTextContent();
+    //     resolve();
+    //   });
 
-      pdfParser.loadPDF(tempFilePath);
-    });
+    //   pdfParser.loadPDF(tempFilePath);
+    // });
 
     // Salva no banco de dados com Prisma
     await prisma.storage.create({
@@ -85,7 +84,6 @@ export async function POST(req: NextRequest) {
     console.log('PDF processado e salvo no banco de dados com sucesso!');
     return NextResponse.json({
       message: 'PDF processado e salvo no banco de dados com sucesso!',
-      parsedText,
     });
   } catch (error) {
     console.error('Erro interno no servidor:', error);
