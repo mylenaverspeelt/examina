@@ -1,9 +1,11 @@
-
 model Storage {
-  id   Int    @id @default(autoincrement()) 
-  name String @db.VarChar(255)              
-  pdf  Bytes                                
+  id       Int    @id @default(autoincrement()) 
+  name     String @db.VarChar(255)
+  uuidName String @db.VarChar(255)  // Novo campo
+  fileName String @db.VarChar(255)  // Novo campo
+  pdf      Bytes
 }
+
 generator client {
   provider = "prisma-client-js"
 }
