@@ -4,7 +4,6 @@ import Container from "@/components/Container/Container";
 import Button from "@/components/Button/Button";
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
-
 export const metadata = {
   title: 'Examina',
   description: 'Centralize e acompanhe seus exames laboratoriais de forma simples e eficiente',

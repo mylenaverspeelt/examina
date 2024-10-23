@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { FilePond, registerPlugin, FilePondFile } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import styles from './FileUpload.module.css'
@@ -20,10 +19,8 @@ const FilePondUpload = () => {
 
     const file = fileItems[0].file;
 
-
     const formData = new FormData();
     formData.append('file', file);
-
 
     try {
       const response = await fetch('/api/upload', {
@@ -31,7 +28,6 @@ const FilePondUpload = () => {
         body: formData,
       });
 
-      j
       if (response.ok) {
         const data = await response.json();
         console.log('Resposta da API:', data);

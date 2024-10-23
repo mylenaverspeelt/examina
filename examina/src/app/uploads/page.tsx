@@ -21,9 +21,6 @@ export default function Uploads() {
             try {
                 const response = await fetch('/api/getAll');
                 const data: Pdf[] = await response.json();
-
-                console.log("PDFs recebidos:", data); // Verificação dos PDFs recebidos
-
                 setPdfs(data);
             } catch (error) {
                 console.error('Erro ao carregar PDFs:', error);
@@ -51,22 +48,21 @@ export default function Uploads() {
                 throw new Error("O PDF está vazio ou corrompido.");
             }
 
-            // Converter base64 para ArrayBuffer e, em seguida, criar Blob
+            // converte de base64 para ArrayBuffer e cria um blob
             const arrayBuffer = base64ToArrayBuffer(pdf.base64Pdf);
             const blob = new Blob([arrayBuffer], { type: 'application/pdf' });
 
             const blobUrl = URL.createObjectURL(blob);
 
-            // Abrir o PDF em uma nova aba
             const newWindow = window.open();
             if (newWindow) {
                 newWindow.document.write(`<iframe src="${blobUrl}" style="width:100%; height:100%; border:none;"></iframe>`);
-                newWindow.document.title = pdf.name; // Definir o título da nova aba
+                newWindow.document.title = pdf.name; // 
             } else {
                 alert('A aba foi bloqueada, permita pop-ups para abrir o PDF.');
             }
 
-            // Libere o URL do Blob após o uso
+            // libera url do blob após o uso
             setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
         } catch (error) {
             console.error('Erro ao abrir o PDF:', error);

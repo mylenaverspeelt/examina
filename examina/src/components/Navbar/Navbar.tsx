@@ -1,4 +1,4 @@
-// import Button from "../Button/Button"
+import Button from "../Button/Button"
 import styles from "./Navbar.module.css"
 import Link from "next/link"
 
@@ -10,7 +10,7 @@ export default function Navbar() {
                 </Link>
         </div>
         <div className={styles.loginDiv}>
-        {/* <Button label="Entrar/ Registrar" variant="button" /> */}
+        <Button label="Entrar / Registrar" variant="button" />
         </div>
     </nav>
 }

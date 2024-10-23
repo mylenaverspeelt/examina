@@ -1,5 +1,4 @@
-'use client'; // Necessário para o Next.js
-
+'use client';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import styles from "./LineChart.module.css"

@@ -1,3 +1,20 @@
+/* LINK BUTTON */
+.linkButton {
+    padding: 1rem;
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--purple);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    font-size: 1.3rem;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* BACK BUTTON */
 .backButton {
     position: fixed;
     top: 6.5rem;
@@ -23,35 +40,16 @@
     transform: translateY(-4px);
 }
 
-.linkButton{
-    padding: 1rem;
-    box-shadow: var(--box-shadow);
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    margin-bottom: 2rem;
-    text-align: center;
-    color: var(--purple);
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    font-size: 1.3rem;
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-
 .backButton>.icon {
     width: 1rem;
     height: 1rem;
 }
 
+/* LINK PDF  */
 .link {
     width: 100%;
     display: flex;
     align-items: center;
-}
-
-.pdfLabel {
-    justify-content: left;
-
 }
 
 .linkContainer {
@@ -81,14 +79,38 @@
     color: var(--white);
 }
 
+/* DELETE BUTTON */
+.deleteButton {
+    border: none;
+    background-color: transparent;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.deleteButton:hover {
+    border: none;
+    background-color: transparent;
+    transform: translateY(-4px);
+}
+
+.trashIcon {
+    width: 1.3rem;
+    height: 1.3rem;
+    color: var(--purple);
+}
+
+.trashIcon:hover {
+    color: red;
+}
+
+/* MENU BUTTON */
 .menuButton {
-    margin: 8rem 2rem;
+    margin: 2rem;
     padding: 2rem;
     background-color: var(--light-gray);
     box-shadow: var(--box-shadow);
     border-radius: var(--border-radius);
     cursor: pointer;
-    text-align: center;
     color: var(--purple);
     font-weight: bold;
     display: flex;
@@ -103,20 +125,26 @@
     transform: translateY(-4px);
 }
 
-
+/* BUTTON */
 .button {
-    padding: 1rem;
+    padding: 0.8rem;
+    background-color: var(--light-gray);
     box-shadow: var(--box-shadow);
     border-radius: var(--border-radius);
     cursor: pointer;
-    margin-bottom: 2rem;
-    text-align: center;
     color: var(--purple);
+    cursor: pointer;
     font-weight: bold;
     display: flex;
-    align-items: center;
-    font-size: 1.3rem;
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    border: none;
+    font-size: 1rem;
+    transition: box-shadow 0.3s ease, transform 0.1s ease;
+}
+
+.button:hover {
+    background-color: var(--purple-hover);
+    color: var(--white);
+    transform: translateY(-2px);
 }
 
 .icon {
@@ -124,44 +152,13 @@
     height: 2rem;
     margin-right: 1rem;
     color: var(--teal);
-
 }
 
-.trashIcon {
-    width: 1.3rem;
-    height: 1.3rem;
-    color: var(--purple);
-}
-
-.trashIcon:hover {
-    color: red;
-}
-
-.deleteButton {
-    border: none;
-    background-color: transparent;
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-    cursor: pointer;
-}
-
-
-.deleteButton:hover {
-    border: none;
-    background-color: transparent;
-    transform: translateY(-4px);
-
-}
 
 @media (max-width: 768px) {
-    .linkButton {
-        font-size: 1rem;
-        padding: 1rem;
-        justify-content: center;
-        margin: 1rem;
-    }
+    .backButton {
+        border: 1px solid red;
+        display: flex;
 
-    .icon {
-        width: 1.5rem;
-        height: 1.5rem;
     }
 }

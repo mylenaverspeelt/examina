@@ -6,10 +6,6 @@
 }
 
 .new {
-    background-color: var(--white);
-    padding: 3rem;
-    box-shadow: var(--box-shadow);
-    border-radius: var(--border-radius);
     height: 100%;
     width: 100%;
 }
