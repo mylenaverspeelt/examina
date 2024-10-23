@@ -1,28 +1,167 @@
-.button {
-    font-weight: bold;
-    font-size: 1.2rem;
+.backButton {
+    position: fixed;
+    top: 6.5rem;
+    left: 25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: none;
     cursor: pointer;
-    background-color: var(--light-gray);
-    padding: 1rem 1.2rem;
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    color: var(--purple);
+    z-index: 1000;
     font-weight: bold;
+    background-color: transparent;
+    font-size: 1.2rem;
+    padding: 1rem;
+    color: var(--purple);
     font-family: "Afacad Flux", sans-serif;
     transition: box-shadow 0.2s ease, transform 0.2s ease;
+    border: none;
 }
 
-.button:hover {
+.backButton:hover {
+    text-decoration: underline;
+    transform: translateY(-4px);
+}
+
+.linkButton{
+    padding: 1rem;
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--purple);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    font-size: 1.3rem;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.backButton>.icon {
+    width: 1rem;
+    height: 1rem;
+}
+
+.link {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.pdfLabel {
+    justify-content: left;
+
+}
+
+.linkContainer {
+    margin-bottom: 1rem;
+    background-color: var(--light-gray);
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    text-align: center;
+    color: var(--purple);
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.3rem;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    padding: 1rem;
+}
+
+.linkContainer:hover {
     background-color: var(--purple-hover);
     color: var(--white);
-    transform: translateY(-1px);
+    transform: translateY(-4px);
+}
+
+.linkContainer:hover>.icon {
+    color: var(--white);
+}
+
+.menuButton {
+    margin: 8rem 2rem;
+    padding: 2rem;
+    background-color: var(--light-gray);
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    text-align: center;
+    color: var(--purple);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    font-size: 1.3rem;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.menuButton:hover {
+    background-color: var(--purple-hover);
+    color: var(--white);
+    transform: translateY(-4px);
+}
+
+
+.button {
+    padding: 1rem;
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--purple);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    font-size: 1.3rem;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.icon {
+    width: 2rem;
+    height: 2rem;
+    margin-right: 1rem;
+    color: var(--teal);
+
+}
+
+.trashIcon {
+    width: 1.3rem;
+    height: 1.3rem;
+    color: var(--purple);
+}
+
+.trashIcon:hover {
+    color: red;
+}
+
+.deleteButton {
+    border: none;
+    background-color: transparent;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+
+.deleteButton:hover {
+    border: none;
+    background-color: transparent;
+    transform: translateY(-4px);
+
 }
 
 @media (max-width: 768px) {
-    .button {
+    .linkButton {
         font-size: 1rem;
-
+        padding: 1rem;
+        justify-content: center;
+        margin: 1rem;
     }
 
+    .icon {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
 }

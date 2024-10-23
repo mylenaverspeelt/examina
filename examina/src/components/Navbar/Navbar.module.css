@@ -12,3 +12,7 @@
     font-size: 1.8rem;
     color: var(--teal) !important;
 }
+
+.loginDiv{
+    border: 1px solid red;
+}

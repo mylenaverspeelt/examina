@@ -1,8 +1,6 @@
 model Storage {
   id       Int    @id @default(autoincrement()) 
-  name     String @db.VarChar(255)
-  uuidName String @db.VarChar(255)  // Novo campo
-  fileName String @db.VarChar(255)  // Novo campo
+  fileName String @db.VarChar(255)  
   pdf      Bytes
 }
 

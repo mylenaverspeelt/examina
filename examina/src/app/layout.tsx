@@ -1,7 +1,9 @@
 import Navbar from "@/components/Navbar/Navbar";
 import './globals.css';
 import Container from "@/components/Container/Container";
-import BackButton from "@/components/BackButton/BackButton"; 
+import Button from "@/components/Button/Button";
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+
 
 export const metadata = {
   title: 'Examina',
@@ -17,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Navbar />
-        <BackButton />
+        <Button label="Voltar" icon={faArrowLeft} variant="back" />
         <Container>
           {children}
         </Container>

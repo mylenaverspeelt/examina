@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import styles from "./page.module.css";
-import Card from '@/components/Card/Card';
 import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
+import Button from '@/components/Button/Button';
 
 interface Pdf {
     id: number;
@@ -84,10 +84,11 @@ export default function Uploads() {
             {pdfs.length > 0 ? (
                 pdfs.map((pdf) => (
                     <div key={pdf.id} onClick={() => handlePdfClick(pdf)} style={{ cursor: 'pointer' }}>
-                        <Card
+                        <Button
                             href="#"
+                            variant="linkPDF"
                             icon={faFilePdf}
-                            title={pdf.name}
+                            label={pdf.fileName}
                         />
                     </div>
                 ))
