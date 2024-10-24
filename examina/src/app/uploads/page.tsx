@@ -9,7 +9,7 @@ interface Pdf {
     id: number;
     name: string;
     fileName: string;
-    base64Pdf: string; // PDF será recebido como base64 string
+    base64Pdf: string; 
 }
 
 export default function Uploads() {
@@ -94,3 +94,10 @@ export default function Uploads() {
         </div>
     );
 }
+
+
+//base64 são dados binários em formato de string que o navegador não consegue entender e precisa converter pra um ArrayBuffer que é uma estrutura binária que manipula dados em bytes porem ele só consegue ser aberto como um PDF se for criado um Blob que é um objeto que representa dados binários brutos em forma de arquivo do tipo MIME, dai é possivel criar uma URL temporaria pra que possa ser clicado e visualizado o PDF.
+
+//navegadores não abrem Base64 diretamente como arquivos: a representação Base64 é útil para armazenar ou transferir dados, mas o navegador precisa de um formato binário para abrir e renderizar o PDF.
+
+//segurança e eficiência: o Blob permite que o navegador lide de forma segura com os dados binários, sem risco de interpretá-los incorretamente. A URL temporária gerada pelo Blob é usada apenas temporariamente, garantindo que a memória seja liberada depois.

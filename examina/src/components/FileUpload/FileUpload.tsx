@@ -57,7 +57,7 @@ const FilePondUpload = () => {
         labelFileTypeNotAllowed={'Apenas arquivos PDF são permitidos.'}
         fileValidateTypeLabelExpectedTypes={'Apenas arquivos PDF'}
         name="file"
-        labelIdle='Arraste e solte seu PDF ou <span class="filepond--label-action">procure</span>'
+        labelIdle='Arraste e solte seu PDF ou <span class="filepond--label-action">selecione seus arquivos</span>'
       />
       {isUpload ? <div className={styles.cards}> <Button href="/" icon={faHome} label='Página Inicial' variant='link' /> <Button label={'Exames Arquivados'} icon={faFilePdf} href={'/uploads'} variant='link' /></div> : null}
     </>

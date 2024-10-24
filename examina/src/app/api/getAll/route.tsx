@@ -21,7 +21,6 @@ export async function GET() {
     
     return NextResponse.json(pdfsWithBase64);
   } catch (error) {
-    console.error("Erro ao buscar PDFs:", error);
-    return NextResponse.json({ error: "Erro ao buscar PDFs" }, { status: 500 });
+    return NextResponse.json({ error: "Erro ao buscar PDFs: " + error }, { status: 500 });
   }
 }

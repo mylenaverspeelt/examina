@@ -11,12 +11,10 @@
     font-family: "Playwrite DE Grund", cursive;
     font-size: 1.8rem;
     color: var(--teal) !important;
-
 }
 
 .loginDiv {
     display: flex;
     flex-direction: column;
     align-items: center;
-
 }
