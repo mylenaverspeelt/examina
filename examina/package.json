@@ -26,12 +26,15 @@
     "uuid": "^10.0.0"
   },
   "devDependencies": {
+    "@cypress/react18": "^2.0.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/uuid": "^10.0.0",
+    "cypress": "^13.15.1",
     "eslint": "^8",
     "eslint-config-next": "14.2.14",
+    "next-router-mock": "^0.9.13",
     "typescript": "^5"
   }
 }

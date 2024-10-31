@@ -14,6 +14,7 @@ interface ButtonProps {
   variant: 'button' | 'link' | 'back' | 'linkPDF' | 'menuButton';
   id?: number;
   onDelete?: (id: number) => void;
+  onDeleted?: () => void; // Notifica o componente pai após exclusão
 }
 
 export default function Button({
@@ -23,7 +24,7 @@ export default function Button({
   onClick,
   variant,
   id,
-  onDelete
+  onDeleted
 }: ButtonProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -36,42 +37,67 @@ export default function Button({
 
   const handleDelete = async (e: React.MouseEvent) => {
     e.preventDefault();
+    e.stopPropagation(); // Impede a propagação do evento para o botão de PDF
 
     if (!id) return;
 
     const confirmed = confirm('Tem certeza que deseja excluir este PDF?');
     if (!confirmed) return;
 
-    if (onDelete) {
-      onDelete(id);
+    try {
+        const response = await fetch('/api/delete', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id }),
+        });
+
+        if (!response.ok) {
+            throw new Error("Erro ao excluir o PDF");
+        }
+
+        // Notifica o componente pai após exclusão
+        if (onDeleted) {
+            onDeleted();
+        }
+    } catch (error) {
+        console.error('Erro ao excluir o PDF:', error);
+        alert('Falha ao excluir o PDF.');
     }
   };
 
   if (variant === 'link' && href) {
-    return (<>
+    return (
       <Link href={href} className={styles.linkButton}>
         {icon && <FontAwesomeIcon icon={icon} className={styles.icon} />}
-       <span>{label}</span>
+        <span>{label}</span>
       </Link>
-    </>)
+    );
   }
 
-  if (variant === 'linkPDF' && href) {
-    return (<div className={styles.linkContainer}>
-      <Link href={href} className={styles.link}>
-        {icon && <FontAwesomeIcon icon={icon} className={styles.icon} />}
-       <span className={styles.pdfLabel}>{label}</span>
-      </Link>
-      <button onClick={handleDelete} className={styles.deleteButton}>
-        <FontAwesomeIcon icon={faTrash} className={styles.trashIcon} />
-      </button>
-    </div>)
+  if (variant === 'linkPDF') {
+    return (
+      <div className={styles.div}>
+        <div className={styles.linkContainer}>
+          <button onClick={onClick} className={styles.link}>
+            {icon && <FontAwesomeIcon icon={icon} className={styles.icon} />}
+            <span className={styles.pdfLabel}>{label}</span>
+          </button>
+        </div>
+        <div className={styles.deleteContainer}>
+          <button onClick={handleDelete} className={styles.deleteButton}>
+            <FontAwesomeIcon icon={faTrash} className={styles.trashIcon} />
+          </button>
+        </div>
+      </div>
+    );
   }
 
   if (variant === 'button') {
     return (
       <button className={styles.button} onClick={onClick}>
-       <span>{label}</span>
+        <span>{label}</span>
       </button>
     );
   }
@@ -80,7 +106,7 @@ export default function Button({
     return (
       <button className={styles.backButton} onClick={handleBack}>
         {icon && <FontAwesomeIcon icon={icon} className={styles.icon} />}
-       <span>{label}</span>
+        <span>{label}</span>
       </button>
     );
   }
@@ -89,7 +115,7 @@ export default function Button({
     return (
       <Link href={href} className={styles.menuButton}>
         {icon && <FontAwesomeIcon icon={icon} className={styles.icon} />}
-       <span>{label}</span>
+        <span>{label}</span>
       </Link>
     );
   }

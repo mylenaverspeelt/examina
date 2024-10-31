@@ -1,28 +1,24 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'DELETE') {
-    return res.status(405).json({ message: 'Método não permitido' });
-  }
-
-  const { id } = req.body;
-
-  if (!id) {
-    return res.status(400).json({ message: 'ID é necessário' });
-  }
-
+export async function DELETE(req: NextRequest) {
   try {
+    const { id } = await req.json();
+
+    if (!id) {
+      return NextResponse.json({ message: 'ID é necessário' }, { status: 400 });
+    }
+
     await prisma.storage.delete({
       where: { id: Number(id) },
     });
 
-    return res.status(200).json({ message: 'PDF excluído com sucesso' });
+    return NextResponse.json({ message: 'PDF excluído com sucesso' }, { status: 200 });
   } catch (error) {
     console.error('Erro ao excluir PDF:', error);
-    return res.status(500).json({ message: 'Erro ao excluir PDF' });
+    return NextResponse.json({ message: 'Erro ao excluir PDF' }, { status: 500 });
   } finally {
     await prisma.$disconnect();
   }
