@@ -34,29 +34,67 @@ export async function POST(req: NextRequest) {
     const fileBuffer = Buffer.from(await uploadedFile.arrayBuffer());
     const pdfParser = new PDFParser();
 
-    // Definir eventos para lidar com erros e dados prontos
-    pdfParser.on('pdfParser_dataError', (errMsg: { parserError: Error }) => {
-      console.error('Erro ao processar o PDF:', errMsg.parserError.message);
+    return new Promise((resolve, reject) => {
+      pdfParser.on('pdfParser_dataError', (errMsg: { parserError: Error }) => {
+        console.error('Erro ao processar o PDF:', errMsg.parserError.message);
+        reject(new Error('Erro ao processar o PDF'));
+      });
+
+      pdfParser.on('pdfParser_dataReady', async (pdfData: { Pages: Array<{ Texts: Array<{ R: Array<{ T: string }> }> }> }) => {
+        try {
+          const extractedData = convertToText(pdfData);
+
+          // Salvar o arquivo original em `Storage` e atribuir o retorno a `storageEntry`
+          const storageEntry = await prisma.storage.create({
+            data: {
+              fileName: fileName,
+              pdf: fileBuffer,
+            },
+          });
+
+          // Verificar se o paciente já existe no banco de dados
+          let patient = await prisma.patient.findFirst({
+            where: { name: extractedData.Paciente },
+          });
+
+          // Se o paciente não existir, criar um novo
+          if (!patient) {
+            patient = await prisma.patient.create({
+              data: {
+                name: extractedData.Paciente,
+                age: extractedData.Idade,
+                birthDate: extractedData.DataNascimento
+              },
+            });
+          }
+
+          // Salvar o resultado na tabela `Glucose`
+          await prisma.glucose.create({
+            data: {
+              patientId: patient.id,
+              pdfId: storageEntry.id, // Usando `storageEntry.id` corretamente agora
+              result: parseInt(extractedData.Result, 10), // Certifique-se que `Result` é um número válido
+              createdAt: new Date(), 
+            },
+          });
+
+          resolve(
+            NextResponse.json({
+              message: 'PDF processado e salvo no banco de dados com sucesso!',
+            }, { status: 200 })
+          );
+        } catch (error) {
+          console.error('Erro no processamento dos dados:', error);
+          reject(new Error('Erro ao salvar dados no banco de dados'));
+        }
+      });
+
+      pdfParser.parseBuffer(fileBuffer);
     });
-
-    pdfParser.on('pdfParser_dataReady', (pdfData: { Pages: Array<{ Texts: Array<{ R: Array<{ T: string }> }> }> }) => {
-      // Extrair o texto de cada página e exibir no console
-     convertToText(pdfData)
-    });
-
-    pdfParser.parseBuffer(fileBuffer);
-
-    await prisma.storage.create({
-      data: {
-        fileName: fileName,
-        pdf: fileBuffer,
-      },
-    });
-
-    return NextResponse.json({
-      message: 'PDF processado e salvo no banco de dados com sucesso!',
-    }, { status: 200 });
   } catch (error) {
+    console.error('Erro no processamento:', error);
     return NextResponse.json({ error: 'Erro interno do servidor', details: error }, { status: 500 });
+  } finally {
+    await prisma.$disconnect();
   }
 }

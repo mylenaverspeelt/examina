@@ -1,21 +1,66 @@
-Estrutura de Páginas Web: Como organizar conteúdo com tags HTML semânticas (<header>, <nav>, <section>, <footer>, etc.) para dar estrutura e melhorar a acessibilidade e SEO.
+Incorporar elementos multimídia como imagens, áudio, vídeo e gráficos torna a página web mais rica e interativa, melhorando a experiência do usuário. Aqui estão alguns conceitos básicos e exemplos de como utilizar esses elementos de forma acessível e responsiva.
 
-Elementos Multimídia: Uso de áudio e vídeo nativos em HTML5 com tags <audio> e <video>, além de canvas para gráficos e animações.
+**1. Inserindo Imagens com Acessibilidade**
 
-Formulários e Validação: Criação e validação de formulários, incluindo tipos de input (<input>, <select>, <textarea>) e atributos modernos como required, pattern e autocomplete.
+A tag `<img>` insere imagens e exige dois atributos importantes:
 
-Semântica HTML: Importância das tags semânticas para criar layouts compreensíveis tanto para navegadores quanto para dispositivos assistivos, melhorando a acessibilidade e o SEO.
+- `src`: define o caminho da imagem.
+- `alt`: descreve a imagem para acessibilidade e SEO, fundamental para leitores de tela e para o caso da imagem não carregar.
 
-Links e Navegação: Estrutura de navegação com links internos e externos (<a href="...">), âncoras e links navegáveis, além de melhores práticas de usabilidade.
+```html
+<img src="imagem.jpg" alt="Descrição da imagem">
+```
 
-Tabulação e Acessibilidade: Como usar atributos e elementos HTML para facilitar a navegação de usuários com deficiência, como aria-label, role, e atributos de tabulação.
+Para tornar a imagem responsiva, podemos controlar o tamanho no CSS:
 
-Tabelas e Listas: Construção de tabelas (<table>, <tr>, <td>, <th>) para organizar dados, além de listas (<ul>, <ol>, <li>) para conteúdo sequencial.
+```css
+img {
+    max-width: 100%;
+    height: auto;
+}
+```
 
-SEO com HTML: Melhores práticas de SEO usando tags HTML, como <title>, <meta>, <h1> a <h6>, <alt> em imagens e links estruturados.
+**Dica**: Use descrições no `alt` que informem claramente o conteúdo da imagem, sem incluir termos como "imagem de" ou "foto de".
 
-Imagens e Gráficos: Utilização das tags <img> e <picture> para imagens responsivas e adequadas ao contexto, além do uso de canvas para gráficos dinâmicos.
+**2. Responsividade com `srcset` para Imagens**
 
-APIs HTML5: Introdução às APIs integradas ao HTML5, como geolocalização, armazenamento local (localStorage e sessionStorage), e edição de conteúdo (contenteditable).
+O atributo `srcset` permite fornecer várias resoluções de imagem, permitindo que o navegador escolha a melhor opção para a tela do usuário. Isso melhora a performance, especialmente em dispositivos móveis.
 
-Propriedades de Metadados: Uso de tags <meta> para definir dados sobre a página, como charset, viewport e descrições para redes sociais.
+```html
+<img src="imagem-pequena.jpg" srcset="imagem-media.jpg 768w, imagem-grande.jpg 1200w" alt="Descrição da imagem">
+```
+
+Neste exemplo, o navegador usará a imagem de 768 pixels de largura em telas pequenas e a de 1200 pixels em telas maiores.
+
+**3. Adicionando Vídeo com Personalização**
+
+A tag `<video>` permite a adição de vídeos, e atributos como `controls`, `autoplay`, `loop` e `muted` ajudam a personalizar a experiência do usuário.
+
+```html
+<video src="video.mp4" controls autoplay muted loop></video>
+```
+
+- `controls`: exibe controles de reprodução.
+- `autoplay`: inicia a reprodução automaticamente (com `muted` por padrão).
+- `loop`: faz o vídeo reiniciar automaticamente ao término.
+- `muted`: inicia o vídeo sem som.
+
+**Dica**: Use `autoplay` com cautela, pois reproduções automáticas podem incomodar o usuário.
+
+**4. Adicionando Legendas em Vídeos com `<track>`**
+
+Legendas são essenciais para acessibilidade em vídeos. A tag `<track>` adiciona legendas sincronizadas, úteis para usuários que preferem assistir em silêncio ou precisam de apoio visual.
+
+```html
+<video src="video.mp4" controls>
+    <track src="legendas.vtt" kind="subtitles" srclang="pt" label="Português">
+</video>
+```
+
+O arquivo `.vtt` contém as legendas com o tempo sincronizado ao vídeo.
+
+**7. Compatibilidade de Formato de Arquivo**
+
+- **Imagens**: Use formatos como JPEG e PNG para fotos e gráficos complexos, e SVG para gráficos vetoriais.
+- **Vídeos**: MP4 e WebM são amplamente suportados, e o uso de `<source>` ajuda a fornecer múltiplos formatos para garantir compatibilidade.
+- **Áudio**: MP3 e OGG são formatos comuns para garantir suporte em navegadores variados.

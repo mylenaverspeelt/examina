@@ -2,8 +2,32 @@ model Storage {
   id       Int    @id @default(autoincrement()) 
   fileName String @db.VarChar(255)  
   pdf      Bytes
+
+  Glucoses  Glucose[] 
 }
 
+model Patient {
+  id        Int       @id @default(autoincrement())
+  name      String    @db.VarChar(255)
+  age       String    @db.VarChar(10)
+  birthDate String    @db.VarChar(20)
+
+  Glucoses  Glucose[] 
+}
+
+model Glucose {
+  id         Int       @id @default(autoincrement())
+  patientId  Int
+  pdfId      Int
+  result     Int
+  createdAt  DateTime  @default(now())
+
+  Patient    Patient   @relation(fields: [patientId], references: [id])
+  Storage    Storage   @relation(fields: [pdfId], references: [id])
+
+  @@index([patientId])
+  @@index([pdfId])
+}
 generator client {
   provider = "prisma-client-js"
 }
