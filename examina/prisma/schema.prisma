@@ -1,16 +1,16 @@
 model Storage {
-  id       Int    @id @default(autoincrement()) 
-  fileName String @db.VarChar(255)  
+  id       Int       @id @default(autoincrement())
+  fileName String
   pdf      Bytes
 
-  Glucoses  Glucose[] 
+  Glucoses Glucose[] 
 }
 
 model Patient {
   id        Int       @id @default(autoincrement())
-  name      String    @db.VarChar(255)
-  age       String    @db.VarChar(10)
-  birthDate String    @db.VarChar(20)
+  name      String
+  age       String
+  birthDate String
 
   Glucoses  Glucose[] 
 }
@@ -23,16 +23,16 @@ model Glucose {
   createdAt  DateTime  @default(now())
 
   Patient    Patient   @relation(fields: [patientId], references: [id])
-  Storage    Storage   @relation(fields: [pdfId], references: [id])
-
+  Storage    Storage   @relation(fields: [pdfId], references: [id], onDelete: Cascade)
   @@index([patientId])
   @@index([pdfId])
-}
-generator client {
-  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("DATABASE_URL") 
+}
+
+generator client {
+  provider = "prisma-client-js"
 }

@@ -1,0 +1,13 @@
+-- DropForeignKey
+ALTER TABLE "Glucose" DROP CONSTRAINT "Glucose_pdfId_fkey";
+
+-- AlterTable
+ALTER TABLE "Patient" ALTER COLUMN "name" SET DATA TYPE TEXT,
+ALTER COLUMN "age" SET DATA TYPE TEXT,
+ALTER COLUMN "birthDate" SET DATA TYPE TEXT;
+
+-- AlterTable
+ALTER TABLE "Storage" ALTER COLUMN "fileName" SET DATA TYPE TEXT;
+
+-- AddForeignKey
+ALTER TABLE "Glucose" ADD CONSTRAINT "Glucose_pdfId_fkey" FOREIGN KEY ("pdfId") REFERENCES "Storage"("id") ON DELETE CASCADE ON UPDATE CASCADE;
