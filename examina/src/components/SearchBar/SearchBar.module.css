@@ -1,47 +1,63 @@
 .searchContainer {
-    position: relative;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-  }
-  
-  .searchInput {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-  
-  .dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    max-height: 150px;
-    overflow-y: auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 10;
-    padding: 0;
-    margin: 4px 0 0 0;
-    list-style-type: none;
-  }
-  
-  .dropdownItem {
-    padding: 8px;
-    cursor: pointer;
-  }
-  
-  .dropdownItem a {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-  }
-  
-  .dropdownItem:hover {
-    background-color: #f0f0f0;
-  }
-  
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid transparent; /* Remover borda visível */
+  display: flex;
+  align-items: center;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 12px 40px 12px 16px; /* Espaço extra à direita para o ícone */
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+  outline: none;
+}
+
+.searchInput:focus {
+  border-color: #0070f3; /* Cor de destaque no foco */
+}
+
+.searchIcon {
+  position: absolute;
+  right: 16px;
+  color: #888;
+  font-size: 16px;
+  pointer-events: none; /* Para não interferir na entrada de texto */
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  padding: 0;
+  margin-top: 8px;
+  list-style-type: none;
+}
+
+.dropdownItem {
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.dropdownItem a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+}
+
+.dropdownItem:hover {
+  background-color: #f5f5f5;
+}

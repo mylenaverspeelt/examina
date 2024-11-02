@@ -2,6 +2,8 @@
 import { useState, useEffect } from 'react';
 import styles from './SearchBar.module.css';
 import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 interface Patient {
   id: number;
@@ -48,6 +50,7 @@ export default function SearchBar() {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
+      <FontAwesomeIcon icon={faSearch} className={styles.searchIcon} />
       {isLoading && <div className={styles.loading}>Carregando...</div>}
       {filteredPatients.length > 0 && (
         <ul className={styles.dropdown}>

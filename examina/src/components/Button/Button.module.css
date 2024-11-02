@@ -122,8 +122,8 @@
 
 /* MENU BUTTON */
 .menuButton {
-    margin: 2rem;
-    padding: 2rem;
+    margin: 1rem 0 2rem 0 ;
+    padding: 4rem 1.5rem;
     background-color: var(--light-gray);
     box-shadow: var(--box-shadow);
     border-radius: var(--border-radius);
@@ -131,6 +131,8 @@
     color: var(--purple);
     font-weight: bold;
     display: flex;
+    text-align: center;
+    max-width: 50%;
     align-items: center;
     font-size: 1.3rem;
     transition: box-shadow 0.3s ease, transform 0.3s ease;
