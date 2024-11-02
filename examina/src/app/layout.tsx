@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar/Navbar";
 import './globals.css';
-import Container from "@/components/Container/Container";
+// import Container from "@/components/Container/Container";
 
 export const metadata = {
   title: 'Examina',
@@ -16,9 +16,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Navbar />
-        <Container>
+        {/* <Container> */}
           {children}
-        </Container>
+        {/* </Container> */}
       </body>
     </html>
   );
