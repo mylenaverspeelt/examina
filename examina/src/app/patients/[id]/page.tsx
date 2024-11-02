@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import ClipLoader from "react-spinners/ClipLoader";
-
+import styles from "./page.module.css"
 interface Patient {
   id: number;
   name: string;
@@ -35,14 +35,14 @@ export default function PatientDetailPage({ params }: { params: { id: string } }
     fetchPatient();
   }, [params.id, router]);
 
+ 
   if (loading) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        <ClipLoader color="#0070f3" size={50} />
-      </div>
+        <div className={styles.loadingContainer}>
+            <ClipLoader color="#0070f3" size={50} />
+        </div>
     );
-  }
-
+}
   if (!patient) {
     return <div>Paciente não encontrado</div>;
   }
