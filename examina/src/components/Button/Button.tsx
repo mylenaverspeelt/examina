@@ -1,10 +1,11 @@
 'use client'
 import { faTrash, IconDefinition } from "@fortawesome/free-solid-svg-icons";
-import styles from "./Button.module.css"
+import styles from "./Button.module.css";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import Swal from 'sweetalert2';
 
 interface ButtonProps {
   label?: string;
@@ -41,8 +42,19 @@ export default function Button({
 
     if (!id) return;
 
-    const confirmed = confirm('Tem certeza que deseja excluir este PDF?');
-    if (!confirmed) return;
+    // Usando SweetAlert2 para confirmar exclusão
+    const result = await Swal.fire({
+      title: 'Tem certeza?',
+      text: "Essa ação não pode ser desfeita!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sim, excluir!',
+      cancelButtonText: 'Cancelar',
+    });
+
+    if (!result.isConfirmed) return;
 
     try {
         const response = await fetch('/api/delete', {
@@ -61,9 +73,12 @@ export default function Button({
         if (onDeleted) {
             onDeleted();
         }
+
+        // Mensagem de sucesso
+        await Swal.fire('Excluído!', 'O PDF foi excluído com sucesso.', 'success');
     } catch (error) {
         console.error('Erro ao excluir o PDF:', error);
-        alert('Falha ao excluir o PDF.');
+        Swal.fire('Erro', 'Falha ao excluir o PDF.', 'error');
     }
   };
 
