@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import styles from "./page.module.css";
 import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
 import Button from '@/components/Button/Button';
+import ClipLoader from "react-spinners/ClipLoader";
 
 interface Pdf {
     id: number;
@@ -71,9 +72,12 @@ export default function Uploads() {
     };
 
     if (loading) {
-        return <p>Carregando...</p>;
+        return (
+          <div className={styles.loadingContainer}>
+            <ClipLoader color="#0070f3" size={50} />
+          </div>
+        );
     }
-
     return (
         <div className={styles.main}>
             <h1>Exames arquivados</h1>

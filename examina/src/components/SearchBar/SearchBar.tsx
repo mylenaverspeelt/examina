@@ -51,7 +51,7 @@ export default function SearchBar() {
         onChange={(e) => setSearchTerm(e.target.value)}
       />
       <FontAwesomeIcon icon={faSearch} className={styles.searchIcon} />
-      {isLoading && <div className={styles.loading}>Carregando...</div>}
+      {isLoading && <div className={styles.loading}></div>}
       {filteredPatients.length > 0 && (
         <ul className={styles.dropdown}>
           {filteredPatients.map((patient) => (

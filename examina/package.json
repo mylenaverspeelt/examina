@@ -23,6 +23,7 @@
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18",
     "react-filepond": "^7.1.2",
+    "react-spinners": "^0.14.1",
     "uuid": "^10.0.0"
   },
   "devDependencies": {

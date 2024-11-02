@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import ClipLoader from "react-spinners/ClipLoader";
 
 interface Patient {
   id: number;
@@ -35,7 +36,11 @@ export default function PatientDetailPage({ params }: { params: { id: string } }
   }, [params.id, router]);
 
   if (loading) {
-    return <div>Carregando...</div>;
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <ClipLoader color="#0070f3" size={50} />
+      </div>
+    );
   }
 
   if (!patient) {
