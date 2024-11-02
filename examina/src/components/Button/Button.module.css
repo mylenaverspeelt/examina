@@ -94,8 +94,6 @@
     color: var(--white);
 }
 
-
-
 /* DELETE BUTTON */
 .deleteButton {
     border: none;
@@ -173,7 +171,6 @@
     margin-right: 1rem;
     color: var(--teal);
 }
-
 
 @media (max-width: 768px) {
     .backButton {

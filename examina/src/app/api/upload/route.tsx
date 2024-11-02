@@ -44,7 +44,6 @@ export async function POST(req: NextRequest) {
         try {
           const extractedData = convertToText(pdfData);
 
-          // Salvar o arquivo original em `Storage` e atribuir o retorno a `storageEntry`
           const storageEntry = await prisma.storage.create({
             data: {
               fileName: fileName,
@@ -52,12 +51,10 @@ export async function POST(req: NextRequest) {
             },
           });
 
-          // Verificar se o paciente já existe no banco de dados
           let patient = await prisma.patient.findFirst({
             where: { name: extractedData.Paciente },
           });
 
-          // Se o paciente não existir, criar um novo
           if (!patient) {
             patient = await prisma.patient.create({
               data: {
@@ -68,13 +65,12 @@ export async function POST(req: NextRequest) {
             });
           }
 
-          // Salvar o resultado na tabela `Glucose`
           await prisma.glucose.create({
             data: {
               patientId: patient.id,
-              pdfId: storageEntry.id, // Usando `storageEntry.id` corretamente agora
-              result: parseInt(extractedData.Result, 10), // Certifique-se que `Result` é um número válido
-              createdAt: new Date(), 
+              pdfId: storageEntry.id,
+              result: parseInt(extractedData.Result, 10),
+              createdAt: new Date(),
             },
           });
 

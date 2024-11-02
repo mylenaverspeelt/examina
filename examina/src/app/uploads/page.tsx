@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useState } from 'react';
 import styles from "./page.module.css";
 import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
@@ -17,7 +16,6 @@ export default function Uploads() {
     const [pdfs, setPdfs] = useState<Pdf[]>([]);
     const [loading, setLoading] = useState(true);
 
-    // Defina a função `fetchPdfs` fora do `useEffect` para poder reutilizá-la
     const fetchPdfs = async () => {
         setLoading(true);
         try {
@@ -73,9 +71,9 @@ export default function Uploads() {
 
     if (loading) {
         return (
-          <div className={styles.loadingContainer}>
-            <ClipLoader color="#0070f3" size={50} />
-          </div>
+            <div className={styles.loadingContainer}>
+                <ClipLoader color="#0070f3" size={50} />
+            </div>
         );
     }
     return (
@@ -90,7 +88,7 @@ export default function Uploads() {
                             label={pdf.fileName}
                             onClick={() => handlePdfClick(pdf)}
                             id={pdf.id}
-                            onDeleted={fetchPdfs} // Chama `fetchPdfs` após exclusão
+                            onDeleted={fetchPdfs}
                         />
                     </div>
                 ))

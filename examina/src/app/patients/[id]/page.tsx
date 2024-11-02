@@ -26,7 +26,7 @@ export default function PatientDetailPage({ params }: { params: { id: string } }
         setPatient(data.patient);
       } catch (error) {
         console.error("Erro ao buscar paciente:", error);
-        router.push('/'); // Redireciona para a página inicial caso o paciente não seja encontrado
+        router.push('/'); 
       } finally {
         setLoading(false);
       }
@@ -52,7 +52,6 @@ export default function PatientDetailPage({ params }: { params: { id: string } }
       <h1>{patient.name}</h1>
       <p>Idade: {patient.age}</p>
       <p>Data de Nascimento: {patient.birthDate}</p>
-      {/* Exiba outros detalhes conforme necessário */}
     </div>
   );
 }

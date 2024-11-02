@@ -1,5 +1,4 @@
 'use client';
-
 import React, { ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
 import styles from "./Container.module.css";
@@ -9,14 +8,12 @@ interface ContainerProps {
 }
 
 export default function Container({ children }: ContainerProps) {
-  const pathname = usePathname(); // Obter a rota atual
+  const pathname = usePathname(); 
 
-  // Verificar se a rota é "/" ou "/home"
   const isHome = pathname === '/' || pathname === '/home';
 
-  // Se a rota for "/" ou "/home", não renderiza o container
   if (isHome) {
-    return <>{children}</>; // Renderiza apenas o conteúdo sem o container
+    return <>{children}</>; 
   }
 
   return (

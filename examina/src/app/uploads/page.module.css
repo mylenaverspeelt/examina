@@ -26,15 +26,14 @@
 }
 
 .loadingContainer {
-    position: fixed; /* Mantém o spinner fixo na tela */
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100vw; /* Largura total da viewport */
-    height: 100vh; /* Altura total da viewport */
+    width: 100vw;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.8); /* Fundo semi-transparente opcional */
-    z-index: 1000; /* Eleva o spinner acima de outros elementos */
-  }
-  
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 1000;
+}

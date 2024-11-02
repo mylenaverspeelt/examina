@@ -33,7 +33,7 @@ export default function SearchBar() {
     if (searchTerm) {
       const delayDebounce = setTimeout(() => {
         fetchPatients(searchTerm);
-      }, 300); // Debounce de 300ms para evitar requisições excessivas
+      }, 300);
 
       return () => clearTimeout(delayDebounce);
     } else {

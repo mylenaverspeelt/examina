@@ -5,7 +5,6 @@ export default function Analytics() {
     return (
         <div>
             <LineChart />
-
         </div>
     )
 }

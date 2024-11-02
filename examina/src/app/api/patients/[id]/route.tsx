@@ -18,7 +18,6 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
         name: true,
         age: true,
         birthDate: true,
-        // Inclua outros campos conforme necessário
       },
     });
 

@@ -15,7 +15,7 @@ interface ButtonProps {
   variant: 'button' | 'link' | 'back' | 'linkPDF' | 'menuButton';
   id?: number;
   onDelete?: (id: number) => void;
-  onDeleted?: () => void; // Notifica o componente pai após exclusão
+  onDeleted?: () => void; 
 }
 
 export default function Button({
@@ -38,11 +38,10 @@ export default function Button({
 
   const handleDelete = async (e: React.MouseEvent) => {
     e.preventDefault();
-    e.stopPropagation(); // Impede a propagação do evento para o botão de PDF
+    e.stopPropagation(); 
 
     if (!id) return;
 
-    // Usando SweetAlert2 para confirmar exclusão
     const result = await Swal.fire({
       title: 'Tem certeza?',
       text: "Essa ação não pode ser desfeita!",
@@ -69,12 +68,10 @@ export default function Button({
             throw new Error("Erro ao excluir o PDF");
         }
 
-        // Notifica o componente pai após exclusão
         if (onDeleted) {
             onDeleted();
         }
 
-        // Mensagem de sucesso
         await Swal.fire('Excluído!', 'O PDF foi excluído com sucesso.', 'success');
     } catch (error) {
         console.error('Erro ao excluir o PDF:', error);
