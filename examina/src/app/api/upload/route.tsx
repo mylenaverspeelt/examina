@@ -5,6 +5,65 @@ import { convertToText } from '../../../../utils/convertToText';
 
 const prisma = new PrismaClient();
 
+
+/**
+ * @swagger
+ * /api/uploadPdf:
+ *   post:
+ *     summary: Upload e processamento de PDF
+ *     description: Faz o upload de um arquivo PDF, extrai dados específicos e armazena informações no banco de dados.
+ *     consumes:
+ *       - multipart/form-data
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *                 description: Arquivo PDF para upload e processamento.
+ *     responses:
+ *       200:
+ *         description: PDF processado e salvo no banco de dados com sucesso.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "PDF processado e salvo no banco de dados com sucesso!"
+ *       400:
+ *         description: Erro de validação (ex. formato inválido, arquivo não enviado).
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Mensagem de erro
+ *                   example: "Formato inválido. Esperado multipart/form-data"
+ *       500:
+ *         description: Erro interno do servidor ao processar o PDF
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Mensagem de erro
+ *                   example: "Erro interno do servidor"
+ *                 details:
+ *                   type: string
+ *                   description: Detalhes do erro
+ */
+
+
 export const config = {
   api: {
     bodyParser: false,

@@ -25,6 +25,8 @@
     "react-dom": "^18",
     "react-filepond": "^7.1.2",
     "react-spinners": "^0.14.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
     "sweetalert2": "^11.14.4",
     "uuid": "^10.0.0"
   },
