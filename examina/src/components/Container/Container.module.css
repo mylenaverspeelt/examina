@@ -4,9 +4,9 @@
     justify-content: center;
     align-items: center;
     padding: 2rem;
-    width: 55%;
-    height: 70vh;
-    margin: 5rem auto;
+    width: 80%;
+    height: 80vh;
+    margin: 3rem auto;
     box-shadow: var(--box-shadow);
     border-radius: var(--border-radius);
 }

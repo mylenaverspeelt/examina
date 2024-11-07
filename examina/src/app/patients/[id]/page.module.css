@@ -12,18 +12,24 @@
 }
 
 .container {
-    border: 1px solid red;
     padding: 5rem;
 
 }
 
 .chartDiv {
-    border: 1px solid green;
-    max-height: 0%;
+    max-height: 60%;
     display: flex;
     justify-content: center;
+    max-width: 50%;
+    margin: 0 auto;
+    padding-top: 3rem;
 }
 
 .infosDiv {
-    border: 1px solid blue;
+    background-color: var(--super-light-gray);
+    border-radius: var(--border-radius);
+    max-width: 50%;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    border: 1px solid var(--light-gray);
 }
