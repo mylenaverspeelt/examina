@@ -1,0 +1,14 @@
+.chartDiv {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+}
+
+@media (max-width: 768px) {
+
+
+
+}

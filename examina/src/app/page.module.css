@@ -4,17 +4,17 @@
   max-width: 100%;
   max-height: 100%;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
-  flex-wrap: wrap;
   overflow: hidden;
   box-sizing: border-box;
   margin-top: 4rem;
 }
 
 .searchDiv {
-  width: 50%;
-  padding: 2rem 0 ;
+  width: 60%;
+  padding: 2rem 0;
 }
 
 .buttonDiv {
@@ -22,4 +22,23 @@
   align-items: center;
   justify-content: space-around;
   display: flex;
+  flex-wrap: wrap;
+}
+
+@media only screen and (max-width: 768px) {
+
+  .searchDiv {
+    width: 80%;
+  }
+
+  .buttonDiv {
+    width: 80%;
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .buttonDiv {
+    flex-direction: column;
+  }
 }

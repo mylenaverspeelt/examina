@@ -2,7 +2,6 @@
   position: relative;
   width: 100%;
   margin: 0 auto;
-  border: 1px solid transparent; /* Remover borda visível */
   display: flex;
   align-items: center;
 }
@@ -24,9 +23,11 @@
 .searchIcon {
   position: absolute;
   right: 16px;
+  width: 16px;
+  height: 16px;
   color: #888;
   font-size: 16px;
-  pointer-events: none; /* Para não interferir na entrada de texto */
+  pointer-events: none; 
 }
 
 .dropdown {

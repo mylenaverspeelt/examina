@@ -10,9 +10,6 @@ Examina é uma plataforma desenvolvida para facilitar o armazenamento e recupera
 - **Geração de Gráficos**: Exibe gráficos detalhados, extraindo informações dos exames para criar representações visuais úteis, permitindo uma análise rápida e fácil.
 
 ## Tecnologias Utilizadas
-
-- **Frontend**: 
-  - [React](https://reactjs.org/)
   - [Next.js](https://nextjs.org/)
   - [FilePond](https://pqina.nl/filepond/) para upload de arquivos
   - [SweetAlert2](https://sweetalert2.github.io/) para exibição de alertas amigáveis

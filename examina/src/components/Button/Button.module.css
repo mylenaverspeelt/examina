@@ -64,7 +64,7 @@
     background-color: transparent;
 }
 
-.link:hover{
+.link:hover {
     color: var(--white);
 }
 
@@ -120,7 +120,7 @@
 
 /* MENU BUTTON */
 .menuButton {
-    margin: 1rem 0 2rem 0 ;
+    margin: 1rem 0 2rem 0;
     padding: 4rem 1.5rem;
     background-color: var(--light-gray);
     box-shadow: var(--box-shadow);
@@ -174,8 +174,26 @@
 
 @media (max-width: 768px) {
     .backButton {
-        border: 1px solid red;
         display: flex;
-
     }
+
+    .menuButton {
+        margin: 1rem;
+        padding: 2rem;
+        max-width: 100%;
+    }
+
+    .trashIcon {
+        width: 1.2rem;
+        height: 1.2rem;
+    }
+
+    .link {
+        padding: 0.5rem;
+    }
+
+    .linkContainer {
+        width: 90%;
+    }
+
 }

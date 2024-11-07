@@ -1,7 +1,20 @@
 'use client';
-import React from 'react';
-import ReactECharts from 'echarts-for-react';
-import * as echarts from 'echarts';
+import React, { useRef, useEffect, useState } from 'react';
+import { Bar } from 'react-chartjs-2';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+    ChartOptions,
+    ScriptableContext,
+} from 'chart.js';
+import styles from "./GlucoseChart.module.css";
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 interface GlucoseData {
     normalCount: number;
@@ -10,48 +23,111 @@ interface GlucoseData {
 }
 
 const GlucoseChart: React.FC<GlucoseData> = ({ normalCount, preDiabetesCount, diabetesCount }) => {
-    const options: echarts.EChartsOption = {
-        title: {
-            text: 'Distribuição de Resultados de Glicose',
-            left: 'center',  
-            top: 'top',      
-            textStyle: {
-                fontSize: 18,
-                fontWeight: 'bold',
-            },
-        },
-        tooltip: {
-            trigger: 'axis',
-        },
-        xAxis: {
-            type: 'category',
-            data: ['Normal', 'Pré-diabetes', 'Diabetes'],
-        },
-        yAxis: {
-            type: 'value',
-        },
-        series: [
+    const chartRef = useRef(null);
+    const [barThickness, setBarThickness] = useState(200); // Default for desktop
+
+    // Ajusta o estado `barThickness` conforme o tamanho da tela
+    useEffect(() => {
+        const handleResize = () => {
+            const screenWidth = window.innerWidth;
+            if (screenWidth <= 768) {
+                setBarThickness(50); // Mobile
+            } else if (screenWidth <= 1024) {
+                setBarThickness(100); // Tablet
+            } else {
+                setBarThickness(200); // Desktop
+            }
+        };
+
+        handleResize(); // Chama na montagem inicial para definir o valor correto
+        window.addEventListener('resize', handleResize);
+
+        // Limpa o evento ao desmontar o componente
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    const data = {
+        labels: ['Normal', 'Pré-diabetes', 'Diabetes'],
+        datasets: [
             {
+                label: 'Distribuição de Resultados de Glicose',
                 data: [normalCount, preDiabetesCount, diabetesCount],
-                type: 'bar',
-                showBackground: true,
-                backgroundStyle: {
-                    color: 'rgba(180, 180, 180, 0.2)',
+                backgroundColor: (context: ScriptableContext<'bar'>) => {
+                    const chart = context.chart;
+                    const { ctx, chartArea } = chart;
+
+                    if (!chartArea) {
+                        return '#CCCCCC';
+                    }
+
+                    const gradientGreen = ctx.createLinearGradient(0, 0, 0, chartArea.bottom);
+                    gradientGreen.addColorStop(0, '#4CAF50');
+                    gradientGreen.addColorStop(1, '#388E3C');
+
+                    const gradientOrange = ctx.createLinearGradient(0, 0, 0, chartArea.bottom);
+                    gradientOrange.addColorStop(0, '#FF9800');
+                    gradientOrange.addColorStop(1, '#F57C00');
+
+                    const gradientRed = ctx.createLinearGradient(0, 0, 0, chartArea.bottom);
+                    gradientRed.addColorStop(0, '#F44336');
+                    gradientRed.addColorStop(1, '#D32F2F');
+
+                    return [gradientGreen, gradientOrange, gradientRed][context.dataIndex] || '#CCCCCC';
                 },
-                itemStyle: {
-                    color: (params: { dataIndex: number }) => {
-                        const colors = ['#4caf50', '#ff9800', '#f44336'];
-                        return new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                            { offset: 0, color: colors[params.dataIndex] },
-                            { offset: 1, color: '#fff' },
-                        ]);
-                    },
-                },
+                borderRadius: 10,
+                barThickness: barThickness, // Ajusta a espessura com base no estado dinâmico
+                borderWidth: 2,
             },
         ],
     };
 
-    return <ReactECharts option={options} style={{ height: '500px', width: '100%' }} />;
+    const options: ChartOptions<'bar'> = {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: false,
+            },
+            title: {
+                display: true,
+                text: 'Distribuição de Resultados de Glicose',
+                font: {
+                    size: 18,
+                    weight: 'bold' as const,
+                },
+            },
+            tooltip: {
+                enabled: true,
+            },
+        },
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: 'Categorias',
+                },
+                grid: {
+                    display: false,
+                },
+            },
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'Quantidade de Exames',
+                },
+                ticks: {
+                    stepSize: 1,
+                },
+                grid: {
+                    color: 'rgba(200, 200, 200, 0.2)',
+                },
+            },
+        },
+    };
+
+    return <Bar ref={chartRef} data={data} options={options} className={styles.chartDiv} />;
 };
 
 export default GlucoseChart;
