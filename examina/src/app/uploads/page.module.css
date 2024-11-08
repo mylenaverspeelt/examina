@@ -1,9 +1,10 @@
 .main {
     height: 100%;
-    width: 100%;
+    width: 80%;
     text-align: center;
     overflow: auto;
     scroll-behavior: smooth;
+    margin: 0 auto;
 }
 
 .main h1 {

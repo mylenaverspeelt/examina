@@ -4,9 +4,10 @@ import { FilePond, registerPlugin, FilePondFile } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
 import styles from './FileUpload.module.css'
 import Button from '../Button/Button';
+import { faRedo } from '@fortawesome/free-solid-svg-icons';
+
 
 registerPlugin(FilePondPluginFileValidateType);
 
@@ -59,7 +60,7 @@ const FilePondUpload = () => {
         name="file"
         labelIdle='Arraste e solte seu PDF ou <span class="filepond--label-action">selecione seus arquivos</span>'
       />
-      {isUpload ? <div className={styles.cards}> <Button href="/" icon={faHome} label='Página Inicial' variant='link' /> <Button label={'Exames Arquivados'} icon={faFilePdf} href={'/uploads'} variant='link' /></div> : null}
+      {isUpload ? <div className={styles.cards}><Button  label='Enviar novo exame' variant='link' href={'/new'} icon={faRedo} /> <Button label={'Exames Arquivados'} icon={faFilePdf} href={'/uploads'} variant='link' /> </div> : null}
     </>
   );
 };

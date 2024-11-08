@@ -9,7 +9,6 @@
     align-items: center;
     background-color: rgba(255, 255, 255, 0.8);
     z-index: 1000;
-
 }
 
 .container {
@@ -25,7 +24,7 @@
     margin: 0 auto;
     height: 60%;
     max-height: 60%;
-    width: 70%;
+    max-width: 70%;
     cursor: pointer;
 }
 
@@ -36,4 +35,19 @@
     margin: 0 auto;
     padding: 1rem 2rem;
     border: 1px solid var(--light-gray);
+}
+
+@media only screen and (max-width: 768px) {
+    .chartDiv {
+        height: 100%;
+        width: 95%;
+    }
+
+    .infosDiv {
+        width: 95%;
+    }
+
+    .container {
+        height: 80%;
+    }
 }

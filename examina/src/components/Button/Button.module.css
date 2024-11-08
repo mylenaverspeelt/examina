@@ -1,4 +1,3 @@
-/* LINK BUTTON */
 .linkButton {
     padding: 1rem;
     box-shadow: var(--box-shadow);
@@ -14,7 +13,6 @@
     transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-/* BACK BUTTON */
 .backButton {
     position: fixed;
     top: 6.5rem;
@@ -45,7 +43,6 @@
     height: 1rem;
 }
 
-/* LINK PDF  */
 .div {
     display: flex;
     align-items: center;
@@ -94,7 +91,6 @@
     color: var(--white);
 }
 
-/* DELETE BUTTON */
 .deleteButton {
     border: none;
     background-color: transparent;
@@ -118,7 +114,6 @@
     color: red;
 }
 
-/* MENU BUTTON */
 .menuButton {
     margin: 1rem 0 2rem 0;
     padding: 4rem 1.5rem;
@@ -142,7 +137,6 @@
     transform: translateY(-4px);
 }
 
-/* BUTTON */
 .button {
     padding: 0.8rem;
     background-color: var(--light-gray);

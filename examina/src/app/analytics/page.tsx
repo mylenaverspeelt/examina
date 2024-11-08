@@ -35,14 +35,13 @@ export default function Analytics() {
     );
   }
 
-  return (<>
-  
+  return (
     <div className={styles.chartDiv}>
       <GlucoseChart
         normalCount={data.normalCount}
         preDiabetesCount={data.preDiabetesCount}
         diabetesCount={data.diabetesCount}
       />
-    </div></>
+    </div>
   );
 }

@@ -24,25 +24,24 @@ interface GlucoseData {
 
 const GlucoseChart: React.FC<GlucoseData> = ({ normalCount, preDiabetesCount, diabetesCount }) => {
     const chartRef = useRef(null);
-    const [barThickness, setBarThickness] = useState(200); // Default for desktop
+    const [barThickness, setBarThickness] = useState(200);
 
-    // Ajusta o estado `barThickness` conforme o tamanho da tela
+    // barras do grafico responsivas
     useEffect(() => {
         const handleResize = () => {
             const screenWidth = window.innerWidth;
             if (screenWidth <= 768) {
-                setBarThickness(50); // Mobile
+                setBarThickness(50); 
             } else if (screenWidth <= 1024) {
-                setBarThickness(100); // Tablet
+                setBarThickness(100); 
             } else {
-                setBarThickness(200); // Desktop
+                setBarThickness(200); 
             }
         };
 
-        handleResize(); // Chama na montagem inicial para definir o valor correto
+        handleResize(); 
         window.addEventListener('resize', handleResize);
 
-        // Limpa o evento ao desmontar o componente
         return () => {
             window.removeEventListener('resize', handleResize);
         };
@@ -77,7 +76,7 @@ const GlucoseChart: React.FC<GlucoseData> = ({ normalCount, preDiabetesCount, di
                     return [gradientGreen, gradientOrange, gradientRed][context.dataIndex] || '#CCCCCC';
                 },
                 borderRadius: 10,
-                barThickness: barThickness, // Ajusta a espessura com base no estado dinâmico
+                barThickness: barThickness,
                 borderWidth: 2,
             },
         ],
