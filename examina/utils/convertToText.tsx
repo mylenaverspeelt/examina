@@ -14,8 +14,6 @@ export function convertToText(pdfData: { Pages: Array<{ Texts: Array<{ R: Array<
             textObj.R.map(item => decodeURIComponent(item.T)).join('')
         ).join(' ');
 
-        console.log('Conteúdo de pageText:', pageText);
-
         pdfText.Paciente = (pageText.match(/Paciente:\s+(.*?)\s+Idade:/)?.[1] || "").replace(/\s+/g, ' ').trim();
         pdfText.Idade = (pageText.match(/Idade:\s+(\d+)/)?.[1] || "").trim();
         pdfText.DataNascimento = (pageText.match(/Data de nascimento:\s+(.*?)\s+Data da coleta:/)?.[1] || "").trim();
