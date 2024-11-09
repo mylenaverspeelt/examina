@@ -15,8 +15,8 @@
 
 .backButton {
     position: fixed;
-    top: 6.5rem;
-    left: 25rem;
+    top: 6rem;
+    left: 6rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,7 +34,6 @@
 }
 
 .backButton:hover {
-    text-decoration: underline;
     transform: translateY(-4px);
 }
 
@@ -188,6 +187,10 @@
 
     .linkContainer {
         width: 90%;
+    }
+
+    .backButton{
+        left: 1rem
     }
 
 }

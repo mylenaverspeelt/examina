@@ -33,7 +33,7 @@ export default function Button({
   if (variant === 'back' && pathname === '/') return null;
 
   const handleBack = () => {
-    router.push('/');
+    router.back();
   };
 
   const handleDelete = async (e: React.MouseEvent) => {
