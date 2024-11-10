@@ -90,6 +90,14 @@
     color: var(--white);
 }
 
+.linkContainer .pdfLabel {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 90%;
+}
+
+
 .deleteButton {
     border: none;
     background-color: transparent;
@@ -189,8 +197,11 @@
         width: 90%;
     }
 
-    .backButton{
+    .backButton {
         left: 1rem
     }
 
+    .linkContainer .pdfLabel {
+        max-width: 60%;
+    }
 }

@@ -124,11 +124,15 @@ export async function POST(req: NextRequest) {
             });
           }
 
+          const glucoseValue = parseInt(extractedData.Result, 10);
+          if (isNaN(glucoseValue)) {
+            throw new Error('Valor de glicose inválido');
+          }
           await prisma.glucose.create({
             data: {
               patientId: patient.id,
               pdfId: storageEntry.id,
-              result: parseInt(extractedData.Result, 10),
+              result: glucoseValue,
               createdAt: new Date(),
             },
           });

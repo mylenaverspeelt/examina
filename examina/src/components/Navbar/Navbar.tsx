@@ -4,6 +4,7 @@ import Link from "next/link"
 
 export default function Navbar() {
     return <nav className={styles.nav}>
+        <div className={styles.container}>
         <div className={styles.logoDiv}>
             <Link href="/" passHref>
                 <h1 className={styles.title}>examina</h1>
@@ -11,6 +12,7 @@ export default function Navbar() {
         </div>
         <div className={styles.loginDiv}>
             <Button label="Entrar / Registrar" variant="button" />
+        </div>
         </div>
     </nav>
 }

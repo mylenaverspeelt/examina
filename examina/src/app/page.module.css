@@ -13,12 +13,12 @@
 }
 
 .searchDiv {
-  width: 60%;
+  width: 80%;
   padding: 2rem 0;
 }
 
 .buttonDiv {
-  width: 60%;
+  width: 80%;
   align-items: center;
   justify-content: space-around;
   display: flex;

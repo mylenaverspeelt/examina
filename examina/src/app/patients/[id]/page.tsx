@@ -122,7 +122,7 @@ export default function PatientDetailPage({ params }: { params: { id: string } }
   return (
     <div className={styles.container}>
       <div className={styles.infosDiv}>
-        <h1>{patient.name}</h1>
+        <h1 className={styles.patientName}>{patient.name}</h1>
         <p>Idade: {patient.age}</p>
         <p>Data de Nascimento: {patient.birthDate}</p>
       </div>
