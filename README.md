@@ -32,26 +32,52 @@ Examina é uma plataforma desenvolvida para facilitar o armazenamento e recupera
   
 ## Instalação e Uso
 
+Para incluir as instruções sobre a configuração do banco de dados e variáveis de ambiente, aqui está uma seção atualizada que pode ser adicionada na parte de "Instalação e Uso" do seu README:
+
+---
+
+## Instalação e Uso
+
 1. **Clone o repositório**:
    ```bash
    git clone https://github.com/mylenaverspeelt/examina.git
    ```
 
-2. **Acesse o diretorio e Instale as dependências**:
+2. **Acesse o diretório e instale as dependências**:
    ```bash
    cd examina
    npm install
    ```
 
-3. **Inicie o projeto em modo de desenvolvimento**:
+3. **Configuração do Banco de Dados**:
+
+   A plataforma requer um banco de dados PostgreSQL configurado. Certifique-se de que o PostgreSQL está instalado e funcionando na sua máquina. Em seguida, siga estes passos:
+
+   - Crie um banco de dados no PostgreSQL para a aplicação.
+   - Configure o arquivo de variáveis de ambiente `.env` na raiz do projeto. 
+
+   Exemplo de configuração no `.env`:
+   ```plaintext
+   DATABASE_URL="postgresql://usuario:senha@localhost:5432/nome_do_banco"
+   ```
+
+   - Em seguida, gere e aplique o esquema do banco de dados (localizado no Prisma) usando os comandos:
+
+   ```bash
+   npx prisma migrate dev --name init
+   ```
+
+4. **Inicie o projeto em modo de desenvolvimento**:
    ```bash
    npm run dev
    ```
-4. **Inicie o projeto em modo de produção**:
+
+5. **Inicie o projeto em modo de produção**:
    ```bash
    npm start
    ```
 
+Essas instruções orientam a pessoa a configurar o banco de dados corretamente e também fornecem detalhes claros sobre o uso do Prisma para gerar o esquema, além da configuração do `.env`. Isso deve facilitar a instalação e configuração.
 ## Scripts Disponíveis
 
 - `dev`: Inicia a aplicação em modo de desenvolvimento.
