@@ -10,31 +10,15 @@ Examina é uma plataforma desenvolvida para facilitar o armazenamento e recupera
 - **Geração de Gráficos**: Exibe gráficos detalhados, extraindo informações dos exames para criar representações visuais úteis, permitindo uma análise rápida e fácil.
 
 ## Tecnologias Utilizadas
-  - [Next.js](https://nextjs.org/)
-  - [FilePond](https://pqina.nl/filepond/) para upload de arquivos
-  - [SweetAlert2](https://sweetalert2.github.io/) para exibição de alertas amigáveis
-
-- **Visualização e Gráficos**: 
-  - [ECharts](https://echarts.apache.org/) e [React-Chartjs-2](https://react-chartjs-2.js.org/) para a criação de gráficos dinâmicos.
-
-- **Manipulação de PDFs**:
-  - [PDF2JSON](https://github.com/modesty/pdf2json) para extração de dados dos arquivos PDF.
-
-- **Documentação de API**:
-  - [Swagger UI Express](https://www.npmjs.com/package/swagger-ui-express) para documentar e testar a API.
-
-- **Gerenciamento de Dependências**:
-  - [FontAwesome](https://fontawesome.com/) para ícones
-  - [UUID](https://www.npmjs.com/package/uuid) para geração de identificadores únicos.
-
-- **Testes**:
-  - [Cypress](https://www.cypress.io/) para testes end-to-end e de componentes.
-  
-## Instalação e Uso
-
-Para incluir as instruções sobre a configuração do banco de dados e variáveis de ambiente, aqui está uma seção atualizada que pode ser adicionada na parte de "Instalação e Uso" do seu README:
-
----
+  - **Next.js**
+  - **FilePond** para upload de arquivos
+  - **SweetAlert2** para exibição de alertas amigáveis
+  - **React-Chartjs-2** para a criação de gráficos dinâmicos
+  - **PDF2JSON** para extração de dados dos arquivos PDF
+  - **Swagger UI Express** para documentar e testar a API
+  - **FontAwesome** para ícones
+  - **UUID** para geração de identificadores únicos
+  - **Cypress** para testes end-to-end e de componentes
 
 ## Instalação e Uso
 
@@ -51,33 +35,25 @@ Para incluir as instruções sobre a configuração do banco de dados e variáve
 
 3. **Configuração do Banco de Dados**:
 
-   A plataforma requer um banco de dados PostgreSQL configurado. Certifique-se de que o PostgreSQL está instalado e funcionando na sua máquina. Em seguida, siga estes passos:
+- A plataforma requer um banco de dados PostgreSQL configurado. Certifique-se de que o PostgreSQL está instalado e funcionando na sua máquina.
+- Crie um banco de dados no PostgreSQL para a aplicação.
+- Configure o arquivo de variáveis de ambiente `.env` na raiz do projeto. 
 
-   - Crie um banco de dados no PostgreSQL para a aplicação.
-   - Configure o arquivo de variáveis de ambiente `.env` na raiz do projeto. 
-
-   Exemplo de configuração no `.env`:
    ```plaintext
    DATABASE_URL="postgresql://usuario:senha@localhost:5432/nome_do_banco"
    ```
 
-   - Em seguida, gere e aplique o esquema do banco de dados (localizado no Prisma) usando os comandos:
+- Em seguida, gere e aplique o esquema do banco de dados (localizado no Prisma) usando os comandos:
 
    ```bash
    npx prisma migrate dev --name init
    ```
 
-4. **Inicie o projeto em modo de desenvolvimento**:
-   ```bash
-   npm run dev
-   ```
-
-5. **Inicie o projeto em modo de produção**:
+4. **Inicie o projeto em modo de produção**:
    ```bash
    npm start
    ```
 
-Essas instruções orientam a pessoa a configurar o banco de dados corretamente e também fornecem detalhes claros sobre o uso do Prisma para gerar o esquema, além da configuração do `.env`. Isso deve facilitar a instalação e configuração.
 ## Scripts Disponíveis
 
 - `dev`: Inicia a aplicação em modo de desenvolvimento.
