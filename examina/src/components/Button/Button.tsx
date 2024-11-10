@@ -73,8 +73,7 @@ export default function Button({
         }
 
         await Swal.fire('Excluído!', 'O PDF foi excluído com sucesso.', 'success');
-    } catch (error) {
-        console.error('Erro ao excluir o PDF:', error);
+    } catch {
         Swal.fire('Erro', 'Falha ao excluir o PDF.', 'error');
     }
   };

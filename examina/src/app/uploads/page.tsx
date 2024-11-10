@@ -4,6 +4,7 @@ import styles from "./page.module.css";
 import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
 import Button from '@/components/Button/Button';
 import ClipLoader from "react-spinners/ClipLoader";
+import ErrorAlert from '@/components/ErrorAlert/ErrorAlert';
 
 interface Pdf {
     id: number;
@@ -22,8 +23,8 @@ export default function Uploads() {
             const response = await fetch('/api/getAll');
             const data: Pdf[] = await response.json();
             setPdfs(data);
-        } catch (error) {
-            console.error('Erro ao carregar PDFs:', error);
+        } catch {
+            ErrorAlert({ message: 'Erro ao carregar PDFs.' });
         } finally {
             setLoading(false);
         }
@@ -59,13 +60,12 @@ export default function Uploads() {
                 newWindow.document.write(`<iframe src="${blobUrl}" style="width:100%; height:100%; border:none;"></iframe>`);
                 newWindow.document.title = pdf.name;
             } else {
-                alert('A aba foi bloqueada, permita pop-ups para abrir o PDF.');
+                ErrorAlert({ message: 'A aba foi bloqueada. Permita pop-ups para abrir o PDF.' });
             }
 
             setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
         } catch (error) {
-            console.error('Erro ao abrir o PDF:', error);
-            alert(`Falha ao abrir o PDF: ${error}`);
+            ErrorAlert({ message: `Falha ao abrir o PDF: ${error}` });
         }
     };
 

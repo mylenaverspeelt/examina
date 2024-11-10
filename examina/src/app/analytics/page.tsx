@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import GlucoseChart from '@/components/GlucoseChart/GlcoseChart';
 import styles from './page.module.css';
 import { ClipLoader } from 'react-spinners';
+import ErrorAlert from '@/components/ErrorAlert/ErrorAlert';
 
 interface GlucoseData {
   normalCount: number;
@@ -19,8 +20,8 @@ export default function Analytics() {
         const response = await fetch('/api/getGlucose');
         const result = await response.json();
         setData(result);
-      } catch (error) {
-        console.error('Erro ao buscar dados de glicose:', error);
+      } catch {
+        ErrorAlert({ message: 'Não foi possível carregar os dados de glicose.' });
       }
     };
 

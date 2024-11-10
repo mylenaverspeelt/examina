@@ -7,7 +7,7 @@ import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
 import styles from './FileUpload.module.css'
 import Button from '../Button/Button';
 import { faRedo } from '@fortawesome/free-solid-svg-icons';
-
+import ErrorAlert from '../ErrorAlert/ErrorAlert';
 
 registerPlugin(FilePondPluginFileValidateType);
 
@@ -33,10 +33,10 @@ const FilePondUpload = () => {
         const data = await response.json();
         console.log('Resposta da API:', data);
       } else {
-        console.error('Erro ao enviar o arquivo. Status:', response.status);
+        ErrorAlert({ message: 'Erro ao enviar o arquivo. Tente novamente mais tarde.' });
       }
-    } catch (error) {
-      console.error('Erro na requisição:', error);
+    } catch  {
+      ErrorAlert({ message: 'Erro na requisição. Tente novamente mais tarde.' });
     }
   };
 

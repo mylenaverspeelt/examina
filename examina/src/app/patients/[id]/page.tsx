@@ -14,6 +14,7 @@ import {
   Legend,
 } from 'chart.js';
 import styles from "./page.module.css";
+import ErrorAlert from '@/components/ErrorAlert/ErrorAlert';
 
 ChartJS.register(
   CategoryScale,
@@ -60,8 +61,8 @@ export default function PatientDetailPage({ params }: { params: { id: string } }
         }
         const glucoseData = await glucoseResponse.json();
         setGlucoseRecords(glucoseData.records);
-      } catch (error) {
-        console.error("Erro ao buscar dados:", error);
+      } catch {
+        ErrorAlert({ message: "Erro ao buscar dados do paciente" });
         router.push('/');
       } finally {
         setLoading(false);
@@ -99,7 +100,7 @@ export default function PatientDetailPage({ params }: { params: { id: string } }
   // opçoes do gráfico
   const chartOptions = {
     responsive: true,
-    maintainAspectRatio: false,  
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: 'top' as const,
