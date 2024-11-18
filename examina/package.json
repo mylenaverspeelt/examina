@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest",
+    "test:watch": "jest --watchAll"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
@@ -30,6 +32,9 @@
   },
   "devDependencies": {
     "@cypress/react18": "^2.0.1",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.0.1",
+    "@types/jest": "^29.5.14",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -37,7 +42,11 @@
     "cypress": "^13.15.1",
     "eslint": "^8",
     "eslint-config-next": "14.2.14",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "next-router-mock": "^0.9.13",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }
