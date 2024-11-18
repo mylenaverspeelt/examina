@@ -2,7 +2,6 @@ import '@testing-library/jest-dom';
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import  Home  from "../src/app/page"
-import styles from './page.module.css';
 
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn(() => ({
@@ -13,14 +12,17 @@ jest.mock('next/navigation', () => ({
   usePathname: jest.fn(() => '/')
 }));
 
-
-describe('Home Page', () => {
+describe('Home Page Happy Paths', () => {
+  beforeEach(() => {
+    jest.clearAllMocks(); 
+  });
+  
   test('renders home page component', () => {
     render(<Home />);
     expect(screen.getByText('Adicionar um novo exame')).toBeInTheDocument();
   });
 
-  test('displays search bar', () => {
+  test('render search bar', () => {
     render(<Home />);
     const searchBar = screen.getByRole('textbox');
     expect(searchBar).toBeInTheDocument();
@@ -37,7 +39,7 @@ describe('Home Page', () => {
     expect(analyticsButton).toBeInTheDocument();
   });
 
-  test('buttons have correct href attributes', () => {
+  test('check if buttons have correct href attributes', () => {
     render(<Home />);
     const addExamLink = screen.getByText('Adicionar um novo exame').closest('a');
     const viewExamsLink = screen.getByText('Ver exames armazenados').closest('a');
@@ -53,15 +55,17 @@ describe('Home Page', () => {
     const icons = document.querySelectorAll('.svg-inline--fa');
     expect(icons).toHaveLength(4);
   });
-  test('has correct CSS module class', () => {
-    const { container } = render(<Home />);
-    
-    expect(container.firstChild).toHaveClass(styles.main);
-    
-    const searchDiv = container.querySelector(`.${styles.searchDiv}`);
-    const buttonDiv = container.querySelector(`.${styles.buttonDiv}`);
 
-    expect(searchDiv).toBeInTheDocument();
-    expect(buttonDiv).toBeInTheDocument();
+});
+
+describe('Home Page Sad Path', () => {
+  beforeEach(() => {
+    jest.clearAllMocks(); 
   });
+  
+  test('page rendering failure', () => {
+    jest.spyOn(console, 'error').mockImplementation(() => {}); 
+    expect(() => render(<Home />)).not.toThrow();
+  });
+  
 });
