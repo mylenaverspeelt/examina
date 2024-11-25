@@ -53,7 +53,7 @@ export default function Uploads() {
             const arrayBuffer = base64ToArrayBuffer(pdf.base64Pdf);
             const blob = new Blob([arrayBuffer], { type: 'application/pdf' });
 
-            const blobUrl = URL.createObjectURL(blob);
+            const blobUrl = URL.createObjectURL(blob);       
 
             const newWindow = window.open();
             if (newWindow) {

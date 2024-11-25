@@ -1,7 +1,7 @@
-import '@testing-library/jest-dom';
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import  Home  from "../src/app/page"
+import '@testing-library/jest-dom/extend-expect';
+import { expect, describe } from '@jest/globals';
+import Home from "../page";
 
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn(() => ({
@@ -55,7 +55,6 @@ describe('Home Page Happy Paths', () => {
     const icons = document.querySelectorAll('.svg-inline--fa');
     expect(icons).toHaveLength(4);
   });
-
 });
 
 describe('Home Page Sad Path', () => {
@@ -67,5 +66,4 @@ describe('Home Page Sad Path', () => {
     jest.spyOn(console, 'error').mockImplementation(() => {}); 
     expect(() => render(<Home />)).not.toThrow();
   });
-  
 });

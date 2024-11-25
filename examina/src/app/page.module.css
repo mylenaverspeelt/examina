@@ -9,11 +9,12 @@
   align-items: center;
   overflow: hidden;
   box-sizing: border-box;
+
   margin-top: 4rem;
 }
 
 .searchDiv {
-  width: 80%;
+  width: 70%;
   padding: 2rem 0;
 }
 

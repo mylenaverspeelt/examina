@@ -1,5 +1,31 @@
 .cards {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.container {
+  padding: 16px;
+}
+
+.container.success {
+  background-color: green;
+  color: white;
+}
+
+.cards {
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.cards p {
+  margin: 0;
+  font-weight: bold;
+}
+
+.buttonsDiv {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
