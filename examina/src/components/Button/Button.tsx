@@ -11,7 +11,7 @@ interface ButtonProps {
   label?: string;
   href?: string;
   icon?: IconDefinition;
-  onClick?: () => void;
+  onClick?:  (event: React.MouseEvent) => void;
   variant: 'button' | 'link' | 'back' | 'linkPDF' | 'menuButton';
   id?: number;
   onDelete?: (id: number) => void;

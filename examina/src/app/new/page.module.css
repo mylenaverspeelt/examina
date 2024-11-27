@@ -10,3 +10,15 @@
     width: 80%;
     margin: 0 auto;
 }
+
+.buttonsDiv {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+}
+
+.uploadDiv {
+    height: 80%;
+}

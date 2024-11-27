@@ -1,2 +1,2 @@
+console.log('jest.setup.ts is being executed');
 import '@testing-library/jest-dom';
-import '@testing-library/jest-dom/extend-expect';
