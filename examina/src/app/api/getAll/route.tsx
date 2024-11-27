@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
  * /api/pdfs:
  *   get:
  *     summary: Busca todos os PDFs
- *     description: Retorna uma lista de PDFs armazenados no banco de dados em formato base64.
+ *     description: Retorna uma lista de PDFs armazenados no banco de dados em formato base64, ordenados pela data de envio.
  *     responses:
  *       200:
  *         description: Lista de PDFs
@@ -31,6 +31,11 @@ const prisma = new PrismaClient();
  *                     type: string
  *                     description: PDF em formato base64
  *                     example: "JVBERi0xLjcKCj... (conteúdo base64)"
+ *                   createdAt:
+ *                     type: string
+ *                     format: date-time
+ *                     description: Data de envio do PDF
+ *                     example: "2024-11-25T10:00:00Z"
  *       500:
  *         description: Erro ao buscar PDFs
  *         content:
@@ -51,6 +56,10 @@ export async function GET() {
         id: true,
         fileName: true,
         pdf: true,
+        createdAt: true, 
+      },
+      orderBy: {
+        createdAt: 'desc',  
       },
     });
 
@@ -58,8 +67,9 @@ export async function GET() {
       id: pdf.id,
       fileName: pdf.fileName,
       base64Pdf: Buffer.from(pdf.pdf).toString('base64'),
+      createdAt: pdf.createdAt,  
     }));
-    
+
     return NextResponse.json(pdfsWithBase64);
   } catch (error) {
     return NextResponse.json({ error: "Erro ao buscar PDFs: " + error }, { status: 500 });
