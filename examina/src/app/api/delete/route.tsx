@@ -68,7 +68,6 @@ export async function DELETE(req: NextRequest) {
 
     return NextResponse.json({ message: 'PDF excluído com sucesso' }, { status: 200 });
   } catch (error) {
-    console.error('Erro ao excluir PDF:', error);
     return NextResponse.json({ message: 'Erro ao excluir PDF' }, { status: 500 });
   } finally {
     await prisma.$disconnect();
