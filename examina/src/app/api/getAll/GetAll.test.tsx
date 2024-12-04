@@ -1,4 +1,5 @@
 import { createMocks } from 'node-mocks-http';
+import { PrismaClient } from '@prisma/client';
 
 const findManyMock = jest.fn();
 
@@ -10,10 +11,9 @@ jest.mock('@prisma/client', () => ({
   })),
 }));
 
+const { GET } = require('./route');
 
-const { GET } = require('./../api/getAll/route');
-
-describe('GET /api/getAll', () => {
+describe('GET /api/pdfs', () => {
   beforeEach(() => {
     jest.resetAllMocks();
   });
@@ -34,19 +34,19 @@ describe('GET /api/getAll', () => {
       method: 'GET',
     });
 
-    await GET(req, res);
+    const response = await GET(req, res);
 
-    expect(res.statusCode).toBe(200);
-    expect(res._getData()).toEqual(
-      JSON.stringify([
-        {
-          id: 1,
-          fileName: 'documento.pdf',
-          base64Pdf: 'Y29udGXDumRvIGRvIFBERg==',
-          createdAt: pdfsMock[0].createdAt.toISOString(),
-        },
-      ])
-    );
+    expect(response.status).toBe(200);
+
+    const result = await response.json();
+    expect(result).toEqual([
+      {
+        id: 1,
+        fileName: 'documento.pdf',
+        base64Pdf: 'Y29udGXDumRvIGRvIFBERg==',
+        createdAt: pdfsMock[0].createdAt.toISOString(),
+      },
+    ]);
   });
 
   it('deve retornar erro se falhar ao buscar os PDFs', async () => {
@@ -56,11 +56,11 @@ describe('GET /api/getAll', () => {
       method: 'GET',
     });
 
-    await GET(req, res);
+    const response = await GET(req, res);
 
-    expect(res.statusCode).toBe(500);
-    expect(res._getData()).toEqual(
-      JSON.stringify({ error: 'Erro ao buscar PDFs: Error: Database error' })
-    );
+    expect(response.status).toBe(500);
+
+    const result = await response.json();
+    expect(result).toEqual({ error: 'Erro ao buscar PDFs' });
   });
 });

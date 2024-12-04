@@ -61,7 +61,6 @@ export async function GET() {
       diabetesCount,
     });
   } catch (error) {
-    console.error('Erro ao buscar os resultados de glicose:', error);
     return NextResponse.json({ error: 'Erro ao buscar os resultados de glicose' }, { status: 500 });
   }
 }

@@ -70,8 +70,11 @@ export async function GET(req: any, res: any) {
       createdAt: pdf.createdAt,  
     }));
 
-    res.status(200).json(pdfsWithBase64);
+    return NextResponse.json(pdfsWithBase64);
   } catch (error) {
-    res.status(500).json({ error: "Erro ao buscar PDFs: " + error });
+    return NextResponse.json(
+      { error: "Erro ao buscar PDFs" }, 
+      { status: 500 }
+    );
   }
 }
