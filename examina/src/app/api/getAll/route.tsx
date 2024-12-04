@@ -49,7 +49,7 @@ const prisma = new PrismaClient();
  *                   example: "Erro ao buscar PDFs: ..."
  */
 
-export async function GET() {
+export async function GET(req: any, res: any) {
   try {
     const pdfs = await prisma.storage.findMany({
       select: {
@@ -70,8 +70,8 @@ export async function GET() {
       createdAt: pdf.createdAt,  
     }));
 
-    return NextResponse.json(pdfsWithBase64);
+    res.status(200).json(pdfsWithBase64);
   } catch (error) {
-    return NextResponse.json({ error: "Erro ao buscar PDFs: " + error }, { status: 500 });
+    res.status(500).json({ error: "Erro ao buscar PDFs: " + error });
   }
 }
