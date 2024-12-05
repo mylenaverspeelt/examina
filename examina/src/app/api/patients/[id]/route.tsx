@@ -103,7 +103,6 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
 
     return NextResponse.json({ patient });
   } catch (error) {
-    console.error("Erro ao buscar paciente:", error);
     return NextResponse.json({ error: 'Erro ao buscar paciente' }, { status: 500 });
   }
 }

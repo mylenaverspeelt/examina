@@ -18,7 +18,6 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
 
     return NextResponse.json({ records: glucoseRecords });
   } catch (error) {
-    console.error("Erro ao buscar registros de glicose:", error);
     return NextResponse.json({ error: 'Erro ao buscar registros de glicose' }, { status: 500 });
   }
 }

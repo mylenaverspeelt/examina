@@ -84,7 +84,6 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({ patients });
   } catch (error) {
-    console.error("Erro ao buscar pacientes:", error);
     return NextResponse.json({ error: 'Erro ao buscar pacientes' }, { status: 500 });
   }
 }
