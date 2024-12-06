@@ -1,8 +1,3 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
-
 /**
  * @swagger
  * /api/delete:
@@ -53,6 +48,10 @@ const prisma = new PrismaClient();
  *                   example: "Erro ao excluir PDF"
  */
 
+import { NextRequest, NextResponse } from 'next/server';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 export async function DELETE(req: NextRequest) {
   try {

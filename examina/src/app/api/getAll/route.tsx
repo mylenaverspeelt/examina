@@ -1,8 +1,3 @@
-import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
-
 /**
  * @swagger
  * /api/pdfs:
@@ -48,6 +43,10 @@ const prisma = new PrismaClient();
  *                   description: Mensagem de erro
  *                   example: "Erro ao buscar PDFs: ..."
  */
+import { NextResponse } from 'next/server';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 export async function GET(req: any, res: any) {
   try {

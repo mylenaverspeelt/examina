@@ -1,10 +1,3 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-import PDFParser from 'pdf2json';
-import { convertToText } from '../../../../utils/convertToText';
-
-const prisma = new PrismaClient();
-
 /**
  * @swagger
  * /api/uploadPdf:
@@ -68,6 +61,14 @@ const prisma = new PrismaClient();
  *                   type: string
  *                   description: Detalhes do erro
  */
+
+import { NextRequest, NextResponse } from 'next/server';
+import { PrismaClient } from '@prisma/client';
+import PDFParser from 'pdf2json';
+import { convertToText } from '../../../../utils/convertToText';
+
+const prisma = new PrismaClient();
+
 
 export const config = {
   api: {
@@ -169,7 +170,6 @@ export async function POST(req: NextRequest) {
           );
         } catch (error) {
           if (error instanceof Error) {
-            console.error('Erro no processamento dos dados:', error.message);
             reject(
               NextResponse.json(
                 {
@@ -181,7 +181,6 @@ export async function POST(req: NextRequest) {
               )
             );
           } else {
-            console.error('Erro desconhecido:', error);
             reject(
               NextResponse.json(
                 {
@@ -199,7 +198,6 @@ export async function POST(req: NextRequest) {
     });
   } catch (error) {
     if (error instanceof Error) {
-      console.error('Erro no processamento:', error.message);
       return NextResponse.json(
         {
           success: false,
@@ -209,7 +207,6 @@ export async function POST(req: NextRequest) {
         { status: 500 }
       );
     } else {
-      console.error('Erro desconhecido:', error);
       return NextResponse.json(
         {
           success: false,

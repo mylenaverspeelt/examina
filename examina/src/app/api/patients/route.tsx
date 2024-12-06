@@ -1,8 +1,3 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
-
 /**
  * @swagger
  * /api/patients:
@@ -60,6 +55,11 @@ const prisma = new PrismaClient();
  *                   description: Mensagem de erro
  *                   example: "Erro ao buscar pacientes"
  */
+import { NextRequest, NextResponse } from 'next/server';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
+
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const query = searchParams.get('query');

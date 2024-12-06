@@ -1,7 +1,3 @@
-import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
 /**
  * @swagger
  * /api/getGlucose:
@@ -42,7 +38,10 @@ const prisma = new PrismaClient();
  */
 
 
+import { NextResponse } from 'next/server';
+import { PrismaClient } from '@prisma/client';
 
+const prisma = new PrismaClient();
 export async function GET() {
   try {
     const glucoses = await prisma.glucose.findMany({
