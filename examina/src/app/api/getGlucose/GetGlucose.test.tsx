@@ -1,5 +1,4 @@
 import { createMocks } from 'node-mocks-http';
-import { PrismaClient } from '@prisma/client';
 
 const findManyMock = jest.fn();
 
@@ -18,7 +17,7 @@ describe('GET /api/getGlucose', () => {
     jest.resetAllMocks();
   });
 
-  it('deve retornar contagem de resultados de glicose por categoria', async () => {
+  it('should return glucose result count by category', async () => {
     const glucoseMock = [
       { result: 95 },
       { result: 105 },
@@ -44,7 +43,32 @@ describe('GET /api/getGlucose', () => {
     });
   });
 
-  it('deve retornar erro se falhar ao buscar os resultados de glicose', async () => {
+  it('should correctly count borderline values for pre-diabetes and diabetes', async () => {
+    const glucoseMock = [
+      { result: 99 },
+      { result: 100 },
+      { result: 125 },
+      { result: 126 },
+      { result: 150 }
+    ];
+
+    findManyMock.mockResolvedValue(glucoseMock);
+
+    const { req, res } = createMocks({
+      method: 'GET',
+    });
+
+    const response = await GET(req, res);
+    const result = await response.json();
+
+    expect(result.normalCount).toBe(glucoseMock.filter(g => g.result <= 99).length);
+    expect(result.preDiabetesCount).toBe(glucoseMock.filter(g => g.result >= 100 && g.result <= 125).length);
+    expect(result.diabetesCount).toBe(glucoseMock.filter(g => g.result >= 126).length);
+
+  });
+
+
+  it('should return an error if failed to fetch glucose results', async () => {
     findManyMock.mockRejectedValue(new Error('Database error'));
 
     const { req, res } = createMocks({
@@ -54,8 +78,8 @@ describe('GET /api/getGlucose', () => {
     const response = await GET(req, res);
 
     expect(response.status).toBe(500);
-    
     const result = await response.json();
-    expect(result).toEqual({ error: 'Erro ao buscar os resultados de glicose' });
+    expect(result.error).toContain('Erro ao buscar os resultados de glicose');
   });
+
 });

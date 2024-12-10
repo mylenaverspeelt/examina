@@ -1,6 +1,6 @@
 # Examina
 
-Examina é uma plataforma desenvolvida para facilitar o armazenamento e recuperação de exames médicos. Além de gerenciar arquivos PDF de exames, a aplicação também permite a extração de dados dos documentos para gerar gráficos e outras visualizações, oferecendo uma visão detalhada e acessível dos resultados de exames.
+Examina é uma plataforma desenvolvida para facilitar o armazenamento e recuperação de exames médicos. Além de gerenciar arquivos PDF de exames, a aplicação também permite a extração de dados dos documentos para gerar gráficos, oferecendo uma visão detalhada e acessível dos resultados de exames.
 
 ## Funcionalidades
 
@@ -10,15 +10,18 @@ Examina é uma plataforma desenvolvida para facilitar o armazenamento e recupera
 - **Geração de Gráficos**: Exibe gráficos detalhados, extraindo informações dos exames para criar representações visuais úteis, permitindo uma análise rápida e fácil.
 
 ## Tecnologias Utilizadas
-  - **Next.js**
-  - **FilePond** para upload de arquivos
-  - **SweetAlert2** para exibição de alertas amigáveis
-  - **React-Chartjs-2** para a criação de gráficos dinâmicos
-  - **PDF2JSON** para extração de dados dos arquivos PDF
-  - **Swagger UI Express** para documentar e testar a API
-  - **FontAwesome** para ícones
-  - **UUID** para geração de identificadores únicos
-  - **Cypress** para testes end-to-end e de componentes
+
+  - **Next.js** 14.2.14 para framework de React.
+  - **FilePond** para upload de arquivos.
+  - **SweetAlert2** para exibição de alertas amigáveis.
+  - **React-Chartjs-2** para a criação de gráficos dinâmicos.
+  - **PDF2JSON** para extração de dados dos arquivos PDF.
+  - **Swagger UI Express** para documentar e testar a API.
+  - **Swagger-JSDoc** para gerar documentação da API.
+  - **FontAwesome** para ícones.
+  - **UUID** para geração de identificadores únicos.
+  - **Jest** para testes unitários.
+
 
 ## Instalação e Uso
 
@@ -60,6 +63,7 @@ Examina é uma plataforma desenvolvida para facilitar o armazenamento e recupera
 - `build`: Compila a aplicação para produção.
 - `start`: Inicia a aplicação no modo de produção.
 - `lint`: Executa o linter para garantir a padronização do código.
+- `test`: Executa os testes unitários usando Jest.
 
 ## Estrutura do Projeto
 
@@ -68,7 +72,8 @@ Examina é uma plataforma desenvolvida para facilitar o armazenamento e recupera
 - **/utils**: Funções utilitárias para manipulação de dados e formatação.
 - **/services**: Serviços para comunicação com a API e manipulação de arquivos.
 - **/styles**: Arquivos de estilos globais e específicos.
-- **/tests**: Configurações e testes unitários e end-to-end.
+- **/tests**: Configurações e testes unitários.
+- **/prisma**: Arquivos de migração e esquema do banco de dados.
 
 ## Contribuição
 
@@ -77,3 +82,4 @@ Examina é uma plataforma desenvolvida para facilitar o armazenamento e recupera
 3. Commit suas mudanças (`git commit -m 'Adiciona nova funcionalidade'`)
 4. Envie para o branch (`git push origin feature/nova-funcionalidade`)
 5. Abra um Pull Request
+

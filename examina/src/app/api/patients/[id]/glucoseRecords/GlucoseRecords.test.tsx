@@ -36,7 +36,6 @@ describe('GET /api/glucose/[id]', () => {
       url: 'http://localhost/api/glucose/1',
     } as NextRequest;
 
-    // Simulando resposta com registros de glicose encontrados
     findManyMock.mockResolvedValue([
       { createdAt: '2024-01-01T00:00:00.000Z', result: 120 },
       { createdAt: '2024-02-01T00:00:00.000Z', result: 130 },
@@ -66,4 +65,22 @@ describe('GET /api/glucose/[id]', () => {
     expect(response.status).toBe(200);
     expect(await response.json()).toEqual({ records: [] });
   });
+
+  it('should return glucose records with correct structure', async () => {
+    const mockRequest = { url: 'http://localhost/api/glucose/1' } as NextRequest;
+  
+    findManyMock.mockResolvedValue([
+      { createdAt: '2024-01-01T00:00:00.000Z', result: 120 },
+      { createdAt: '2024-02-01T00:00:00.000Z', result: 130 },
+    ]);
+  
+    const response = await GET(mockRequest, { params: { id: '1' } });
+    const result = await response.json();
+  
+    result.records.forEach((record: any) => {
+      expect(typeof record.createdAt).toBe('string');
+      expect(typeof record.result).toBe('number');
+    });
+  });
+  
 });

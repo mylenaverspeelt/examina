@@ -64,7 +64,6 @@ const FilePondUpload = () => {
                 return response.json();
               })
               .then((data) => {
-                console.log('Resposta da API:', data);
                 if (data.success) {
                   load(file.name);
                   setIsUpload(true);

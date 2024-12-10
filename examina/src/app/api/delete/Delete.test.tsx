@@ -1,5 +1,4 @@
 import { createMocks } from 'node-mocks-http';
-import { PrismaClient } from '@prisma/client';
 
 const deleteMock = jest.fn();
 
@@ -19,7 +18,7 @@ describe('DELETE /api/delete', () => {
     jest.resetAllMocks();
   });
 
-  it('deve deletar um PDF com sucesso', async () => {
+  it('should delete a PDF successfully', async () => {
     const { req, res } = createMocks({
       method: 'DELETE',
       body: { id: 1 },
@@ -37,7 +36,7 @@ describe('DELETE /api/delete', () => {
     expect(deleteMock).toHaveBeenCalledWith({ where: { id: 1 } });
   });
 
-  it('deve retornar erro quando ID não é fornecido', async () => {
+  it('should return an error when ID is not provided', async () => {
     const { req, res } = createMocks({
       method: 'DELETE',
       body: {},
@@ -53,7 +52,7 @@ describe('DELETE /api/delete', () => {
     expect(result).toEqual({ message: 'ID é necessário' });
   });
 
-  it('deve retornar erro ao falhar na exclusão do PDF', async () => {
+  it('should return an error when PDF deletion fails', async () => {
     const { req, res } = createMocks({
       method: 'DELETE',
       body: { id: 1 },
@@ -66,6 +65,22 @@ describe('DELETE /api/delete', () => {
 
     expect(response.status).toBe(500);
 
+    const result = await response.json();
+    expect(result).toEqual({ message: 'Erro ao excluir PDF' });
+  });
+
+  it('should return error 500 in case of connection failure', async () => {
+    const { req, res } = createMocks({
+      method: 'DELETE',
+      body: { id: 1 },
+    });
+  
+    req.json = jest.fn().mockResolvedValue({ id: 1 });
+    deleteMock.mockRejectedValueOnce(new Error('Database connection failed'));
+  
+    const response = await DELETE(req);
+  
+    expect(response.status).toBe(500);
     const result = await response.json();
     expect(result).toEqual({ message: 'Erro ao excluir PDF' });
   });
