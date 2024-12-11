@@ -2,8 +2,7 @@
 import { useState, useEffect } from 'react';
 import styles from './SearchBar.module.css';
 import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import SearchIcon from '@mui/icons-material/Search'; // Ícone de pesquisa do Material UI
 import ErrorAlert from '../ErrorAlert/ErrorAlert';
 
 interface Patient {
@@ -22,7 +21,7 @@ export default function SearchBar() {
       const response = await fetch(`/api/patients?query=${term}`);
       const data = await response.json();
       setFilteredPatients(data.patients || []);
-    } catch  {
+    } catch {
       ErrorAlert({ message: "Erro ao buscar pacientes. Tente novamente mais tarde." });
       setFilteredPatients([]);
     } finally {
@@ -51,7 +50,7 @@ export default function SearchBar() {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <FontAwesomeIcon icon={faSearch} className={styles.searchIcon} />
+      <SearchIcon className={styles.searchIcon} />
       {isLoading && <div className={styles.loading}></div>}
       {filteredPatients.length > 0 && (
         <ul className={styles.dropdown}>

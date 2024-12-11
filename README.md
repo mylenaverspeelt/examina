@@ -18,7 +18,7 @@ Examina é uma plataforma desenvolvida para facilitar o armazenamento e recupera
   - **PDF2JSON** para extração de dados dos arquivos PDF.
   - **Swagger UI Express** para documentar e testar a API.
   - **Swagger-JSDoc** para gerar documentação da API.
-  - **FontAwesome** para ícones.
+  - **MaterialUI** para ícones.
   - **UUID** para geração de identificadores únicos.
   - **Jest** para testes unitários.
 

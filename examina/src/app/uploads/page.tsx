@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import styles from "./page.module.css";
-import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import Button from '@/components/Button/Button';
 import ClipLoader from "react-spinners/ClipLoader";
 import ErrorAlert from '@/components/ErrorAlert/ErrorAlert';
@@ -90,7 +90,7 @@ export default function Uploads() {
           <div key={pdf.id} style={{ cursor: 'pointer' }}>
             <Button
               variant="linkPDF"
-              icon={faFilePdf}
+              icon={<PictureAsPdfIcon />}
               label={pdf.fileName}
               onClick={() => handlePdfClick(pdf)}
               id={pdf.id}

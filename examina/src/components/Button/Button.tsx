@@ -1,21 +1,19 @@
-'use client'
-import { faTrash, IconDefinition } from "@fortawesome/free-solid-svg-icons";
-import styles from "./Button.module.css";
-import { useRouter } from "next/navigation";
-import { usePathname } from "next/navigation";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
+'use client';
+import styles from './Button.module.css';
+import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 import Swal from 'sweetalert2';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 interface ButtonProps {
   label?: string;
   href?: string;
-  icon?: IconDefinition;
-  onClick?:  (event: React.MouseEvent) => void;
+  icon?: React.ReactNode;  
+  onClick?: (event: React.MouseEvent) => void;
   variant: 'button' | 'link' | 'back' | 'linkPDF' | 'menuButton';
   id?: number;
-  onDelete?: (id: number) => void;
-  onDeleted?: () => void; 
+  onDeleted?: () => void;
 }
 
 export default function Button({
@@ -38,7 +36,7 @@ export default function Button({
 
   const handleDelete = async (e: React.MouseEvent) => {
     e.preventDefault();
-    e.stopPropagation(); 
+    e.stopPropagation();
 
     if (!id) return;
 
@@ -56,32 +54,32 @@ export default function Button({
     if (!result.isConfirmed) return;
 
     try {
-        const response = await fetch('/api/delete', {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ id }),
-        });
+      const response = await fetch('/api/delete', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id }),
+      });
 
-        if (!response.ok) {
-            throw new Error("Erro ao excluir o PDF");
-        }
+      if (!response.ok) {
+        throw new Error('Erro ao excluir o PDF');
+      }
 
-        if (onDeleted) {
-            onDeleted();
-        }
+      if (onDeleted) {
+        onDeleted();
+      }
 
-        await Swal.fire('Excluído!', 'O PDF foi excluído com sucesso.', 'success');
+      await Swal.fire('Excluído!', 'O PDF foi excluído com sucesso.', 'success');
     } catch {
-        Swal.fire('Erro', 'Falha ao excluir o PDF.', 'error');
+      Swal.fire('Erro', 'Falha ao excluir o PDF.', 'error');
     }
   };
 
   if (variant === 'link' && href) {
     return (
       <Link href={href} className={styles.linkButton}>
-        {icon && <FontAwesomeIcon icon={icon} className={styles.icon} />}
+        {icon && <span className={styles.icon}>{icon}</span>}
         <span>{label}</span>
       </Link>
     );
@@ -92,13 +90,13 @@ export default function Button({
       <div className={styles.div}>
         <div className={styles.linkContainer}>
           <button onClick={onClick} className={styles.link}>
-            {icon && <FontAwesomeIcon icon={icon} className={styles.icon} />}
+            {icon && <span className={styles.icon}>{icon}</span>}
             <span className={styles.pdfLabel}>{label}</span>
           </button>
         </div>
         <div className={styles.deleteContainer}>
           <button onClick={handleDelete} className={styles.deleteButton}>
-            <FontAwesomeIcon icon={faTrash} className={styles.trashIcon} />
+          <DeleteIcon className={styles.trashIcon} />
           </button>
         </div>
       </div>
@@ -108,6 +106,7 @@ export default function Button({
   if (variant === 'button') {
     return (
       <button className={styles.button} onClick={onClick}>
+        {icon && <span className={styles.icon}>{icon}</span>}
         <span>{label}</span>
       </button>
     );
@@ -116,7 +115,7 @@ export default function Button({
   if (variant === 'back') {
     return (
       <button className={styles.backButton} onClick={handleBack}>
-        {icon && <FontAwesomeIcon icon={icon} className={styles.icon} />}
+        {<span className={styles.icon}>{icon}</span>}
         <span>{label}</span>
       </button>
     );
@@ -125,7 +124,7 @@ export default function Button({
   if (variant === 'menuButton' && href) {
     return (
       <Link href={href} className={styles.menuButton}>
-        {icon && <FontAwesomeIcon icon={icon} className={styles.icon} />}
+        {icon && <span className={styles.icon}>{icon}</span>}
         <span>{label}</span>
       </Link>
     );

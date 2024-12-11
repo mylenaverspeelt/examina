@@ -1,7 +1,9 @@
-import styles from "./page.module.css";
-import { faChartLine, faCirclePlus, faFolderOpen } from '@fortawesome/free-solid-svg-icons';
-import Button from "@/components/Button/Button";
-import SearchBar from "@/components/SearchBar/SearchBar";
+import styles from './page.module.css';
+import PostAddIcon from '@mui/icons-material/PostAdd';
+import FolderCopyIcon from '@mui/icons-material/FolderCopy';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import Button from '@/components/Button/Button';
+import SearchBar from '@/components/SearchBar/SearchBar';
 
 export default function Home() {
   return (
@@ -10,9 +12,9 @@ export default function Home() {
         <SearchBar />
       </div>
       <div className={styles.buttonDiv}>
-        <Button label="Adicionar um novo exame" href="/new" icon={faCirclePlus} variant="menuButton" />
-        <Button label="Ver exames armazenados" icon={faFolderOpen} href="/uploads" variant="menuButton" />
-        <Button label="Visualizar Distribuição" icon={faChartLine} href="/analytics" variant="menuButton" />
+        <Button label="Adicionar um novo exame" href="/new" icon={<PostAddIcon />} variant="menuButton" />
+        <Button label="Ver exames armazenados" icon={<FolderCopyIcon />} href="/uploads" variant="menuButton" />
+        <Button label="Visualizar Distribuição" icon={<BarChartIcon />} href="/analytics" variant="menuButton" />
       </div>
     </section>
   );

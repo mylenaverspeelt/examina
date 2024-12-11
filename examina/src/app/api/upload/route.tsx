@@ -110,7 +110,6 @@ export async function POST(req: NextRequest) {
 
     return new Promise((resolve, reject) => {
       pdfParser.on('pdfParser_dataError', () => {
-        console.error('Erro ao processar o PDF:');
         reject(new Error('Erro ao processar o PDF'));
       });
 
