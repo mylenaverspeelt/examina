@@ -1,3 +1,4 @@
+'use client'
 import styles from './page.module.css';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import FolderCopyIcon from '@mui/icons-material/FolderCopy';
@@ -6,8 +7,11 @@ import Button from '@/components/Button/Button';
 import SearchBar from '@/components/SearchBar/SearchBar';
 import { Fab } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import { useState } from 'react';
 
 export default function Home() {
+  const [hovered, setHovered] = useState(false);
+
   return (
     <>
       <section className={styles.main}>
@@ -21,27 +25,41 @@ export default function Home() {
         </div>
       </section>
 
-      <Fab 
-        aria-label="add" 
+      <Fab variant="extended"
         sx={{
-          color: 'white',
-          backgroundColor: '#44b1a0',
-          width: 200, 
-          height: 80, 
           position: 'fixed',
-          bottom: 20,  
-          right: 20, 
-          zIndex: 1000,
-          display: 'flex',
-          justifyContent: 'center',  
-          alignItems: 'center',   
+          bottom: 40,
+          right: 40,
           padding: 2,
-          borderRadius: 8,
-          gap: 1                     
+          fontWeight: 'bold',
+          zIndex: 1000,
+          textTransform: 'none',
+          width: 56, 
+          height: 56, 
+          backgroundColor: 'var(--light-gray)', 
+          color: 'var(--purple)', 
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          transition: 'box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease', // transições suaves
+          '&:hover': {
+            backgroundColor: 'var(--purple-hover)', 
+            color: 'var(--white)',
+            transform: 'translateY(-4px)', 
+            width: 'auto',
+          },
+          '& .MuiFab-icon': {
+            marginRight: 5, 
+          },
+          '&:hover .MuiFab-icon': {
+            marginRight: 5, 
+          },
         }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
       >
-        Novo Laudo
-        <AddIcon />
+        <AddIcon sx={{ color: 'var(--teal)' }} />
+        {hovered && 'Novo Laudo'}
       </Fab>
     </>
   );
