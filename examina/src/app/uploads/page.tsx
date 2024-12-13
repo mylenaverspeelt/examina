@@ -90,7 +90,7 @@ export default function Uploads() {
           <div key={pdf.id} style={{ cursor: 'pointer' }}>
             <Button
               variant="linkPDF"
-              icon={<PictureAsPdfIcon />}
+              icon={<PictureAsPdfIcon fontSize='large' />}
               label={pdf.fileName}
               onClick={() => handlePdfClick(pdf)}
               id={pdf.id}

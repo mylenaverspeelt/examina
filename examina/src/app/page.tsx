@@ -19,9 +19,9 @@ export default function Home() {
           <SearchBar />
         </div>
         <div className={styles.buttonDiv}>
-          <Button label="Adicionar um novo exame" href="/new" icon={<PostAddIcon />} variant="menuButton" />
-          <Button label="Ver exames armazenados" icon={<FolderCopyIcon />} href="/uploads" variant="menuButton" />
-          <Button label="Visualizar Distribuição" icon={<BarChartIcon />} href="/analytics" variant="menuButton" />
+          <Button label="Adicionar um novo exame" href="/new" icon={<PostAddIcon fontSize='large' />} variant="menuButton" />
+          <Button label="Ver exames armazenados" icon={<FolderCopyIcon fontSize='large' />} href="/uploads" variant="menuButton" />
+          <Button label="Visualizar Distribuição" icon={<BarChartIcon fontSize='large' />} href="/analytics" variant="menuButton" />
         </div>
       </section>
 
@@ -58,8 +58,8 @@ export default function Home() {
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-        <AddIcon sx={{ color: 'var(--teal)' }} />
-        {hovered && 'Novo Laudo'}
+        <AddIcon  fontSize='large' sx={{ color: 'var(--teal)' }} />
+        {hovered && <span className={styles.span}>Novo Laudo</span>}
       </Fab>
     </>
   );

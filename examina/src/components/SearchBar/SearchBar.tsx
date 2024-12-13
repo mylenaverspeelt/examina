@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import styles from './SearchBar.module.css';
 import Link from 'next/link';
-import SearchIcon from '@mui/icons-material/Search'; // Ícone de pesquisa do Material UI
+import SearchIcon from '@mui/icons-material/Search';
 import ErrorAlert from '../ErrorAlert/ErrorAlert';
 
 interface Patient {

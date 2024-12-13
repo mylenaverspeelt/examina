@@ -99,7 +99,7 @@ const FilePondUpload = () => {
         <div className={styles.buttonsDiv}>
           <Button
             label={'Exames Arquivados'}
-            icon={<FolderCopyIcon />}
+            icon={<FolderCopyIcon fontSize='large' />}
             href={'/uploads'}
             variant="link"
           />
