@@ -8,9 +8,11 @@ import SearchBar from '@/components/SearchBar/SearchBar';
 import { Fab } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const [hovered, setHovered] = useState(false);
+  const router = useRouter();
 
   return (
     <>
@@ -24,43 +26,54 @@ export default function Home() {
           <Button label="Visualizar Distribuição" icon={<BarChartIcon fontSize='large' />} href="/analytics" variant="menuButton" />
         </div>
       </section>
-
-      <Fab variant="extended"
+      <Fab
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        onClick={() => router.push('/new-report')}
         sx={{
           position: 'fixed',
           bottom: 40,
           right: 40,
-          padding: 2,
+          padding: hovered ? '0 1.5rem' : 0,
           fontWeight: 'bold',
           zIndex: 1000,
           textTransform: 'none',
-          width: 56, 
-          height: 56, 
-          backgroundColor: 'var(--light-gray)', 
-          color: 'var(--purple)', 
+          backgroundColor: 'var(--light-gray)',
+          color: 'var(--purple)',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          transition: 'box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease', // transições suaves
+          transition: 'all 0.3s ease',
+          width: hovered ? 'auto' : 56,
+          height: 56,
+          borderRadius: '28px',
+          boxShadow: 'var(--box-shadow)',
+          overflow: 'hidden',
           '&:hover': {
-            backgroundColor: 'var(--purple-hover)', 
+            backgroundColor: 'var(--purple-hover)',
             color: 'var(--white)',
-            transform: 'translateY(-4px)', 
-            width: 'auto',
-          },
-          '& .MuiFab-icon': {
-            marginRight: 5, 
-          },
-          '&:hover .MuiFab-icon': {
-            marginRight: 5, 
+            transform: 'translateY(-4px)',
           },
         }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
       >
-        <AddIcon  fontSize='large' sx={{ color: 'var(--teal)' }} />
-        {hovered && <span className={styles.span}>Novo Laudo</span>}
-      </Fab>
-    </>
-  );
+        <AddIcon
+          fontSize="large"
+          sx={{
+            color: 'var(--teal)',
+            marginRight: hovered ? 1 : 0,
+            transition: 'margin-right 0.3s ease',
+          }}
+        />
+        {hovered && (
+          <span
+            style={{
+              whiteSpace: 'nowrap',
+              fontSize: '1rem',
+              transition: 'opacity 0.3s ease',
+            }}
+          >
+            Novo Laudo
+          </span>
+        )}
+      </Fab></>)
 }
