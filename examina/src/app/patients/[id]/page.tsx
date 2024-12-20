@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState, useRef } from 'react';
-import { useRouter } from 'next/navigation';
-import ClipLoader from "react-spinners/ClipLoader";
+import { useRouter, useParams } from 'next/navigation';
+import ClipLoader from 'react-spinners/ClipLoader';
 import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -13,7 +13,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import styles from "./page.module.css";
+import styles from './page.module.css';
 import ErrorAlert from '@/components/ErrorAlert/ErrorAlert';
 
 ChartJS.register(
@@ -38,31 +38,36 @@ interface GlucoseRecord {
   result: number;
 }
 
-export default function PatientDetailPage({ params }: { params: { id: string } }) {
+export default function PatientDetailPage() {
   const [patient, setPatient] = useState<Patient | null>(null);
   const [glucoseRecords, setGlucoseRecords] = useState<GlucoseRecord[]>([]);
   const [loading, setLoading] = useState(true);
-  const chartRef = useRef(null);  // Ref para o gráfico
+  const chartRef = useRef(null);
   const router = useRouter();
+  const params = useParams();
 
   useEffect(() => {
     const fetchPatientAndGlucoseData = async () => {
       try {
+        if (!params || !params.id) {
+          throw new Error('Parâmetros inválidos');
+        }
+
         const response = await fetch(`/api/patients/${params.id}`);
         if (!response.ok) {
-          throw new Error("Paciente não encontrado");
+          throw new Error('Paciente não encontrado');
         }
         const data = await response.json();
         setPatient(data.patient);
 
         const glucoseResponse = await fetch(`/api/patients/${params.id}/glucoseRecords`);
         if (!glucoseResponse.ok) {
-          throw new Error("Erro ao buscar registros de glicose");
+          throw new Error('Erro ao buscar registros de glicose');
         }
         const glucoseData = await glucoseResponse.json();
         setGlucoseRecords(glucoseData.records);
-      } catch {
-        ErrorAlert({ message: "Erro ao buscar dados do paciente" });
+      } catch (error) {
+        ErrorAlert({ message: error.message || 'Erro ao buscar dados do paciente' });
         router.push('/');
       } finally {
         setLoading(false);
@@ -70,7 +75,7 @@ export default function PatientDetailPage({ params }: { params: { id: string } }
     };
 
     fetchPatientAndGlucoseData();
-  }, [params.id, router]);
+  }, [params, router]);
 
   if (loading) {
     return (
@@ -84,7 +89,6 @@ export default function PatientDetailPage({ params }: { params: { id: string } }
     return <div>Paciente não encontrado</div>;
   }
 
-  // montando o grafico
   const chartData = {
     labels: glucoseRecords.map(record => new Date(record.createdAt).toLocaleDateString()),
     datasets: [
@@ -97,7 +101,6 @@ export default function PatientDetailPage({ params }: { params: { id: string } }
     ],
   };
 
-  // opçoes do gráfico
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,

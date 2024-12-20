@@ -47,11 +47,8 @@
  *                   type: string
  *                   example: "Erro ao excluir PDF"
  */
-
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import prisma from '../../../../utils/prisma';
 
 export async function DELETE(req: NextRequest) {
   try {
@@ -68,7 +65,5 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json({ message: 'PDF excluído com sucesso' }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ message: 'Erro ao excluir PDF' }, { status: 500 });
-  } finally {
-    await prisma.$disconnect();
   }
 }

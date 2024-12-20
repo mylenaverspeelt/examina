@@ -43,22 +43,20 @@
  *                   description: Mensagem de erro
  *                   example: "Erro ao buscar PDFs: ..."
  */
-import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
+import { NextResponse, NextRequest } from 'next/server';
+import prisma from '../../../../utils/prisma';
 
-const prisma = new PrismaClient();
-
-export async function GET(req: any, res: any) {
+export async function GET(req: NextRequest) {
   try {
     const pdfs = await prisma.storage.findMany({
       select: {
         id: true,
         fileName: true,
         pdf: true,
-        createdAt: true, 
+        createdAt: true,
       },
       orderBy: {
-        createdAt: 'desc',  
+        createdAt: 'desc',
       },
     });
 
@@ -66,14 +64,11 @@ export async function GET(req: any, res: any) {
       id: pdf.id,
       fileName: pdf.fileName,
       base64Pdf: Buffer.from(pdf.pdf).toString('base64'),
-      createdAt: pdf.createdAt,  
+      createdAt: pdf.createdAt,
     }));
 
     return NextResponse.json(pdfsWithBase64);
   } catch (error) {
-    return NextResponse.json(
-      { error: "Erro ao buscar PDFs" }, 
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Erro ao buscar PDFs" }, { status: 500 });
   }
 }
