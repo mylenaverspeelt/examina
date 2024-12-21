@@ -1,87 +1,65 @@
-import { createMocks } from 'node-mocks-http';
+import { DELETE } from './route';
+import { NextRequest } from 'next/server';
+import { DeleteService } from '@/services/DeleteService/delete.service';
 
-const deleteMock = jest.fn();
-
-jest.mock('@prisma/client', () => ({
-  PrismaClient: jest.fn().mockImplementation(() => ({
-    storage: {
-      delete: deleteMock,
-    },
-    $disconnect: jest.fn(),
-  })),
+jest.mock('@/services/DeleteService/delete.service', () => ({
+  DeleteService: {
+    deletePDF: jest.fn(),
+  },
 }));
 
-const { DELETE } = require('./route');
+function createNextRequestMock(body: any, method = 'DELETE'): NextRequest {
+  const url = 'http://localhost/api/delete';
+  return {
+    method,
+    headers: new Headers(),
+    nextUrl: new URL(url),
+    json: async () => body,
+    cookies: {},
+    body: JSON.stringify(body),
+  } as unknown as NextRequest;
+}
 
 describe('DELETE /api/delete', () => {
   beforeEach(() => {
-    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
-  it('should delete a PDF successfully', async () => {
-    const { req, res } = createMocks({
-      method: 'DELETE',
-      body: { id: 1 },
-    });
+  it('deve excluir um PDF com sucesso', async () => {
+    const mockDeletePDF = DeleteService.deletePDF as jest.Mock;
+    mockDeletePDF.mockResolvedValueOnce('PDF excluído com sucesso');
 
-    req.json = jest.fn().mockResolvedValue({ id: 1 });
-    deleteMock.mockResolvedValue({});
+    const nextReq = createNextRequestMock({ id: 1 });
 
-    const response = await DELETE(req);
+    const response = await DELETE(nextReq);
 
     expect(response.status).toBe(200);
-
     const result = await response.json();
     expect(result).toEqual({ message: 'PDF excluído com sucesso' });
-    expect(deleteMock).toHaveBeenCalledWith({ where: { id: 1 } });
+    expect(mockDeletePDF).toHaveBeenCalledWith({ id: 1 });
   });
 
-  it('should return an error when ID is not provided', async () => {
-    const { req, res } = createMocks({
-      method: 'DELETE',
-      body: {},
-    });
+  it('deve retornar erro ao não fornecer ID', async () => {
+    const nextReq = createNextRequestMock({});
 
-    req.json = jest.fn().mockResolvedValue({});
-
-    const response = await DELETE(req);
+    const response = await DELETE(nextReq);
 
     expect(response.status).toBe(400);
-
     const result = await response.json();
     expect(result).toEqual({ message: 'ID é necessário' });
   });
 
-  it('should return an error when PDF deletion fails', async () => {
-    const { req, res } = createMocks({
-      method: 'DELETE',
-      body: { id: 1 },
-    });
+  it('deve retornar erro ao falhar na exclusão do PDF', async () => {
+    const mockDeletePDF = DeleteService.deletePDF as jest.Mock;
+    mockDeletePDF.mockRejectedValueOnce(new Error('Deletion failed'));
 
-    req.json = jest.fn().mockResolvedValue({ id: 1 });
-    deleteMock.mockRejectedValue(new Error('Deletion failed'));
+    const nextReq = createNextRequestMock({ id: 1 });
 
-    const response = await DELETE(req);
+    const response = await DELETE(nextReq);
 
-    expect(response.status).toBe(500);
-
-    const result = await response.json();
-    expect(result).toEqual({ message: 'Erro ao excluir PDF' });
-  });
-
-  it('should return error 500 in case of connection failure', async () => {
-    const { req, res } = createMocks({
-      method: 'DELETE',
-      body: { id: 1 },
-    });
-  
-    req.json = jest.fn().mockResolvedValue({ id: 1 });
-    deleteMock.mockRejectedValueOnce(new Error('Database connection failed'));
-  
-    const response = await DELETE(req);
-  
     expect(response.status).toBe(500);
     const result = await response.json();
     expect(result).toEqual({ message: 'Erro ao excluir PDF' });
+    expect(mockDeletePDF).toHaveBeenCalledWith({ id: 1 });
   });
 });

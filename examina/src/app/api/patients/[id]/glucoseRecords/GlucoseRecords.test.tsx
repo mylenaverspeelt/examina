@@ -1,29 +1,24 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
+import { PatientIdGlucoseService } from '@/services/PatientIdGlucose/patientIdGlucose.service';
 
-const findManyMock = jest.fn();
-
-jest.mock('@prisma/client', () => ({
-  PrismaClient: jest.fn().mockImplementation(() => ({
-    glucose: {
-      findMany: findManyMock,
-    },
-  })),
+jest.mock('@/services/PatientIdGlucose/patientIdGlucose.service', () => ({
+  PatientIdGlucoseService: {
+    getGlucoseRecordsByPatientId: jest.fn(),
+  },
 }));
 
 const { GET } = require('./route');
 
 describe('GET /api/glucose/[id]', () => {
   beforeEach(() => {
-    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
-  it('should return 500 if an error occurs when querying the glucose records', async () => {
-    const mockRequest = {
-      url: 'http://localhost/api/glucose/1',
-    } as NextRequest;
+  it('deve retornar 500 se ocorrer um erro ao buscar registros de glicose', async () => {
+    const mockRequest = { url: 'http://localhost/api/glucose/1' } as NextRequest;
 
-    // Simulando erro ao consultar os registros de glicose
-    findManyMock.mockRejectedValue(new Error('Database error'));
+    const mockService = PatientIdGlucoseService.getGlucoseRecordsByPatientId as jest.Mock;
+    mockService.mockRejectedValue(new Error('Database error'));
 
     const response = await GET(mockRequest, { params: { id: '1' } });
 
@@ -31,34 +26,30 @@ describe('GET /api/glucose/[id]', () => {
     expect(await response.json()).toEqual({ error: 'Erro ao buscar registros de glicose' });
   });
 
-  it('should return 200 and a list of glucose records if records are found', async () => {
-    const mockRequest = {
-      url: 'http://localhost/api/glucose/1',
-    } as NextRequest;
+  it('deve retornar 200 e uma lista de registros de glicose se encontrados', async () => {
+    const mockRequest = { url: 'http://localhost/api/glucose/1' } as NextRequest;
 
-    findManyMock.mockResolvedValue([
+    const mockRecords = [
       { createdAt: '2024-01-01T00:00:00.000Z', result: 120 },
       { createdAt: '2024-02-01T00:00:00.000Z', result: 130 },
-    ]);
+    ];
+
+    const mockService = PatientIdGlucoseService.getGlucoseRecordsByPatientId as jest.Mock;
+    mockService.mockResolvedValue({ records: mockRecords });
 
     const response = await GET(mockRequest, { params: { id: '1' } });
 
     expect(response.status).toBe(200);
     expect(await response.json()).toEqual({
-      records: [
-        { createdAt: '2024-01-01T00:00:00.000Z', result: 120 },
-        { createdAt: '2024-02-01T00:00:00.000Z', result: 130 },
-      ],
+      records: mockRecords,
     });
   });
 
-  it('should return an empty list if no glucose records are found for the patient', async () => {
-    const mockRequest = {
-      url: 'http://localhost/api/glucose/1',
-    } as NextRequest;
+  it('deve retornar uma lista vazia se não houver registros de glicose para o paciente', async () => {
+    const mockRequest = { url: 'http://localhost/api/glucose/1' } as NextRequest;
 
-    // Simulando que não há registros de glicose para o paciente
-    findManyMock.mockResolvedValue([]);
+    const mockService = PatientIdGlucoseService.getGlucoseRecordsByPatientId as jest.Mock;
+    mockService.mockResolvedValue({ records: [] });
 
     const response = await GET(mockRequest, { params: { id: '1' } });
 
@@ -66,21 +57,23 @@ describe('GET /api/glucose/[id]', () => {
     expect(await response.json()).toEqual({ records: [] });
   });
 
-  it('should return glucose records with correct structure', async () => {
+  it('deve retornar registros de glicose com a estrutura correta', async () => {
     const mockRequest = { url: 'http://localhost/api/glucose/1' } as NextRequest;
-  
-    findManyMock.mockResolvedValue([
+
+    const mockRecords = [
       { createdAt: '2024-01-01T00:00:00.000Z', result: 120 },
       { createdAt: '2024-02-01T00:00:00.000Z', result: 130 },
-    ]);
-  
+    ];
+
+    const mockService = PatientIdGlucoseService.getGlucoseRecordsByPatientId as jest.Mock;
+    mockService.mockResolvedValue({ records: mockRecords });
+
     const response = await GET(mockRequest, { params: { id: '1' } });
     const result = await response.json();
-  
+
     result.records.forEach((record: any) => {
-      expect(typeof record.createdAt).toBe('string');
+      expect(typeof record.createdAt).toBe('string'); 
       expect(typeof record.result).toBe('number');
     });
   });
-  
 });

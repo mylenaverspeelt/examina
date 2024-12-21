@@ -44,7 +44,7 @@
  *                   example: "Erro ao buscar PDFs: ..."
  */
 import { NextResponse, NextRequest } from 'next/server';
-import prisma from '../../../../utils/prisma';
+import prisma from '../../../utils/prisma';
 
 export async function GET(req: NextRequest) {
   try {

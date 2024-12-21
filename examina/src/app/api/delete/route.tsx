@@ -48,7 +48,7 @@
  *                   example: "Erro ao excluir PDF"
  */
 import { NextRequest, NextResponse } from 'next/server';
-import prisma from '../../../../utils/prisma';
+import { DeleteService } from '@/services/DeleteService/delete.service';
 
 export async function DELETE(req: NextRequest) {
   try {
@@ -58,11 +58,8 @@ export async function DELETE(req: NextRequest) {
       return NextResponse.json({ message: 'ID é necessário' }, { status: 400 });
     }
 
-    await prisma.storage.delete({
-      where: { id: Number(id) },
-    });
-
-    return NextResponse.json({ message: 'PDF excluído com sucesso' }, { status: 200 });
+    const message = await DeleteService.deletePDF({ id: Number(id) });
+    return NextResponse.json({ message }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ message: 'Erro ao excluir PDF' }, { status: 500 });
   }
