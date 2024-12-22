@@ -5,7 +5,7 @@ const nextConfig = {
     serverComponentsExternalPackages: ['pdf2json'],
   },
   images: {
-    domains: ['seus-dominios-aqui'],
+    domains: ['https://examina.vercel.app/'],
   },
   output: 'standalone',
 };
