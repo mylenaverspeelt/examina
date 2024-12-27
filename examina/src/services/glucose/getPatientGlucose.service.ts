@@ -19,7 +19,7 @@
  *                 type: string
  *                 example: "Erro ao buscar registros de glicose"
  */
-import prisma from '@/utils/prisma';
+import prisma from '@/utils/prisma/prisma';
 import { GlucoseRecordsResponseDTO, GlucoseRecordDTO } from '@/dto/glucose/patientIdGlucose.dto';
 
 export class PatientIdGlucoseService {

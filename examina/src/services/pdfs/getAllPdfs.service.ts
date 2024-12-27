@@ -22,7 +22,7 @@
  *                 example: "Erro ao buscar PDFs"
  */
 
-import prisma from '@/utils/prisma';
+import prisma from '@/utils/prisma/prisma';
 import { GetAllPdfsDTO } from '@/dto/pdfs/getAllPdfs.dto';
 
 export class PdfService {

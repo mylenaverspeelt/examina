@@ -19,7 +19,7 @@
  *                 type: string
  *                 example: "Erro ao buscar pacientes"
  */
-import prisma from '@/utils/prisma';
+import prisma from '@/utils/prisma/prisma';
 import { PatientSearchResponseDTO } from '@/dto/patients/patient.dto';
 
 export class PatientService {

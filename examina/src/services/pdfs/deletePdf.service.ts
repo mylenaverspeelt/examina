@@ -24,7 +24,7 @@
  *                 example: "Erro ao excluir PDF"
  */
 
-import prisma from '@/utils/prisma';
+import prisma from '@/utils/prisma/prisma';
 import { DeleteDTO } from '@/dto/pdfs/deletePdf.dto';
 
 export class DeleteService {

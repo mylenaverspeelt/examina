@@ -19,9 +19,10 @@ describe('POST /api/uploadPdf', () => {
     } as NextRequest;
 
     const response = await POST(mockRequest);
+    const responseBody = await response.json();
 
     expect(response.status).toBe(400);
-    expect(await response.json()).toEqual({
+    expect(responseBody).toEqual({
       success: false,
       message: 'Formato inválido. Esperado multipart/form-data',
     });
@@ -34,9 +35,10 @@ describe('POST /api/uploadPdf', () => {
     } as unknown as NextRequest;
 
     const response = await POST(mockRequest);
+    const responseBody = await response.json();
 
     expect(response.status).toBe(400);
-    expect(await response.json()).toEqual({
+    expect(responseBody).toEqual({
       success: false,
       message: 'Arquivo não enviado ou formato inválido',
     });
@@ -44,7 +46,6 @@ describe('POST /api/uploadPdf', () => {
 
   it('deve retornar sucesso 200 ao processar um PDF válido', async () => {
     const mockFile = new File(['test-content'], 'test.pdf', { type: 'application/pdf' });
-
     const mockFormData = new FormData();
     mockFormData.append('file', mockFile);
 
@@ -53,25 +54,24 @@ describe('POST /api/uploadPdf', () => {
       formData: async () => mockFormData,
     } as unknown as NextRequest;
 
-    const mockProcessPdf = UploadPdfService.processPdf as jest.Mock;
-    mockProcessPdf.mockResolvedValue({
+    (UploadPdfService.processPdf as jest.Mock).mockResolvedValue({
       success: true,
       message: 'Arquivo enviado e processado com sucesso!',
     });
 
     const response = await POST(mockRequest);
+    const responseBody = await response.json();
 
     expect(response.status).toBe(200);
-    expect(await response.json()).toEqual({
+    expect(responseBody).toEqual({
       success: true,
       message: 'Arquivo enviado e processado com sucesso!',
     });
-    expect(mockProcessPdf).toHaveBeenCalledWith('test.pdf', expect.any(Buffer));
+    expect(UploadPdfService.processPdf).toHaveBeenCalledWith('test.pdf', expect.any(Buffer));
   });
 
   it('deve retornar erro 500 se o serviço falhar', async () => {
     const mockFile = new File(['test-content'], 'test.pdf', { type: 'application/pdf' });
-
     const mockFormData = new FormData();
     mockFormData.append('file', mockFile);
 
@@ -80,16 +80,39 @@ describe('POST /api/uploadPdf', () => {
       formData: async () => mockFormData,
     } as unknown as NextRequest;
 
-    const mockProcessPdf = UploadPdfService.processPdf as jest.Mock;
-    mockProcessPdf.mockRejectedValue(new Error('Erro ao processar o PDF'));
+    const error = new Error('Erro ao processar o PDF');
+    (UploadPdfService.processPdf as jest.Mock).mockRejectedValue(error);
 
     const response = await POST(mockRequest);
+    const responseBody = await response.json();
 
     expect(response.status).toBe(500);
-    expect(await response.json()).toEqual({
+    expect(responseBody).toEqual({
       success: false,
       message: 'Erro interno do servidor',
       details: 'Erro ao processar o PDF',
+    });
+  });
+
+  it('deve retornar erro 500 para erros desconhecidos', async () => {
+    const mockFile = new File(['test-content'], 'test.pdf', { type: 'application/pdf' });
+    const mockFormData = new FormData();
+    mockFormData.append('file', mockFile);
+
+    const mockRequest = {
+      headers: new Headers({ 'content-type': 'multipart/form-data' }),
+      formData: async () => mockFormData,
+    } as unknown as NextRequest;
+
+    (UploadPdfService.processPdf as jest.Mock).mockRejectedValue('Erro desconhecido');
+
+    const response = await POST(mockRequest);
+    const responseBody = await response.json();
+
+    expect(response.status).toBe(500);
+    expect(responseBody).toEqual({
+      success: false,
+      message: 'Erro desconhecido ao processar o PDF',
     });
   });
 });

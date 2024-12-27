@@ -15,7 +15,7 @@
  *           schema:
  *             $ref: '#/components/schemas/PdfUploadErrorResponse'
  */
-import prisma from '@/utils/prisma';
+import prisma from '@/utils/prisma/prisma';
 import PDFParser from 'pdf2json';
 import { convertToText } from '@/utils/convertToText';
 import { PdfUploadResponse } from '@/dto/pdfs/uploadPdf.dto';

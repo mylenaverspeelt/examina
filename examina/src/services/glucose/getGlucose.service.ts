@@ -15,7 +15,7 @@
  *         description: Erro interno do servidor
  */
 
-import prisma from '@/utils/prisma';
+import prisma from '@/utils/prisma/prisma';
 import { GlucoseDTO } from '@/dto/glucose/glucose.dto';
 
 export class GlucoseService {
