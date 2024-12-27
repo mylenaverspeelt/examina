@@ -16,7 +16,7 @@
  */
 
 import prisma from '@/utils/prisma';
-import { GlucoseDTO } from '@/types/glucose.dto';
+import { GlucoseDTO } from '@/dto/glucose/glucose.dto';
 
 export class GlucoseService {
   static async getGlucoseCounts(): Promise<GlucoseDTO> {

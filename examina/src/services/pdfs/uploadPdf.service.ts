@@ -18,7 +18,7 @@
 import prisma from '@/utils/prisma';
 import PDFParser from 'pdf2json';
 import { convertToText } from '@/utils/convertToText';
-import { PdfUploadResponse } from '@/types/uploadPdf.dto';
+import { PdfUploadResponse } from '@/dto/pdfs/uploadPdf.dto';
 
 export class UploadPdfService {
   static async processPdf(fileName: string, fileBuffer: Buffer): Promise<PdfUploadResponse> {

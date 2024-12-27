@@ -48,7 +48,7 @@
  *                   example: "Erro ao excluir PDF"
  */
 import { NextRequest, NextResponse } from 'next/server';
-import { DeleteService } from '@/services/DeleteService/delete.service';
+import { DeleteService } from '@/services/pdfs/deletePdf.service';
 
 export async function DELETE(req: NextRequest) {
   try {
@@ -61,6 +61,6 @@ export async function DELETE(req: NextRequest) {
     const message = await DeleteService.deletePDF({ id: Number(id) });
     return NextResponse.json({ message }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ message: 'Erro ao excluir PDF' }, { status: 500 });
+    return NextResponse.json({ message: 'Erro ao excluir PDF' + error }, { status: 500 });
   }
 }

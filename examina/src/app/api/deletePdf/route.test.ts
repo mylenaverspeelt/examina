@@ -1,8 +1,8 @@
 import { DELETE } from './route';
 import { NextRequest } from 'next/server';
-import { DeleteService } from '@/services/DeleteService/delete.service';
+import { DeleteService } from '@/services/pdfs/deletePdf.service';
 
-jest.mock('@/services/DeleteService/delete.service', () => ({
+jest.mock('@/services/pdfs/deletePdf.service.ts', () => ({
   DeleteService: {
     deletePDF: jest.fn(),
   },
@@ -59,7 +59,7 @@ describe('DELETE /api/delete', () => {
 
     expect(response.status).toBe(500);
     const result = await response.json();
-    expect(result).toEqual({ message: 'Erro ao excluir PDF' });
+    expect(result).toEqual({ message: 'Erro ao excluir PDFError: Deletion failed' });
     expect(mockDeletePDF).toHaveBeenCalledWith({ id: 1 });
   });
 });

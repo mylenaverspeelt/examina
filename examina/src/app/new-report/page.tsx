@@ -3,11 +3,11 @@ import { useState } from 'react';
 import styles from './page.module.css';
 
 export default function NewReport() {
-  const [formData, setFormData] = useState({
-    nome: '',
-    dataNascimento: '',
-    glicose: '',
-  });
+  // const [formData, setFormData] = useState({
+  //   nome: '',
+  //   dataNascimento: '',
+  //   glicose: '',
+  // });
 
 
 

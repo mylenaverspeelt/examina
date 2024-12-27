@@ -2,8 +2,9 @@
   "compilerOptions": {
     "target": "esnext",
     "lib": [
+      "dom",
       "esnext"
-    ],
+    ], 
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -35,10 +36,10 @@
     "next-env.d.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
-    ".next/types/**/*.ts",
-    "jest.setup.js"
+    ".next/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    ".next"
   ]
 }

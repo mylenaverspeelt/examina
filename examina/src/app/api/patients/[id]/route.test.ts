@@ -33,7 +33,7 @@ describe('GET /api/patients/[id]', () => {
       url: 'http://localhost/api/patients/999',
     } as NextRequest;
 
-    findUniqueMock.mockResolvedValue(null); // Simulando que o paciente não foi encontrado
+    findUniqueMock.mockResolvedValue(null); 
 
     const response = await GET(mockRequest, { params: { id: '999' } });
 
@@ -46,12 +46,12 @@ describe('GET /api/patients/[id]', () => {
       url: 'http://localhost/api/patients/1',
     } as NextRequest;
 
-    findUniqueMock.mockRejectedValue(new Error('Database error')); // Simulando erro no banco de dados
+    findUniqueMock.mockRejectedValue(new Error('Database error')); 
 
     const response = await GET(mockRequest, { params: { id: '1' } });
 
     expect(response.status).toBe(500);
-    expect(await response.json()).toEqual({ error: 'Erro ao buscar paciente' });
+    expect(await response.json()).toEqual({ error: 'Erro ao buscar pacienteError: Database error' });
   });
 
   it('should return patient with correct structure', async () => {

@@ -25,7 +25,7 @@
  */
 
 import prisma from '@/utils/prisma';
-import { DeleteDTO } from '@/types/delete.dto';
+import { DeleteDTO } from '@/dto/pdfs/deletePdf.dto';
 
 export class DeleteService {
   static async deletePDF(data: DeleteDTO): Promise<string> {

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { PatientService } from '@/services/PatientService/patient.service';
+import { PatientService } from '@/services/patients/getPatients.service';
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -13,6 +13,6 @@ export async function GET(req: NextRequest) {
     const response = await PatientService.searchPatients(query);
     return NextResponse.json(response);
   } catch (error) {
-    return NextResponse.json({ error: 'Erro ao buscar pacientes' }, { status: 500 });
+    return NextResponse.json({ error: 'Erro ao buscar pacientes' + error }, { status: 500 });
   }
 }

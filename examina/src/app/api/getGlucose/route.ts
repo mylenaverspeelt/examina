@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { GlucoseService } from '@/services/GlucoseService/glucose.service';
+import { GlucoseService } from '@/services/glucose/getGlucose.service';
 
 export async function GET() {
   try {
@@ -7,7 +7,7 @@ export async function GET() {
     return NextResponse.json(counts);
   } catch (error) {
     return NextResponse.json(
-      { error: 'Erro ao buscar os resultados de glicose' }, 
+      { error: 'Erro ao buscar os resultados de glicose' + error }, 
       { status: 500 }
     );
   }

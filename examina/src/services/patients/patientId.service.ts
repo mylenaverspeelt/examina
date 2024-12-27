@@ -20,7 +20,7 @@
  *                 example: "Erro ao buscar paciente"
  */
 import prisma from '@/utils/prisma';
-import { PatientDetailsDTO } from '@/types/patientId.dto';
+import { PatientDetailsDTO } from '@/dto/patients/patientId.dto';
 
 export class PatientIdService {
   static async getPatientById(id: number): Promise<PatientDetailsDTO | null> {

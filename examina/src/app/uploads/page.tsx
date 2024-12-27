@@ -21,7 +21,7 @@ export default function Uploads() {
   const fetchPdfs = async () => {
     setLoading(true);
     try {
-      const response = await fetch('/api/getAll');
+      const response = await fetch('/api/getAllPdfs');
       const data: Pdf[] = await response.json();
       
       // Ordena os PDFs pela data de envio (createdAt), do mais recente para o mais antigo

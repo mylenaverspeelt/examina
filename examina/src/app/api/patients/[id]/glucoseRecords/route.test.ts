@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server';
-import { PatientIdGlucoseService } from '@/services/PatientIdGlucose/patientIdGlucose.service';
+import { PatientIdGlucoseService } from '@/services/glucose/getPatientGlucose.service';
 
-jest.mock('@/services/PatientIdGlucose/patientIdGlucose.service', () => ({
+jest.mock('@/services/glucose/getPatientGlucose.service', () => ({
   PatientIdGlucoseService: {
     getGlucoseRecordsByPatientId: jest.fn(),
   },
@@ -23,7 +23,7 @@ describe('GET /api/glucose/[id]', () => {
     const response = await GET(mockRequest, { params: { id: '1' } });
 
     expect(response.status).toBe(500);
-    expect(await response.json()).toEqual({ error: 'Erro ao buscar registros de glicose' });
+    expect(await response.json()).toEqual({ error: 'Erro ao buscar registros de glicoseError: Database error' });
   });
 
   it('deve retornar 200 e uma lista de registros de glicose se encontrados', async () => {

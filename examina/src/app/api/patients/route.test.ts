@@ -39,7 +39,7 @@ describe('GET /api/patients', () => {
     const response = await GET(mockRequest);
 
     expect(response.status).toBe(500);
-    expect(await response.json()).toEqual({ error: 'Erro ao buscar pacientes' });
+    expect(await response.json()).toEqual({ "error": "Erro ao buscar pacientesError: Database error" });
   });
 
   it('should return a list of patients if query is valid', async () => {

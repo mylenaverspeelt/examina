@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { UploadPdfService } from '@/services/UploadService/uploadPdf.service';
+import { UploadPdfService } from '@/services/pdfs/uploadPdf.service';
 
 export const config = {
   api: {

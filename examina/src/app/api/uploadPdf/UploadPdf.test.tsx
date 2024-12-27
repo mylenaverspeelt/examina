@@ -1,8 +1,8 @@
 import { POST } from './route';
-import { UploadPdfService } from '@/services/UploadService/uploadPdf.service';
+import { UploadPdfService } from '@/services/pdfs/uploadPdf.service';
 import { NextRequest } from 'next/server';
 
-jest.mock('@/services/UploadService/uploadPdf.service', () => ({
+jest.mock('@/services/pdfs/uploadPdf.service.ts', () => ({
   UploadPdfService: {
     processPdf: jest.fn(),
   },

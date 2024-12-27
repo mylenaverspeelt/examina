@@ -1,11 +1,9 @@
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
-  experimental: {
-    serverComponentsExternalPackages: ['pdf2json'],
-  },
+  experimental: {}, 
+  serverExternalPackages: ['pdf2json'], 
   images: {
-    domains: ['https://examina.vercel.app/'],
+    domains: ['https://examina.vercel.app/'], 
   },
   output: 'standalone',
 };
