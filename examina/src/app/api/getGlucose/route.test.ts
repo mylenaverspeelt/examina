@@ -23,7 +23,7 @@ describe('GET /api/getGlucose', () => {
       { result: 105 },
       { result: 130 },
       { result: 90 },
-      { result: 140 }
+      { result: 140 },
     ];
 
     findManyMock.mockResolvedValue(glucoseMock);
@@ -39,7 +39,7 @@ describe('GET /api/getGlucose', () => {
     expect(result).toEqual({
       normalCount: 2,
       preDiabetesCount: 1,
-      diabetesCount: 2
+      diabetesCount: 2,
     });
   });
 
@@ -49,7 +49,7 @@ describe('GET /api/getGlucose', () => {
       { result: 100 },
       { result: 125 },
       { result: 126 },
-      { result: 150 }
+      { result: 150 },
     ];
 
     findManyMock.mockResolvedValue(glucoseMock);
@@ -61,12 +61,10 @@ describe('GET /api/getGlucose', () => {
     const response = await GET(req, res);
     const result = await response.json();
 
-    expect(result.normalCount).toBe(glucoseMock.filter(g => g.result <= 99).length);
-    expect(result.preDiabetesCount).toBe(glucoseMock.filter(g => g.result >= 100 && g.result <= 125).length);
-    expect(result.diabetesCount).toBe(glucoseMock.filter(g => g.result >= 126).length);
-
+    expect(result.normalCount).toBe(glucoseMock.filter((g) => g.result <= 99).length);
+    expect(result.preDiabetesCount).toBe(glucoseMock.filter((g) => g.result >= 100 && g.result <= 125).length);
+    expect(result.diabetesCount).toBe(glucoseMock.filter((g) => g.result >= 126).length);
   });
-
 
   it('should return an error if failed to fetch glucose results', async () => {
     findManyMock.mockRejectedValue(new Error('Database error'));
@@ -81,5 +79,4 @@ describe('GET /api/getGlucose', () => {
     const result = await response.json();
     expect(result.error).toContain('Erro ao buscar os resultados de glicose');
   });
-
 });

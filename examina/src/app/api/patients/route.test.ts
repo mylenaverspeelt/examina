@@ -33,7 +33,6 @@ describe('GET /api/patients', () => {
       url: 'http://localhost/api/patients?query=John',
     } as NextRequest;
 
-
     findManyMock.mockRejectedValue(new Error('Database error'));
 
     const response = await GET(mockRequest);
@@ -81,7 +80,6 @@ describe('GET /api/patients', () => {
     expect(result.patients[0]).toHaveProperty('name');
   });
 
-
   it('should return patients matching partial name search', async () => {
     const mockRequest = {
       url: 'http://localhost/api/patients?query=Joh',
@@ -102,6 +100,7 @@ describe('GET /api/patients', () => {
       ],
     });
   });
+
   it('should return 400 if query parameter is empty', async () => {
     const mockRequest = {
       url: 'http://localhost/api/patients?query=',
@@ -129,5 +128,4 @@ describe('GET /api/patients', () => {
       patients: [{ id: 1, name: 'John@Doe' }],
     });
   });
-
 });

@@ -33,7 +33,7 @@ describe('GET /api/patients/[id]', () => {
       url: 'http://localhost/api/patients/999',
     } as NextRequest;
 
-    findUniqueMock.mockResolvedValue(null); 
+    findUniqueMock.mockResolvedValue(null);
 
     const response = await GET(mockRequest, { params: { id: '999' } });
 
@@ -46,7 +46,7 @@ describe('GET /api/patients/[id]', () => {
       url: 'http://localhost/api/patients/1',
     } as NextRequest;
 
-    findUniqueMock.mockRejectedValue(new Error('Database error')); 
+    findUniqueMock.mockRejectedValue(new Error('Database error'));
 
     const response = await GET(mockRequest, { params: { id: '1' } });
 
@@ -58,17 +58,17 @@ describe('GET /api/patients/[id]', () => {
     const mockRequest = {
       url: 'http://localhost/api/patients/1',
     } as NextRequest;
-  
-    findUniqueMock.mockResolvedValue({ 
+
+    findUniqueMock.mockResolvedValue({
       id: 1,
       name: 'João da Silva',
       age: 45,
       birthDate: '1978-05-15',
     });
-  
+
     const response = await GET(mockRequest, { params: { id: '1' } });
     const result = await response.json();
-  
+
     expect(result.patient).toHaveProperty('id');
     expect(result.patient).toHaveProperty('name');
     expect(result.patient).toHaveProperty('age');
@@ -76,5 +76,4 @@ describe('GET /api/patients/[id]', () => {
     expect(typeof result.patient.age).toBe('number');
     expect(typeof result.patient.birthDate).toBe('string');
   });
-  
 });

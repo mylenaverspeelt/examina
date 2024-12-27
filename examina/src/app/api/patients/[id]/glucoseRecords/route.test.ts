@@ -14,7 +14,7 @@ describe('GET /api/glucose/[id]', () => {
     jest.clearAllMocks();
   });
 
-  it('deve retornar 400 se o ID for inválido', async () => {
+  it('should return 400 if ID is invalid', async () => {
     const mockRequest = { url: 'http://localhost/api/glucose/invalid' } as NextRequest;
     const response = await GET(mockRequest, { params: { id: 'invalid' } });
 
@@ -24,7 +24,7 @@ describe('GET /api/glucose/[id]', () => {
     });
   });
 
-  it('deve retornar 400 se o ID estiver faltando', async () => {
+  it('should return 400 if ID is missing', async () => {
     const mockRequest = { url: 'http://localhost/api/glucose/' } as NextRequest;
     const response = await GET(mockRequest, { params: { id: '' } });
 
@@ -34,7 +34,7 @@ describe('GET /api/glucose/[id]', () => {
     });
   });
 
-  it('deve retornar 404 se nenhum registro for encontrado', async () => {
+  it('should return 404 if no records are found', async () => {
     const mockRequest = { url: 'http://localhost/api/glucose/1' } as NextRequest;
     const mockService = PatientIdGlucoseService.getGlucoseRecordsByPatientId as jest.Mock;
     mockService.mockResolvedValue(null);
@@ -47,7 +47,7 @@ describe('GET /api/glucose/[id]', () => {
     });
   });
 
-  it('deve retornar 500 se ocorrer um erro no servidor', async () => {
+  it('should return 500 if an error occurs on the server', async () => {
     const mockRequest = { url: 'http://localhost/api/glucose/1' } as NextRequest;
     const mockService = PatientIdGlucoseService.getGlucoseRecordsByPatientId as jest.Mock;
     mockService.mockRejectedValue(new Error('Database error'));
@@ -60,7 +60,7 @@ describe('GET /api/glucose/[id]', () => {
     });
   });
 
-  it('deve retornar 200 com registros de glicose válidos', async () => {
+  it('should return 200 with valid glucose records', async () => {
     const mockRequest = { url: 'http://localhost/api/glucose/1' } as NextRequest;
     const mockRecords = {
       records: [
@@ -80,7 +80,7 @@ describe('GET /api/glucose/[id]', () => {
     expect(mockService).toHaveBeenCalledWith(1);
   });
 
-  it('deve validar a estrutura dos registros de glicose', async () => {
+  it('should validate the structure of glucose records', async () => {
     const mockRequest = { url: 'http://localhost/api/glucose/1' } as NextRequest;
     const mockRecords = {
       records: [

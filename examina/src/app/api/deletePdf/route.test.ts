@@ -25,7 +25,7 @@ describe('DELETE /api/delete', () => {
     jest.clearAllMocks();
   });
 
-  it('deve excluir um PDF com sucesso', async () => {
+  it('should delete a PDF successfully', async () => { 
     const mockDeletePDF = DeleteService.deletePDF as jest.Mock;
     mockDeletePDF.mockResolvedValueOnce('PDF excluído com sucesso');
 
@@ -39,7 +39,7 @@ describe('DELETE /api/delete', () => {
     expect(mockDeletePDF).toHaveBeenCalledWith({ id: 1 });
   });
 
-  it('deve retornar erro ao não fornecer ID', async () => {
+  it('should return an error if no ID is provided', async () => {
     const nextReq = createNextRequestMock({});
 
     const response = await DELETE(nextReq);
@@ -49,7 +49,7 @@ describe('DELETE /api/delete', () => {
     expect(result).toEqual({ message: 'ID é necessário' });
   });
 
-  it('deve retornar erro ao falhar na exclusão do PDF', async () => {
+  it('should return an error if PDF deletion fails', async () => {
     const mockDeletePDF = DeleteService.deletePDF as jest.Mock;
     mockDeletePDF.mockRejectedValueOnce(new Error('Deletion failed'));
 

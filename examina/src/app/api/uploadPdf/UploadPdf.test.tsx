@@ -13,7 +13,7 @@ describe('POST /api/uploadPdf', () => {
     jest.clearAllMocks();
   });
 
-  it('deve retornar erro 400 se o conteúdo não for multipart/form-data', async () => {
+  it('should return 400 error if content-type is not multipart/form-data', async () => {
     const mockRequest = {
       headers: new Headers({ 'content-type': 'application/json' }),
     } as NextRequest;
@@ -28,7 +28,7 @@ describe('POST /api/uploadPdf', () => {
     });
   });
 
-  it('deve retornar erro 400 se nenhum arquivo for enviado', async () => {
+  it('should return 400 error if no file is sent', async () => {
     const mockRequest = {
       headers: new Headers({ 'content-type': 'multipart/form-data' }),
       formData: async () => new FormData(),
@@ -44,7 +44,7 @@ describe('POST /api/uploadPdf', () => {
     });
   });
 
-  it('deve retornar sucesso 200 ao processar um PDF válido', async () => {
+  it('should return 200 success upon processing a valid PDF', async () => {
     const mockFile = new File(['test-content'], 'test.pdf', { type: 'application/pdf' });
     const mockFormData = new FormData();
     mockFormData.append('file', mockFile);
@@ -70,7 +70,7 @@ describe('POST /api/uploadPdf', () => {
     expect(UploadPdfService.processPdf).toHaveBeenCalledWith('test.pdf', expect.any(Buffer));
   });
 
-  it('deve retornar erro 500 se o serviço falhar', async () => {
+  it('should return 500 error if the service fails', async () => {
     const mockFile = new File(['test-content'], 'test.pdf', { type: 'application/pdf' });
     const mockFormData = new FormData();
     mockFormData.append('file', mockFile);
@@ -94,7 +94,7 @@ describe('POST /api/uploadPdf', () => {
     });
   });
 
-  it('deve retornar erro 500 para erros desconhecidos', async () => {
+  it('should return 500 error for unknown errors', async () => {
     const mockFile = new File(['test-content'], 'test.pdf', { type: 'application/pdf' });
     const mockFormData = new FormData();
     mockFormData.append('file', mockFile);
