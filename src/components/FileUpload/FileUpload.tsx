@@ -48,7 +48,7 @@ const FilePondUpload: React.FC = () => {
             const controller = new AbortController();
             const signal = controller.signal;
 
-            fetch('/api/upload', {
+            fetch('/api/uploadPdf', {
               method: 'POST',
               body: formData,
               signal,
