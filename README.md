@@ -16,11 +16,12 @@ Examina é uma plataforma desenvolvida para facilitar o armazenamento e recupera
 - **SweetAlert2** para exibição de alertas amigáveis.
 - **React-Chartjs-2** para geração de gráficos dinâmicos.
 - **PDF2JSON** para extração de dados dos PDFs.
-- **Prisma** para modelagem e interação com o banco de dados PostgreSQL.
+- **Prisma** para modelagem e interação com o banco de dados.
 - **UUID** para geração de identificadores únicos.
 - **Jest** para testes unitários.
-- **Vercel** para deploy contínuo e hospedagem do projeto
+- **Vercel** para deploy contínuo e hospedagem do projeto.
 - **GitHub Actions** para automação utilizado para realizar fluxo de integração contínua (CI). 
+- **PostgreSQL**: Hospedado no [Neon](https://console.neon.tech/app/projects).
 
 ## Instalação e Uso
 
