@@ -5,10 +5,12 @@ on:
     branches:
       - main
   pull_request:
+    branches:
+      - main
 
 jobs:
-  pre-push:
-    name: Run Jest Tests on Push
+  test:
+    name: Run Jest Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -23,12 +25,15 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Prisma Generate
+        run: npx prisma generate
+
       - name: Run tests
         run: npm run test:ci
 
   deploy:
     name: Deploy to Vercel
-    needs: pre-push
+    needs: test
     runs-on: ubuntu-latest
     if: success()
 
