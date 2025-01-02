@@ -5,7 +5,7 @@ export async function GET() {
   try {
     const counts = await GlucoseService.getGlucoseCounts();
     return NextResponse.json(counts);
-  } catch (error) {
+  } catch (error:unknown) {
     return NextResponse.json(
       { error: 'Erro ao buscar os resultados de glicose' + error }, 
       { status: 500 }

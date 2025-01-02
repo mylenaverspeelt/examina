@@ -67,7 +67,7 @@ export default function PatientDetailPage() {
         const glucoseData = await glucoseResponse.json();
         setGlucoseRecords(glucoseData.records);
       } catch (error) {
-        ErrorAlert({ message: error.message || 'Erro ao buscar dados do paciente' });
+        ErrorAlert({ message: 'Erro ao buscar dados do paciente' });
         router.push('/');
       } finally {
         setLoading(false);

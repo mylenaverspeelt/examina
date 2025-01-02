@@ -31,7 +31,7 @@ export async function GET() {
   try {
     const pdfs = await PdfService.getAllPdfs();
     return NextResponse.json(pdfs);
-  } catch (e) {
-    return NextResponse.json({ error: `Erro ao buscar PDFs: ${e.message}` }, { status: 500 });
+  } catch (error:unknown) {
+    return NextResponse.json({ error: `Erro ao buscar PDFs: ` + error }, { status: 500 });
   }
 }

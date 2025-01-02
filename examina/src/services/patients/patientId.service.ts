@@ -24,7 +24,7 @@ import { PatientDetailsDTO } from '@/dto/patients/patientId.dto';
 
 export class PatientIdService {
   static async getPatientById(id: number): Promise<PatientDetailsDTO | null> {
-    return prisma.patient.findUnique({
+    const patient = await prisma.patient.findUnique({
       where: { id },
       select: {
         id: true,
@@ -33,5 +33,12 @@ export class PatientIdService {
         birthDate: true,
       },
     });
+
+    return patient
+      ? {
+          ...patient,
+          age: Number(patient.age),
+        }
+      : null;
   }
 }

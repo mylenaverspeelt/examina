@@ -27,7 +27,7 @@ export async function GET(
     }
 
     return NextResponse.json(glucoseRecords);
-  } catch (error) {
+  } catch (error: unknown) {
     return NextResponse.json(
       { error: 'Erro ao buscar registros de glicose' + error },
       { status: 500 }

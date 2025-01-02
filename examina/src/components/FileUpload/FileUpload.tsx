@@ -1,7 +1,7 @@
 'use client';
+
 import React, { useState } from 'react';
 import { FilePond, registerPlugin } from 'react-filepond';
-import type { FilePondFile } from 'filepond';
 import 'filepond/dist/filepond.min.css';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
@@ -13,10 +13,9 @@ import styles from './FileUpload.module.css';
 
 registerPlugin(FilePondPluginFileValidateType, FilePondPluginFileValidateSize);
 
-const FilePondUpload = () => {
-  const [files, setFiles] = useState<(FilePondFile)[]>([]);
+const FilePondUpload: React.FC = () => {
+  const [files, setFiles] = useState<any[]>([]);
   const [isUpload, setIsUpload] = useState<boolean>(false);
-
 
   return (
     <>
@@ -24,14 +23,10 @@ const FilePondUpload = () => {
         files={files}
         onupdatefiles={setFiles}
         allowMultiple={false}
-        allowFileTypeValidation={true}
+        maxFiles={1}
         acceptedFileTypes={['application/pdf']}
         labelFileTypeNotAllowed={'Apenas arquivos PDF são permitidos.'}
         fileValidateTypeLabelExpectedTypes={'Apenas arquivos PDF'}
-        allowFileSizeValidation={true}
-        maxFileSize={'1MB'}
-        labelMaxFileSizeExceeded={'O arquivo é muito grande.'}
-        labelMaxFileSize={'O tamanho máximo do arquivo é {filesize}.'}
         server={{
           process: (fieldName, file, metadata, load, error, progress, abort) => {
             if (file.type !== 'application/pdf') {
@@ -40,7 +35,8 @@ const FilePondUpload = () => {
               return;
             }
 
-            if (file.size > 1024 * 1024) {
+            const maxSizeInBytes = 1024 * 1024;
+            if (file.size > maxSizeInBytes) {
               error('O arquivo não pode exceder 1MB.');
               ErrorAlert({ message: 'O arquivo não pode exceder 1MB.' });
               return;
@@ -95,16 +91,16 @@ const FilePondUpload = () => {
         name="file"
         labelIdle='Arraste e solte seu PDF ou <span class="filepond--label-action">selecione seu arquivo</span>'
       />
-      {isUpload ? (
+      {isUpload && (
         <div className={styles.buttonsDiv}>
           <Button
             label={'Exames Arquivados'}
-            icon={<FolderCopyIcon fontSize='large' />}
+            icon={<FolderCopyIcon fontSize="large" />}
             href={'/uploads'}
             variant="link"
           />
         </div>
-      ) : null}
+      )}
     </>
   );
 };

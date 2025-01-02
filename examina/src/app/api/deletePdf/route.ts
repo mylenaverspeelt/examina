@@ -60,7 +60,7 @@ export async function DELETE(req: NextRequest) {
 
     const message = await DeleteService.deletePDF({ id: Number(id) });
     return NextResponse.json({ message }, { status: 200 });
-  } catch (error) {
+  } catch (error:unknown) {
     return NextResponse.json({ message: 'Erro ao excluir PDF' + error }, { status: 500 });
   }
 }

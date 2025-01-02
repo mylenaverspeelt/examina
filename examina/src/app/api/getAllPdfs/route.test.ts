@@ -54,7 +54,7 @@ describe('GET /api/pdfs', () => {
 
     expect(response.status).toBe(500);
     const result = await response.json();
-    expect(result).toEqual({ error: "Erro ao buscar PDFs: Database error"});
+    expect(result).toEqual({ error: "Erro ao buscar PDFs: Error: Database error"});
     expect(result.error).toContain('Database error');
   });
 });

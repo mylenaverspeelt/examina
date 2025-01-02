@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
   try {
     const response = await PatientService.searchPatients(query);
     return NextResponse.json(response);
-  } catch (error) {
+  } catch (error:unknown) {
     return NextResponse.json({ error: 'Erro ao buscar pacientes' + error }, { status: 500 });
   }
 }
