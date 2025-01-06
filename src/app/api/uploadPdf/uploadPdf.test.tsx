@@ -1,12 +1,18 @@
 import { POST } from './route';
 import { UploadPdfService } from '@/services/pdfs/uploadPdf.service';
 import { NextRequest } from 'next/server';
+import { JSDOM } from 'jsdom';
 
 jest.mock('@/services/pdfs/uploadPdf.service', () => ({
   UploadPdfService: {
     processPdf: jest.fn(),
   },
 }));
+
+const dom = new JSDOM();
+global.File = dom.window.File;
+global.FormData = dom.window.FormData;
+global.Headers = dom.window.Headers;
 
 describe('POST /api/uploadPdf', () => {
   beforeEach(() => {
