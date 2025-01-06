@@ -31,14 +31,14 @@ const FilePondUpload: React.FC = () => {
           process: (fieldName, file, metadata, load, error, progress, abort) => {
             if (file.type !== 'application/pdf') {
               error('O arquivo deve ser um PDF.');
-              ErrorAlert({ message: 'PDF inválido, tente novamente.' });
+              ErrorAlert({ message: 'Apenas arquivos PDF são permitidos.' });
               return;
             }
 
-            const maxSizeInBytes = 1024 * 1024;
+            const maxSizeInBytes = 500 * 1024; 
             if (file.size > maxSizeInBytes) {
-              error('O arquivo não pode exceder 1MB.');
-              ErrorAlert({ message: 'O arquivo não pode exceder 1MB.' });
+              error('O arquivo não pode exceder 500KB.');
+              ErrorAlert({ message: 'O arquivo não pode exceder 500KB.' });
               return;
             }
 

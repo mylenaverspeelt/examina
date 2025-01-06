@@ -1,6 +1,23 @@
 /**
  * @swagger
  * components:
+ *   schemas:
+ *     PdfUploadResponse:
+ *       type: object
+ *       properties:
+ *         success:
+ *           type: boolean
+ *         message:
+ *           type: string
+ *     PdfUploadErrorResponse:
+ *       type: object
+ *       properties:
+ *         success:
+ *           type: boolean
+ *         message:
+ *           type: string
+ *         details:
+ *           type: string
  *   responses:
  *     PdfUploadSuccess:
  *       description: Arquivo enviado e processado com sucesso
@@ -15,13 +32,15 @@
  *           schema:
  *             $ref: '#/components/schemas/PdfUploadErrorResponse'
  */
+
 import prisma from '@/utils/prisma/prisma';
 import PDFParser from 'pdf2json';
 import { convertToText } from '@/utils/convertToText';
 import { PdfUploadResponse } from '@/dto/pdfs/uploadPdf.dto';
+import { promises as fs } from 'fs';
 
 export class UploadPdfService {
-  static async processPdf(fileName: string, fileBuffer: Buffer): Promise<PdfUploadResponse> {
+  static async processPdf(filePath: string): Promise<PdfUploadResponse> {
     const pdfParser = new PDFParser();
 
     return new Promise((resolve, reject) => {
@@ -39,9 +58,11 @@ export class UploadPdfService {
 
           const glucoseValue = parseInt(extractedData.Result, 10);
 
+          const fileBuffer = await fs.readFile(filePath);
+
           const storageEntry = await prisma.storage.create({
             data: {
-              fileName: fileName,
+              fileName: filePath.split('/').pop() || 'arquivo.pdf',
               pdf: fileBuffer,
             },
           });
@@ -89,7 +110,7 @@ export class UploadPdfService {
         }
       });
 
-      pdfParser.parseBuffer(fileBuffer);
+      pdfParser.loadPDF(filePath);
     });
   }
 }

@@ -1,12 +1,18 @@
 // import { POST } from './route';
 // import { UploadPdfService } from '@/services/pdfs/uploadPdf.service';
 // import { NextRequest } from 'next/server';
+// import { JSDOM } from 'jsdom';
 
-// jest.mock('@/services/pdfs/uploadPdf.service.ts', () => ({
+// jest.mock('@/services/pdfs/uploadPdf.service', () => ({
 //   UploadPdfService: {
 //     processPdf: jest.fn(),
 //   },
 // }));
+
+// const dom = new JSDOM();
+// global.File = dom.window.File;
+// global.FormData = dom.window.FormData;
+// global.Headers = dom.window.Headers;
 
 // describe('POST /api/uploadPdf', () => {
 //   beforeEach(() => {
@@ -16,7 +22,7 @@
 //   it('should return 400 error if content-type is not multipart/form-data', async () => {
 //     const mockRequest = {
 //       headers: new Headers({ 'content-type': 'application/json' }),
-//     } as NextRequest;
+//     } as unknown as NextRequest;
 
 //     const response = await POST(mockRequest);
 //     const responseBody = await response.json();
@@ -67,7 +73,7 @@
 //       success: true,
 //       message: 'Arquivo enviado e processado com sucesso!',
 //     });
-//     expect(UploadPdfService.processPdf).toHaveBeenCalledWith('test.pdf', expect.any(Buffer));
+//     expect(UploadPdfService.processPdf).toHaveBeenCalledWith(expect.any(String));
 //   });
 
 //   it('should return 500 error if the service fails', async () => {
@@ -112,7 +118,7 @@
 //     expect(response.status).toBe(500);
 //     expect(responseBody).toEqual({
 //       success: false,
-//       message: 'Erro desconhecido ao processar o PDF',
+//       message: 'Erro interno do servidor',
 //     });
 //   });
 // });

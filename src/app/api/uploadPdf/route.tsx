@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { UploadPdfService } from '@/services/pdfs/uploadPdf.service';
+import fs from 'fs';
 
 export const config = {
   api: {
@@ -26,26 +27,35 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const fileName = uploadedFile.name;
-    const fileBuffer = Buffer.from(await uploadedFile.arrayBuffer());
+    const fileName = uploadedFile.name.replace(/\s+/g, '_');
+    const tempFilePath = `/tmp/${fileName}`;
+    const writableStream = fs.createWriteStream(tempFilePath);
+    const reader = uploadedFile.stream().getReader();
 
-    const response = await UploadPdfService.processPdf(fileName, fileBuffer);
-    return NextResponse.json(response, { status: 200 });
-  } catch (error) {
-    if (error instanceof Error) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: 'Erro interno do servidor',
-          details: error.message,
-        },
-        { status: 500 }
-      );
-    } else {
-      return NextResponse.json(
-        { success: false, message: 'Erro desconhecido ao processar o PDF' },
-        { status: 500 }
-      );
+    let done = false;
+    while (!done) {
+      const { value, done: streamDone } = await reader.read();
+      done = streamDone;
+      if (value) {
+        writableStream.write(value);
+      }
     }
+
+    writableStream.end();
+    await new Promise((resolve) => writableStream.on('finish', resolve));
+
+    const response = await UploadPdfService.processPdf(tempFilePath);
+    await fs.promises.unlink(tempFilePath);
+
+    return NextResponse.json(response, { status: 200 });
+  } catch (error: any) {
+    return NextResponse.json(
+      {
+        success: false,
+        message: 'Erro interno do servidor',
+        details: error.message,
+      },
+      { status: 500 }
+    );
   }
 }
