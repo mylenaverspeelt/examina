@@ -1,11 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { UploadPdfService } from '@/services/pdfs/uploadPdf.service';
+import formidable from 'formidable';
 import fs from 'fs';
 
 export const config = {
   api: {
     bodyParser: false,
   },
+};
+
+const parseForm = async (req: NextRequest): Promise<{fields: any, files: any}> => {
+  return new Promise((resolve, reject) => {
+    const form = formidable({
+      uploadDir: '/tmp',
+      filename: (name, ext) => name.replace(/\s+/g, '_') + ext,
+    });
+    
+    const readableStream = req.body as any;
+    form.parse(readableStream, (err, fields, files) => {
+      if (err) reject(err);
+      resolve({ fields, files });
+    });
+  });
 };
 
 export async function POST(req: NextRequest) {
@@ -17,35 +33,18 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const formData = await req.formData();
-    const uploadedFile = formData.get('file');
+    const { files } = await parseForm(req);
+    const uploadedFile = files.file?.[0];
 
-    if (!uploadedFile || !(uploadedFile instanceof File)) {
+    if (!uploadedFile) {
       return NextResponse.json(
         { success: false, message: 'Arquivo não enviado ou formato inválido' },
         { status: 400 }
       );
     }
 
-    const fileName = uploadedFile.name.replace(/\s+/g, '_');
-    const tempFilePath = `/tmp/${fileName}`;
-    const writableStream = fs.createWriteStream(tempFilePath);
-    const reader = uploadedFile.stream().getReader();
-
-    let done = false;
-    while (!done) {
-      const { value, done: streamDone } = await reader.read();
-      done = streamDone;
-      if (value) {
-        writableStream.write(value);
-      }
-    }
-
-    writableStream.end();
-    await new Promise((resolve) => writableStream.on('finish', resolve));
-
-    const response = await UploadPdfService.processPdf(tempFilePath);
-    await fs.promises.unlink(tempFilePath);
+    const response = await UploadPdfService.processPdf(uploadedFile.filepath);
+    await fs.promises.unlink(uploadedFile.filepath);
 
     return NextResponse.json(response, { status: 200 });
   } catch (error: any) {
