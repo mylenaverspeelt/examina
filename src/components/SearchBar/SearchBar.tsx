@@ -14,15 +14,24 @@ export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredPatients, setFilteredPatients] = useState<Patient[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [cache, setCache] = useState<Record<string, Patient[]>>({});
 
   const fetchPatients = async (term: string) => {
+    if (cache[term]) {
+      setFilteredPatients(cache[term]);
+      return;
+    }
+
     setIsLoading(true);
+    setError('');
     try {
       const response = await fetch(`/api/patients?query=${term}`);
       const data = await response.json();
+      setCache((prev) => ({ ...prev, [term]: data.patients || [] }));
       setFilteredPatients(data.patients || []);
     } catch {
-      ErrorAlert({ message: "Erro ao buscar pacientes. Tente novamente mais tarde." });
+      setError('Erro ao buscar pacientes. Tente novamente mais tarde.');
       setFilteredPatients([]);
     } finally {
       setIsLoading(false);
@@ -41,23 +50,43 @@ export default function SearchBar() {
     }
   }, [searchTerm]);
 
+  const highlightTerm = (name: string, term: string) => {
+    const parts = name.split(new RegExp(`(${term})`, 'gi'));
+    return parts.map((part, index) => (
+      <span
+        key={index}
+        style={{ fontWeight: part.toLowerCase() === term.toLowerCase() ? 'bold' : 'normal' }}
+      >
+        {part}
+      </span>
+    ));
+  };
+
   return (
     <div className={styles.searchContainer}>
       <input
+        id="searchInput"
         type="text"
         className={styles.searchInput}
-        placeholder="Pesquisar paciente..."
+        placeholder="Digite o nome do paciente"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
+        aria-label="Campo de busca de pacientes"
       />
       <SearchIcon className={styles.searchIcon} />
-      {isLoading && <div className={styles.loading}></div>}
+      {isLoading && <div className={styles.loading}>Carregando...</div>}
+      {error && <div className={styles.error}>{error}</div>}
       {filteredPatients.length > 0 && (
-        <ul className={styles.dropdown}>
+        <ul className={styles.dropdown} role="listbox" aria-label="Resultados da busca">
           {filteredPatients.map((patient) => (
-            <li key={patient.id} className={styles.dropdownItem}>
+            <li
+              key={patient.id}
+              className={styles.dropdownItem}
+              role="option"
+              aria-selected="false"
+            >
               <Link href={`/patients/${patient.id}`}>
-                {patient.name}
+                {highlightTerm(patient.name, searchTerm)}
               </Link>
             </li>
           ))}
