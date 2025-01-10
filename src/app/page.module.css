@@ -29,8 +29,8 @@
   font-weight: bold;
   z-index: 1000;
   text-transform: none;
-  background-color: var(--light-gray);
-  color: var(--purple);
+  background-color: var(--purple);
+  color: var(--white);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,19 +48,20 @@
 }
 
 .fabButton:hover {
-  background-color: var(--purple-hover);
-  color: var(--white);
+  background-color: var(--light-gray);
+  color: var(--teal);
   transform: translateY(-4px);
 }
 
 .fabIcon {
-  color: var(--teal);
+  color: var(--white);
   margin-right: 0;
   transition: margin-right 0.3s ease;
 }
 
 .fabButtonHovered .fabIcon {
   margin-right: 1rem;
+  color: var(--purple);
 }
 
 .fabText {
