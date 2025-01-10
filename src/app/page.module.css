@@ -21,55 +21,6 @@
   flex-wrap: wrap;
 }
 
-.fabButton {
-  position: fixed;
-  bottom: 40px;
-  right: 40px;
-  padding: 0;
-  font-weight: bold;
-  z-index: 1000;
-  text-transform: none;
-  background-color: var(--purple);
-  color: var(--white);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.3s ease;
-  width: 56px;
-  height: 56px;
-  border-radius: 28px;
-  box-shadow: var(--box-shadow);
-  overflow: hidden;
-}
-
-.fabButtonHovered {
-  padding: 0 1.5rem;
-  width: auto;
-}
-
-.fabButton:hover {
-  background-color: var(--light-gray);
-  color: var(--teal);
-  transform: translateY(-4px);
-}
-
-.fabIcon {
-  color: var(--white);
-  margin-right: 0;
-  transition: margin-right 0.3s ease;
-}
-
-.fabButtonHovered .fabIcon {
-  margin-right: 1rem;
-  color: var(--purple);
-}
-
-.fabText {
-  white-space: nowrap;
-  font-size: 1rem;
-  transition: opacity 0.3s ease;
-}
-
 
 @media only screen and (max-width: 768px) {
 
