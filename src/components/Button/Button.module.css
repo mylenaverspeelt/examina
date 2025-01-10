@@ -146,11 +146,11 @@
 
 .button {
     padding: 0.8rem;
-    background-color: var(--light-gray);
+    background-color: var(--purple);
     box-shadow: var(--box-shadow);
     border-radius: var(--border-radius);
     cursor: pointer;
-    color: var(--purple);
+    color: var(--white);
     cursor: pointer;
     font-weight: bold;
     display: flex;
@@ -161,8 +161,8 @@
 }
 
 .button:hover {
-    background-color: var(--purple-hover);
-    color: var(--white);
+    background-color: var(--light-gray);
+    color: var(--teal);
     transform: translateY(-2px);
 }
 

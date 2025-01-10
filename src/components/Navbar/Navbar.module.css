@@ -1,7 +1,7 @@
 .nav {
     margin: 0 auto;
     width: 100%;
-    background-color: var(--super-light-gray);
+    background-color: var(--white);
     box-shadow: var(--box-shadow);
 }
 
