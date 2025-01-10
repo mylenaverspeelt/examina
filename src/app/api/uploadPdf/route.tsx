@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { UploadPdfService } from '@/services/pdfs/uploadPdf.service';
-import formidable from 'formidable';
-import fs from 'fs';
+import Busboy from 'busboy';
+import { Readable } from 'stream';
 
 export const config = {
   api: {
@@ -9,20 +9,18 @@ export const config = {
   },
 };
 
-const parseForm = async (req: NextRequest): Promise<{fields: any, files: any}> => {
-  return new Promise((resolve, reject) => {
-    const form = formidable({
-      uploadDir: '/tmp',
-      filename: (name, ext) => name.replace(/\s+/g, '_') + ext,
-    });
-    
-    const readableStream = req.body as any;
-    form.parse(readableStream, (err, fields, files) => {
-      if (err) reject(err);
-      resolve({ fields, files });
-    });
-  });
-};
+async function convertWebStreamToBuffer(webStream: ReadableStream): Promise<Buffer> {
+  const chunks: Uint8Array[] = [];
+  const reader = webStream.getReader();
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    chunks.push(value);
+  }
+
+  return Buffer.concat(chunks);
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -33,20 +31,49 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { files } = await parseForm(req);
-    const uploadedFile = files.file?.[0];
+    return new Promise(async (resolve, reject) => {
+      const headers = {
+        'content-type': req.headers.get('content-type') || '',
+        'content-length': req.headers.get('content-length') || '',
+      };
 
-    if (!uploadedFile) {
-      return NextResponse.json(
-        { success: false, message: 'Arquivo não enviado ou formato inválido' },
-        { status: 400 }
-      );
-    }
+      const busboy = Busboy({ headers });
+      let fileBuffer: Buffer[] = [];
+      let fileName = '';
 
-    const response = await UploadPdfService.processPdf(uploadedFile.filepath);
-    await fs.promises.unlink(uploadedFile.filepath);
+      busboy.on('file', (_, file, info) => {
+        fileName = info.filename;
+        file.on('data', (data) => {
+          fileBuffer.push(data);
+        });
+      });
 
-    return NextResponse.json(response, { status: 200 });
+      busboy.on('finish', async () => {
+        try {
+          const buffer = Buffer.concat(fileBuffer);
+          const response = await UploadPdfService.processPdf(buffer, fileName);
+          resolve(NextResponse.json(response, { status: 200 }));
+        } catch (error: any) {
+          reject(error);
+        }
+      });
+
+      busboy.on('error', (error) => {
+        reject(error);
+      });
+
+      if (req.body) {
+        // Converter o Web Stream para Buffer
+        const buffer = await convertWebStreamToBuffer(req.body);
+        // Criar um Node.js Readable Stream a partir do Buffer
+        const nodeStream = Readable.from(buffer);
+        // Agora podemos usar pipe
+        nodeStream.pipe(busboy);
+      } else {
+        reject(new Error('Request body is empty'));
+      }
+    });
+
   } catch (error: any) {
     return NextResponse.json(
       {
