@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { PatientIdService } from '@/services/patients/patientId.service';
 
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = params;
+  const { id } = await params;
 
   if (!id) {
     return NextResponse.json({ error: 'ID do paciente é obrigatório' }, { status: 400 });

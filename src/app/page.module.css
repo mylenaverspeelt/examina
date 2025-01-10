@@ -1,26 +1,21 @@
 .main {
-  justify-content: center;
+  justify-content: space-evenly;
   width: 100%;
   max-width: 100%;
   max-height: 100%;
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
   overflow: hidden;
   box-sizing: border-box;
-
-  margin-top: 4rem;
 }
 
 .searchDiv {
   width: 70%;
-  padding: 2rem 0;
 }
 
 .buttonDiv {
-  width: 80%;
-  align-items: center;
+  width: 75%;
   justify-content: space-around;
   display: flex;
   flex-wrap: wrap;
@@ -29,18 +24,9 @@
 
 @media only screen and (max-width: 768px) {
 
-  .searchDiv {
-    width: 80%;
-  }
-
   .buttonDiv {
-    width: 80%;
+    width: 70%;
     flex-direction: column;
   }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
-  .buttonDiv {
-    flex-direction: column;
-  }
-}

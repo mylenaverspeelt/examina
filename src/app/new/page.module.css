@@ -11,6 +11,10 @@
     margin: 0 auto;
 }
 
+.main h1{
+    padding: 2rem 0;
+}
+
 .buttonsDiv {
     display: flex;
     flex-direction: row;
