@@ -35,7 +35,7 @@ const FilePondUpload: React.FC = () => {
               return;
             }
 
-            const maxSizeInBytes = 500 * 1024; 
+            const maxSizeInBytes = 500 * 1024;
             if (file.size > maxSizeInBytes) {
               error('O arquivo não pode exceder 500KB.');
               ErrorAlert({ message: 'O arquivo não pode exceder 500KB.' });
