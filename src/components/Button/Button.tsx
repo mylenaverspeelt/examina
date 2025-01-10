@@ -54,7 +54,7 @@ export default function Button({
     if (!result.isConfirmed) return;
 
     try {
-      const response = await fetch('/api/delete', {
+      const response = await fetch('/api/deletePdf', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
