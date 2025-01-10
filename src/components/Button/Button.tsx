@@ -78,7 +78,7 @@ export default function Button({
 
   if (variant === 'link' && href) {
     return (
-      <Link href={href} className={styles.linkButton} aria-label={label}>
+      <Link href={href} className={styles.linkButton}>
         {icon && <span className={styles.icon}>{icon}</span>}
         <span>{label}</span>
       </Link>
@@ -89,14 +89,14 @@ export default function Button({
     return (
       <div className={styles.div}>
         <div className={styles.linkContainer}>
-          <button onClick={onClick} className={styles.link} aria-label={label}>
+          <button onClick={onClick} className={styles.link}>
             {icon && <span className={styles.icon}>{icon}</span>}
             <span className={styles.pdfLabel}>{label}</span>
           </button>
         </div>
         <div className={styles.deleteContainer}>
-          <button onClick={handleDelete} className={styles.deleteButton} aria-label={label}>
-            <DeleteIcon className={styles.trashIcon} />
+          <button onClick={handleDelete} className={styles.deleteButton}>
+          <DeleteIcon className={styles.trashIcon} />
           </button>
         </div>
       </div>
@@ -105,7 +105,7 @@ export default function Button({
 
   if (variant === 'button') {
     return (
-      <button className={styles.button} onClick={onClick} aria-label={label}>
+      <button className={styles.button} onClick={onClick}>
         {icon && <span className={styles.icon}>{icon}</span>}
         <span>{label}</span>
       </button>
@@ -114,7 +114,7 @@ export default function Button({
 
   if (variant === 'back') {
     return (
-      <button className={styles.backButton} onClick={handleBack} aria-label={label}>
+      <button className={styles.backButton} onClick={handleBack}>
         {<span className={styles.icon}>{icon}</span>}
         <span>{label}</span>
       </button>
@@ -123,7 +123,7 @@ export default function Button({
 
   if (variant === 'menuButton' && href) {
     return (
-      <Link href={href} className={styles.menuButton} aria-label={label}>
+      <Link href={href} className={styles.menuButton}>
         {icon && <span className={styles.icon}>{icon}</span>}
         <span>{label}</span>
       </Link>
