@@ -26,7 +26,6 @@ const GlucoseChart: React.FC<GlucoseData> = ({ normalCount, preDiabetesCount, di
     const chartRef = useRef(null);
     const [barThickness, setBarThickness] = useState(200);
 
-    // barras do grafico responsivas
     useEffect(() => {
         const handleResize = () => {
             const screenWidth = window.innerWidth;

@@ -26,7 +26,7 @@ export default function Home() {
           <Button label="Visualizar Distribuição" icon={<BarChartIcon fontSize="large" />} href="/analytics" variant="menuButton" />
         </div>
       </section>
-      <Fab
+      {/* <Fab
         className={`${styles.fabButton} ${hovered ? styles.fabButtonHovered : ''}`}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
@@ -35,7 +35,7 @@ export default function Home() {
       >
         <AddIcon className={styles.fabIcon} />
         {hovered && <span className={styles.fabText}>Novo Laudo</span>}
-      </Fab>
+      </Fab> */}
     </>
   );
 }

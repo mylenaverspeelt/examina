@@ -1,17 +1,17 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styles from "./page.module.css";
 import FileUpload from "@/components/FileUpload/FileUpload";
 import ClipLoader from "react-spinners/ClipLoader";
+import { useLoadingClipLoader } from '@/hooks/useLoadingClipLoader';
 
 export default function Home() {
-    const [loading, setLoading] = useState(true);
+    const { loading, setLoading, withLoading } = useLoadingClipLoader();
 
     useEffect(() => {
-        const timer = setTimeout(() => setLoading(false), 1000);
-        return () => clearTimeout(timer);
-    }, []);
+        withLoading(() => new Promise(resolve => setTimeout(resolve, 1000)));
+    }, [withLoading]);
 
     if (loading) {
         return (

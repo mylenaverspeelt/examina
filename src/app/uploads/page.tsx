@@ -5,6 +5,7 @@ import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import Button from '@/components/Button/Button';
 import ClipLoader from "react-spinners/ClipLoader";
 import ErrorAlert from '@/components/ErrorAlert/ErrorAlert';
+import { useLoadingClipLoader } from '@/hooks/useLoadingClipLoader';
 
 interface Pdf {
   id: number;
@@ -16,28 +17,24 @@ interface Pdf {
 
 export default function Uploads() {
   const [pdfs, setPdfs] = useState<Pdf[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { loading, withLoading } = useLoadingClipLoader();
 
   const fetchPdfs = async () => {
-    setLoading(true);
     try {
       const response = await fetch('/api/getAllPdfs');
       const data: Pdf[] = await response.json();
-      
-      // Ordena os PDFs pela data de envio (createdAt), do mais recente para o mais antigo
+
       data.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
       setPdfs(data);
     } catch {
       ErrorAlert({ message: 'Erro ao carregar PDFs.' });
-    } finally {
-      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchPdfs();
-  }, []);
+    withLoading(fetchPdfs);
+  }, [withLoading]);
 
   const base64ToArrayBuffer = (base64: string) => {
     const binaryString = window.atob(base64);
@@ -58,7 +55,7 @@ export default function Uploads() {
       const arrayBuffer = base64ToArrayBuffer(pdf.base64Pdf);
       const blob = new Blob([arrayBuffer], { type: 'application/pdf' });
 
-      const blobUrl = URL.createObjectURL(blob);       
+      const blobUrl = URL.createObjectURL(blob);
 
       const newWindow = window.open();
       if (newWindow) {
@@ -77,11 +74,11 @@ export default function Uploads() {
   if (loading) {
     return (
       <div className={styles.loadingContainer}>
-        <ClipLoader color="#0070f3" size={50} />
+        <ClipLoader color="#388B8B" size={50} />
       </div>
     );
   }
-  
+
   return (
     <div className={styles.main}>
       <h1>Exames arquivados</h1>
@@ -94,7 +91,7 @@ export default function Uploads() {
               label={pdf.fileName}
               onClick={() => handlePdfClick(pdf)}
               id={pdf.id}
-              onDeleted={fetchPdfs}
+              onDeleted={() => withLoading(fetchPdfs)}
             />
           </div>
         ))
