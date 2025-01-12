@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import styles from './SearchBar.module.css';
 import Link from 'next/link';
 import SearchIcon from '@mui/icons-material/Search';
+import ErrorAlert from '../ErrorAlert/ErrorAlert';
 interface Patient {
   id: number;
   name: string;
@@ -11,7 +12,6 @@ interface Patient {
 export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredPatients, setFilteredPatients] = useState<Patient[]>([]);
-  const [error, setError] = useState('');
   const [cache, setCache] = useState<Record<string, Patient[]>>({});
 
   const fetchPatients = async (term: string) => {
@@ -20,14 +20,13 @@ export default function SearchBar() {
       return;
     }
 
-    setError('');
     try {
       const response = await fetch(`/api/patients?query=${term}`);
       const data = await response.json();
       setCache((prev) => ({ ...prev, [term]: data.patients || [] }));
       setFilteredPatients(data.patients || []);
     } catch {
-      setError('Erro ao buscar pacientes. Tente novamente mais tarde.');
+      ErrorAlert({ message: "Erro ao buscar pacientes. Tente novamente mais tarde." });
       setFilteredPatients([]);
     } finally {
     }
@@ -69,7 +68,6 @@ export default function SearchBar() {
         aria-label="Campo de busca de pacientes"
       />
       <SearchIcon className={styles.searchIcon} />
-      {error && <div className={styles.error}>{error}</div>}
       {filteredPatients.length > 0 && (
         <ul className={styles.dropdown} role="listbox" aria-label="Resultados da busca">
           {filteredPatients.map((patient) => (
