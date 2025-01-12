@@ -1,4 +1,4 @@
-'use client';
+'use client'
 import styles from './page.module.css';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import FolderCopyIcon from '@mui/icons-material/FolderCopy';
@@ -21,12 +21,12 @@ export default function Home() {
           <SearchBar />
         </div>
         <div className={styles.buttonDiv}>
-          <Button label="Adicionar exame" href="/new" icon={<PostAddIcon fontSize="large" />} variant="menuButton" />
-          <Button label="Exames armazenados" icon={<FolderCopyIcon fontSize="large" />} href="/uploads" variant="menuButton" />
-          <Button label="Visualizar Distribuição" icon={<BarChartIcon fontSize="large" />} href="/analytics" variant="menuButton" />
+          <Button label="Adicionar exame" href="/new" icon={<PostAddIcon fontSize='large' />} variant="menuButton" />
+          <Button label="Exames armazenados" icon={<FolderCopyIcon fontSize='large' />} href="/uploads" variant="menuButton" />
+          <Button label="Visualizar Distribuição" icon={<BarChartIcon fontSize='large' />} href="/analytics" variant="menuButton" />
         </div>
       </section>
-      {/* <Fab
+ {/* <Fab
         className={`${styles.fabButton} ${hovered ? styles.fabButtonHovered : ''}`}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
@@ -39,3 +39,4 @@ export default function Home() {
     </>
   );
 }
+
