@@ -1,6 +1,5 @@
 import Navbar from "@/components/Navbar/Navbar";
 import "../styles/globals.css"
-import "../styles/typography.css"
 import "../styles/colors.css"
 
 import Container from "@/components/Container/Container";
@@ -17,6 +16,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Itim&family=Playwrite+DE+Grund:wght@100..400&display=swap"
+          rel="stylesheet"></link>
+      </head>
       <body>
         <Navbar />
         <Container>

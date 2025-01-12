@@ -80,7 +80,7 @@ export default function PatientDetailPage() {
   if (loading) {
     return (
       <div className={styles.loadingContainer}>
-        <ClipLoader color="#0070f3" size={50} />
+        <ClipLoader color="#388B8B" size={50} />
       </div>
     );
   }

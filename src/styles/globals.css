@@ -7,6 +7,8 @@ body {
 body {
   max-height: 100%;
   background-image: url(../assets/axiom-pattern.png);
+  font-family: "Afacad Flux", sans-serif;
+
 }
 
 * {

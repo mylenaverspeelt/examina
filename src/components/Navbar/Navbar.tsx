@@ -11,7 +11,7 @@ export default function Navbar() {
             </Link>
         </div>
         <div className={styles.loginDiv}>
-            <Button label="Entrar / Registrar" variant="button" />
+            <Button label="Entrar / Registrar" variant="loginButton" />
         </div>
         </div>
     </nav>
