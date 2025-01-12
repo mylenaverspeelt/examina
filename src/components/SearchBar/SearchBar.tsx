@@ -3,8 +3,6 @@ import { useState, useEffect } from 'react';
 import styles from './SearchBar.module.css';
 import Link from 'next/link';
 import SearchIcon from '@mui/icons-material/Search';
-import ErrorAlert from '../ErrorAlert/ErrorAlert';
-
 interface Patient {
   id: number;
   name: string;
@@ -13,7 +11,6 @@ interface Patient {
 export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredPatients, setFilteredPatients] = useState<Patient[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [cache, setCache] = useState<Record<string, Patient[]>>({});
 
@@ -23,7 +20,6 @@ export default function SearchBar() {
       return;
     }
 
-    setIsLoading(true);
     setError('');
     try {
       const response = await fetch(`/api/patients?query=${term}`);
@@ -34,7 +30,6 @@ export default function SearchBar() {
       setError('Erro ao buscar pacientes. Tente novamente mais tarde.');
       setFilteredPatients([]);
     } finally {
-      setIsLoading(false);
     }
   };
 
@@ -74,7 +69,6 @@ export default function SearchBar() {
         aria-label="Campo de busca de pacientes"
       />
       <SearchIcon className={styles.searchIcon} />
-      {isLoading && <div className={styles.loading}>Carregando...</div>}
       {error && <div className={styles.error}>{error}</div>}
       {filteredPatients.length > 0 && (
         <ul className={styles.dropdown} role="listbox" aria-label="Resultados da busca">

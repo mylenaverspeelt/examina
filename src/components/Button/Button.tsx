@@ -11,7 +11,7 @@ interface ButtonProps {
   href?: string;
   icon?: React.ReactNode;  
   onClick?: (event: React.MouseEvent) => void;
-  variant: 'button' | 'link' | 'back' | 'linkPDF' | 'menuButton';
+  variant: 'loginButton' | 'basicButton' | 'back' | 'linkPDF' | 'menuButton';
   id?: number;
   onDeleted?: () => void;
 }
@@ -76,7 +76,7 @@ export default function Button({
     }
   };
 
-  if (variant === 'link' && href) {
+  if (variant === 'basicButton' && href) {
     return (
       <Link href={href} className={styles.linkButton} aria-label={label}>
         {icon && <span className={styles.icon}>{icon}</span>}
@@ -103,7 +103,7 @@ export default function Button({
     );
   }
 
-  if (variant === 'button') {
+  if (variant === 'loginButton') {
     return (
       <button className={styles.button} onClick={onClick} aria-label={label}>
         {icon && <span className={styles.icon}>{icon}</span>}

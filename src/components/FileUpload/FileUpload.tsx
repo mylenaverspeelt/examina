@@ -97,7 +97,7 @@ const FilePondUpload: React.FC = () => {
             label={'Exames Arquivados'}
             icon={<FolderCopyIcon fontSize="large" />}
             href={'/uploads'}
-            variant="link"
+            variant="basicButton"
           />
         </div>
       )}

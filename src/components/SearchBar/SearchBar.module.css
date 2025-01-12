@@ -17,7 +17,7 @@
 }
 
 .searchInput:focus {
-  border-color: #0070f3; 
+  border-color: var(--purple); 
 }
 
 .searchIcon {
