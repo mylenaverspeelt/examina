@@ -4,7 +4,7 @@ import GlucoseChart from '@/components/GlucoseChart/GlcoseChart';
 import styles from './page.module.css';
 import { ClipLoader } from 'react-spinners';
 import ErrorAlert from '@/components/ErrorAlert/ErrorAlert';
-import { useLoadingClipLoader } from '@/hooks/useLoadingClipLoader';
+import { useSingleRequest } from '@/hooks/useSingleRequest';
 
 interface GlucoseData {
   normalCount: number;
@@ -13,20 +13,28 @@ interface GlucoseData {
 }
 
 export default function Analytics() {
-  const { loading, withLoading } = useLoadingClipLoader();
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState<GlucoseData | null>(null);
+  const executeSingleRequest = useSingleRequest();
 
   useEffect(() => {
-    withLoading(async () => {
+    const fetchData = async () => {
+      setLoading(true);
       try {
-        const response = await fetch('/api/getGlucose');
-        const result = await response.json();
+        const result = await executeSingleRequest(async () => {
+          const response = await fetch('/api/getGlucose');
+          return response.json();
+        });
         setData(result);
       } catch {
         ErrorAlert({ message: 'Não foi possível carregar os dados de glicose.' });
+      } finally {
+        setLoading(false);
       }
-    });
-  }, [withLoading]);
+    };
+
+    fetchData();
+  }, [executeSingleRequest]);
 
   if (loading || !data) {
     return (

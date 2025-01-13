@@ -3,7 +3,7 @@ const nextConfig = {
   experimental: {}, 
   serverExternalPackages: ['pdf2json'], 
   images: {
-    domains: ['https://examina.vercel.app/'], 
+    domains: ['https://examina-mylenaverspeelts-projects.vercel.app/'], 
   },
   output: 'standalone',
 };
