@@ -32,7 +32,7 @@ export default function SearchBar() {
       setCache((prev) => ({ ...prev, [term]: data.patients || [] }));
       setFilteredPatients(data.patients || []);
     } catch {
-      ModalAlert({ message: 'Erro ao buscar pacientes. Tente novamente mais tarde.' });
+      ModalAlert({ message: 'Paciente não encontrado', type: 'info' , title: 'Ops'});
       setFilteredPatients([]);
     }
   };

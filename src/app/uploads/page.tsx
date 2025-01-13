@@ -38,7 +38,7 @@ export default function Uploads() {
         setPdfs(sortedData);
       }
     } catch {
-      ModalAlert({ message: 'Erro ao carregar PDFs.', type: 'error' });
+      ModalAlert({ message: 'Erro ao carregar PDFs.', type: 'error', title: 'Erro' });
     } finally {
       setLoading(false);
     }
@@ -73,12 +73,12 @@ export default function Uploads() {
         newWindow.document.write(`<iframe src="${blobUrl}" style="width:100%; height:100%; border:none;"></iframe>`);
         newWindow.document.title = pdf.name;
       } else {
-        ModalAlert({ message: 'A aba foi bloqueada. Permita pop-ups para abrir o PDF.', type: 'error' });
+        ModalAlert({ message: 'A aba foi bloqueada. Permita pop-ups para abrir o PDF.', type: 'error', title: 'Erro' });
       }
 
       setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
     } catch (error) {
-      ModalAlert({ message: `Falha ao abrir o PDF: ${error}`, type: 'error' });
+      ModalAlert({ message: `Falha ao abrir o PDF: ${error}`, type: 'error' , title: 'Erro'});
     }
   };
 
@@ -97,9 +97,9 @@ export default function Uploads() {
       }
 
       await fetchPdfs();
-      ModalAlert({ message: 'PDF excluído com sucesso!', type: 'success' });
+      ModalAlert({ message: 'PDF excluído com sucesso!', type: 'success', title: 'Sucesso' });
     } catch {
-      ModalAlert({ message: 'Falha ao excluir o PDF.', type: 'error' });
+      ModalAlert({ message: 'Falha ao excluir o PDF.', type: 'error', title: 'Erro' });
     }
   };
 

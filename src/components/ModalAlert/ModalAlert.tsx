@@ -2,12 +2,12 @@
 import Swal from 'sweetalert2';
 
 interface ModalAlertProps {
-  title?: string;
+  title: string;
   message: string;
   type?: 'error' | 'success' | 'warning' | 'info';
 }
 
-export default function ModalAlert({ title = 'Erro', message, type = 'error' }: ModalAlertProps) {
+export default function ModalAlert({title, type, message }: ModalAlertProps) {
   return Swal.fire({
     icon: type,
     title,

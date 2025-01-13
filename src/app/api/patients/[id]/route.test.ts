@@ -25,7 +25,7 @@ describe('GET /api/patients/[id]', () => {
     const response = await GET(mockRequest, { params: { id: '' } });
 
     expect(response.status).toBe(400);
-    expect(await response.json()).toEqual({ error: 'ID do paciente é obrigatório' });
+    expect(await response.json()).toEqual({ error: 'ID do paciente é obrigatório e deve ser um número válido.' });
   });
 
   it('should return 404 if patient is not found', async () => {
@@ -38,7 +38,7 @@ describe('GET /api/patients/[id]', () => {
     const response = await GET(mockRequest, { params: { id: '999' } });
 
     expect(response.status).toBe(404);
-    expect(await response.json()).toEqual({ error: 'Paciente não encontrado' });
+    expect(await response.json()).toEqual({ error: 'Paciente não encontrado.' });
   });
 
   it('should return 500 if an error occurs when querying the database', async () => {
@@ -51,7 +51,7 @@ describe('GET /api/patients/[id]', () => {
     const response = await GET(mockRequest, { params: { id: '1' } });
 
     expect(response.status).toBe(500);
-    expect(await response.json()).toEqual({ error: 'Erro ao buscar pacienteError: Database error' });
+    expect(await response.json()).toEqual({ error: 'Erro ao buscar paciente.' });
   });
 
   it('should return patient with correct structure', async () => {

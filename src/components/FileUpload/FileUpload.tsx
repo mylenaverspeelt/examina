@@ -31,14 +31,14 @@ const FilePondUpload: React.FC = () => {
           process: (fieldName, file, metadata, load, error, progress, abort) => {
             if (file.type !== 'application/pdf') {
               error('O arquivo deve ser um PDF.');
-              ModalAlert({ message: 'Apenas arquivos PDF são permitidos.', type: 'error' });
+              ModalAlert({ message: 'Apenas arquivos PDF são permitidos.', type: 'error', title: 'Erro' });
               return;
             }
 
             const maxSizeInBytes = 500 * 1024;
             if (file.size > maxSizeInBytes) {
               error('O arquivo não pode exceder 500KB.');
-              ModalAlert({ message: 'O arquivo não pode exceder 500KB.', type: 'error' });
+              ModalAlert({ message: 'O arquivo não pode exceder 500KB.', type: 'error' , title: 'Erro'});
               return;
             }
 
@@ -65,16 +65,16 @@ const FilePondUpload: React.FC = () => {
                   setIsUpload(true);
 
                 
-              ModalAlert({ message: 'Arquivo salvo com sucesso!', type: 'success' });
+              ModalAlert({ message: 'Arquivo salvo com sucesso!', type: 'success', title:'Sucesso' });
 
                 } else {
                   error(data.message || 'Erro ao enviar o arquivo. Tente novamente!');
-                  ModalAlert({ message: data.message || 'Erro ao enviar o arquivo. Tente novamente!', type: 'error' });
+                  ModalAlert({ message: data.message || 'Erro ao enviar o arquivo. Tente novamente!', type: 'error', title: 'Erro'});
                 }
               })
               .catch((err) => {
                 error(err.message);
-                ModalAlert({ message: err.message || 'Erro ao enviar o arquivo. Tente novamente!', type: 'error' });
+                ModalAlert({ message: err.message || 'Erro ao enviar o arquivo. Tente novamente!', type: 'error' , title: 'Erro'});
               });
 
             return {
