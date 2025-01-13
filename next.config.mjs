@@ -1,11 +1,25 @@
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+
 const nextConfig = {
   reactStrictMode: true,
-  experimental: {}, 
-  serverExternalPackages: ['pdf2json'], 
+  experimental: {
+    optimizeCss: true,
+    scrollRestoration: true,
+  },
+  serverExternalPackages: ['pdf2json'],
   images: {
-    domains: ['https://examina.vercel.app/'], 
+    domains: ['examina-mylenaverspeelts-projects.vercel.app/'],
   },
   output: 'standalone',
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.alias['@mui/material'] = '@mui/material/esm';
+      config.resolve.alias['@mui/icons-material'] = '@mui/icons-material/esm';
+    }
+    return config;
+  },
 };
 
-export default nextConfig;
+module.exports = withBundleAnalyzer(nextConfig);
