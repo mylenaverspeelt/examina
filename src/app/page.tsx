@@ -1,19 +1,13 @@
-'use client'
 import styles from './page.module.css';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import FolderCopyIcon from '@mui/icons-material/FolderCopy';
 import BarChartIcon from '@mui/icons-material/BarChart';
-import Button from '@/components/Button/Button';
-import SearchBar from '@/components/SearchBar/SearchBar';
-import { Fab } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { Button } from '@mui/material';
+import Link from 'next/link';
+import SearchBar from '@/components/SearchBar/SearchBar';
 
 export default function Home() {
-  const [hovered, setHovered] = useState(false);
-  const router = useRouter();
-
   return (
     <>
       <section className={styles.main}>
@@ -21,22 +15,47 @@ export default function Home() {
           <SearchBar />
         </div>
         <div className={styles.buttonDiv}>
-          <Button label="Adicionar exame" href="/new" icon={<PostAddIcon fontSize='large' />} variant="menuButton" />
-          <Button label="Exames armazenados" icon={<FolderCopyIcon fontSize='large' />} href="/uploads" variant="menuButton" />
-          <Button label="Visualizar Distribuição" icon={<BarChartIcon fontSize='large' />} href="/analytics" variant="menuButton" />
+          <Link href="/new" style={{ textDecoration: 'none' }}>
+            <Button
+              variant="contained"
+              className="menu-button"
+              startIcon={<AddIcon sx={{ width: 30, height: 30 }} />}
+            >
+              Adicionar exame
+            </Button>
+          </Link>
+          
+          <Link href="/uploads" style={{ textDecoration: 'none' }}>
+            <Button
+              variant="contained"
+              className="menu-button"
+              startIcon={<FolderCopyIcon sx={{ width: 30, height: 30 }} />}
+            >
+              Exames armazenados
+            </Button>
+          </Link>
+          
+          <Link href="/analytics" style={{ textDecoration: 'none' }}>
+            <Button
+              variant="contained"
+              className="menu-button"
+              startIcon={<BarChartIcon sx={{ width: 30, height: 30 }} />}
+            >
+              Visualizar Distribuição
+            </Button>
+          </Link>
+
+          <Link href="/new-report" style={{ textDecoration: 'none' }}>
+            <Button
+              variant="contained"
+              className="menu-button"
+              startIcon={<PostAddIcon sx={{ width: 30, height: 30 }} />}
+            >
+              Novo Laudo
+            </Button>
+          </Link>
         </div>
       </section>
- {/* <Fab
-        className={`${styles.fabButton} ${hovered ? styles.fabButtonHovered : ''}`}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        onClick={() => router.push('/new-report')}
-        aria-label="Adicionar novo laudo"
-      >
-        <AddIcon className={styles.fabIcon} />
-        {hovered && <span className={styles.fabText}>Novo Laudo</span>}
-      </Fab> */}
     </>
   );
 }
-

@@ -6,7 +6,7 @@ import 'filepond/dist/filepond.min.css';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
 import Swal from 'sweetalert2';
-import Button from '../Button/Button';
+import { Button } from '@mui/material'; 
 import FolderCopyIcon from '@mui/icons-material/FolderCopy';
 import ErrorAlert from '../ErrorAlert/ErrorAlert';
 import styles from './FileUpload.module.css';
@@ -94,11 +94,13 @@ const FilePondUpload: React.FC = () => {
       {isUpload && (
         <div className={styles.buttonsDiv}>
           <Button
-            label={'Exames Arquivados'}
-            icon={<FolderCopyIcon fontSize="large" />}
-            href={'/uploads'}
-            variant="basicButton"
-          />
+            variant="contained" 
+            className="basicButton" 
+            startIcon={<FolderCopyIcon fontSize="large" />}
+            href="/uploads" 
+          >
+            Exames Arquivados
+          </Button>
         </div>
       )}
     </>
