@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from "./page.module.css";
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
-import Button from '@/components/Button/Button';
+import { Button } from '@mui/material';
 import ClipLoader from "react-spinners/ClipLoader";
 import ErrorAlert from '@/components/ErrorAlert/ErrorAlert';
 import { useLoadingClipLoader } from '@/hooks/useLoadingClipLoader';
@@ -86,13 +86,13 @@ export default function Uploads() {
         pdfs.map((pdf) => (
           <div key={pdf.id} style={{ cursor: 'pointer' }}>
             <Button
-              variant="linkPDF"
-              icon={<PictureAsPdfIcon fontSize='large' />}
-              label={pdf.fileName}
+              variant="contained"
+              className="pdf-button"
+              startIcon={<PictureAsPdfIcon sx={{ width: 30, height: 30 }}  />}
               onClick={() => handlePdfClick(pdf)}
-              id={pdf.id}
-              onDeleted={() => withLoading(fetchPdfs)}
-            />
+            >
+              {pdf.fileName}
+            </Button>
           </div>
         ))
       ) : (
