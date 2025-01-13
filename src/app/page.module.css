@@ -21,6 +21,16 @@
   flex-wrap: wrap;
 }
 
+.menuButton {
+  transition: opacity 0.3s ease, cursor 0.3s ease;
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
 
 @media only screen and (max-width: 768px) {
 

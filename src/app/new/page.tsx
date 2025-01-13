@@ -5,13 +5,21 @@ import styles from "./page.module.css";
 import FileUpload from "@/components/FileUpload/FileUpload";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useLoadingClipLoader } from '@/hooks/useLoadingClipLoader';
+import { useSingleRequest } from '@/hooks/useSingleRequest';
 
 export default function Home() {
     const { loading, setLoading, withLoading } = useLoadingClipLoader();
+    const executeSingleRequest = useSingleRequest();
 
     useEffect(() => {
-        withLoading(() => new Promise(resolve => setTimeout(resolve, 1000)));
-    }, [withLoading]);
+        const loadData = async () => {
+            await executeSingleRequest(() =>
+                withLoading(() => new Promise(resolve => setTimeout(resolve, 1000)))
+            );
+        };
+
+        loadData();
+    }, [withLoading, executeSingleRequest]);
 
     if (loading) {
         return (

@@ -4,6 +4,8 @@ import styles from './SearchBar.module.css';
 import Link from 'next/link';
 import SearchIcon from '@mui/icons-material/Search';
 import ErrorAlert from '../ErrorAlert/ErrorAlert';
+import { useSingleRequest } from '@/hooks/useSingleRequest';
+
 interface Patient {
   id: number;
   name: string;
@@ -12,8 +14,8 @@ interface Patient {
 export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredPatients, setFilteredPatients] = useState<Patient[]>([]);
-
   const [cache, setCache] = useState<Record<string, Patient[]>>({});
+  const executeSingleRequest = useSingleRequest();
 
   const fetchPatients = async (term: string) => {
     if (cache[term]) {
@@ -21,29 +23,31 @@ export default function SearchBar() {
       return;
     }
 
-
     try {
       const response = await fetch(`/api/patients?query=${term}`);
+      if (!response.ok) {
+        throw new Error('Erro ao buscar pacientes');
+      }
       const data = await response.json();
+      setCache((prev) => ({ ...prev, [term]: data.patients || [] }));
       setFilteredPatients(data.patients || []);
     } catch {
-      ErrorAlert({ message: "Erro ao buscar pacientes. Tente novamente mais tarde." });
+      ErrorAlert({ message: 'Erro ao buscar pacientes. Tente novamente mais tarde.' });
       setFilteredPatients([]);
-    } finally {
     }
   };
 
   useEffect(() => {
     if (searchTerm) {
       const delayDebounce = setTimeout(() => {
-        fetchPatients(searchTerm);
+        executeSingleRequest(() => fetchPatients(searchTerm));
       }, 300);
 
       return () => clearTimeout(delayDebounce);
     } else {
       setFilteredPatients([]);
     }
-  }, [searchTerm]);
+  }, [searchTerm, executeSingleRequest]);
 
   return (
     <div className={styles.searchContainer}>

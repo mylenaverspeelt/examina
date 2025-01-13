@@ -15,6 +15,7 @@ import {
 } from 'chart.js';
 import styles from './page.module.css';
 import ErrorAlert from '@/components/ErrorAlert/ErrorAlert';
+import { useSingleRequest } from '@/hooks/useSingleRequest';
 
 ChartJS.register(
   CategoryScale,
@@ -45,6 +46,7 @@ export default function PatientDetailPage() {
   const chartRef = useRef(null);
   const router = useRouter();
   const params = useParams();
+  const executeSingleRequest = useSingleRequest();
 
   useEffect(() => {
     const fetchPatientAndGlucoseData = async () => {
@@ -53,12 +55,12 @@ export default function PatientDetailPage() {
           throw new Error('Parâmetros inválidos');
         }
 
-        const response = await fetch(`/api/patients/${params.id}`);
-        if (!response.ok) {
+        const patientResponse = await fetch(`/api/patients/${params.id}`);
+        if (!patientResponse.ok) {
           throw new Error('Paciente não encontrado');
         }
-        const data = await response.json();
-        setPatient(data.patient);
+        const patientData = await patientResponse.json();
+        setPatient(patientData.patient);
 
         const glucoseResponse = await fetch(`/api/patients/${params.id}/glucoseRecords`);
         if (!glucoseResponse.ok) {
@@ -74,8 +76,8 @@ export default function PatientDetailPage() {
       }
     };
 
-    fetchPatientAndGlucoseData();
-  }, [params, router]);
+    executeSingleRequest(fetchPatientAndGlucoseData);
+  }, [params, router, executeSingleRequest]);
 
   if (loading) {
     return (
