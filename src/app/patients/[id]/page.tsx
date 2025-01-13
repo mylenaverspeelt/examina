@@ -14,7 +14,7 @@ import {
   Legend,
 } from 'chart.js';
 import styles from './page.module.css';
-import ErrorAlert from '@/components/ErrorAlert/ErrorAlert';
+import ModalAlert from '@/components/ModalAlert/ModalAlert';
 import { useSingleRequest } from '@/hooks/useSingleRequest';
 
 ChartJS.register(
@@ -69,7 +69,7 @@ export default function PatientDetailPage() {
         const glucoseData = await glucoseResponse.json();
         setGlucoseRecords(glucoseData.records);
       } catch (error) {
-        ErrorAlert({ message: 'Erro ao buscar dados do paciente' });
+        ModalAlert({ message: 'Erro ao buscar dados do paciente' });
         router.push('/');
       } finally {
         setLoading(false);

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import GlucoseChart from '@/components/GlucoseChart/GlcoseChart';
 import styles from './page.module.css';
 import { ClipLoader } from 'react-spinners';
-import ErrorAlert from '@/components/ErrorAlert/ErrorAlert';
+import ModalAlert from '@/components/ModalAlert/ModalAlert';
 import { useSingleRequest } from '@/hooks/useSingleRequest';
 
 interface GlucoseData {
@@ -27,7 +27,7 @@ export default function Analytics() {
         });
         setData(result);
       } catch {
-        ErrorAlert({ message: 'Não foi possível carregar os dados de glicose.' });
+        ModalAlert({ message: 'Não foi possível carregar os dados de glicose.' });
       } finally {
         setLoading(false);
       }

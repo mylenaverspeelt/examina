@@ -8,7 +8,7 @@ import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
 import Swal from 'sweetalert2';
 import { Button } from '@mui/material'; 
 import FolderCopyIcon from '@mui/icons-material/FolderCopy';
-import ErrorAlert from '../ErrorAlert/ErrorAlert';
+import ModalAlert from '../ModalAlert/ModalAlert';
 import styles from './FileUpload.module.css';
 
 registerPlugin(FilePondPluginFileValidateType, FilePondPluginFileValidateSize);
@@ -31,14 +31,14 @@ const FilePondUpload: React.FC = () => {
           process: (fieldName, file, metadata, load, error, progress, abort) => {
             if (file.type !== 'application/pdf') {
               error('O arquivo deve ser um PDF.');
-              ErrorAlert({ message: 'Apenas arquivos PDF são permitidos.' });
+              ModalAlert({ message: 'Apenas arquivos PDF são permitidos.', type: 'error' });
               return;
             }
 
             const maxSizeInBytes = 500 * 1024;
             if (file.size > maxSizeInBytes) {
               error('O arquivo não pode exceder 500KB.');
-              ErrorAlert({ message: 'O arquivo não pode exceder 500KB.' });
+              ModalAlert({ message: 'O arquivo não pode exceder 500KB.', type: 'error' });
               return;
             }
 
@@ -64,20 +64,17 @@ const FilePondUpload: React.FC = () => {
                   load(file.name);
                   setIsUpload(true);
 
-                  Swal.fire({
-                    icon: 'success',
-                    title: 'Sucesso!',
-                    text: 'Arquivo salvo com sucesso!',
-                    confirmButtonText: 'OK',
-                  });
+                
+              ModalAlert({ message: 'Arquivo salvo com sucesso!', type: 'success' });
+
                 } else {
                   error(data.message || 'Erro ao enviar o arquivo. Tente novamente!');
-                  ErrorAlert({ message: data.message || 'Erro ao enviar o arquivo. Tente novamente!' });
+                  ModalAlert({ message: data.message || 'Erro ao enviar o arquivo. Tente novamente!', type: 'error' });
                 }
               })
               .catch((err) => {
                 error(err.message);
-                ErrorAlert({ message: err.message || 'Erro ao enviar o arquivo. Tente novamente!' });
+                ModalAlert({ message: err.message || 'Erro ao enviar o arquivo. Tente novamente!', type: 'error' });
               });
 
             return {

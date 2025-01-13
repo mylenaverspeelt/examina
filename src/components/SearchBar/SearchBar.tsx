@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import styles from './SearchBar.module.css';
 import Link from 'next/link';
 import SearchIcon from '@mui/icons-material/Search';
-import ErrorAlert from '../ErrorAlert/ErrorAlert';
+import ModalAlert from '../ModalAlert/ModalAlert';
 import { useSingleRequest } from '@/hooks/useSingleRequest';
 
 interface Patient {
@@ -32,7 +32,7 @@ export default function SearchBar() {
       setCache((prev) => ({ ...prev, [term]: data.patients || [] }));
       setFilteredPatients(data.patients || []);
     } catch {
-      ErrorAlert({ message: 'Erro ao buscar pacientes. Tente novamente mais tarde.' });
+      ModalAlert({ message: 'Erro ao buscar pacientes. Tente novamente mais tarde.' });
       setFilteredPatients([]);
     }
   };

@@ -1,10 +1,12 @@
 "use client";
+
 import React, { useEffect, useState } from 'react';
 import styles from "./page.module.css";
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
-import { Button } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Button, IconButton, Box } from '@mui/material';
 import ClipLoader from "react-spinners/ClipLoader";
-import ErrorAlert from '@/components/ErrorAlert/ErrorAlert';
+import ModalAlert from '@/components/ModalAlert/ModalAlert';
 import { useSingleRequest } from '@/hooks/useSingleRequest';
 
 interface Pdf {
@@ -36,7 +38,7 @@ export default function Uploads() {
         setPdfs(sortedData);
       }
     } catch {
-      ErrorAlert({ message: 'Erro ao carregar PDFs.' });
+      ModalAlert({ message: 'Erro ao carregar PDFs.', type: 'error' });
     } finally {
       setLoading(false);
     }
@@ -71,12 +73,33 @@ export default function Uploads() {
         newWindow.document.write(`<iframe src="${blobUrl}" style="width:100%; height:100%; border:none;"></iframe>`);
         newWindow.document.title = pdf.name;
       } else {
-        ErrorAlert({ message: 'A aba foi bloqueada. Permita pop-ups para abrir o PDF.' });
+        ModalAlert({ message: 'A aba foi bloqueada. Permita pop-ups para abrir o PDF.', type: 'error' });
       }
 
       setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
     } catch (error) {
-      ErrorAlert({ message: `Falha ao abrir o PDF: ${error}` });
+      ModalAlert({ message: `Falha ao abrir o PDF: ${error}`, type: 'error' });
+    }
+  };
+
+  const handleDelete = async (id: number) => {
+    try {
+      const response = await fetch('/api/deletePdf', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao excluir o PDF');
+      }
+
+      await fetchPdfs();
+      ModalAlert({ message: 'PDF excluído com sucesso!', type: 'success' });
+    } catch {
+      ModalAlert({ message: 'Falha ao excluir o PDF.', type: 'error' });
     }
   };
 
@@ -93,16 +116,22 @@ export default function Uploads() {
       <h1>Exames arquivados</h1>
       {pdfs.length > 0 ? (
         pdfs.map((pdf) => (
-          <div key={pdf.id} style={{ cursor: 'pointer' }}>
+          <Box key={pdf.id} display="flex" alignItems="center" gap={1}>
             <Button
               variant="contained"
               className="pdf-button"
-              startIcon={<PictureAsPdfIcon sx={{ width: 30, height: 30 }}  />}
+              startIcon={<PictureAsPdfIcon sx={{ width: 30, height: 30 }} />}
               onClick={() => handlePdfClick(pdf)}
             >
               {pdf.fileName}
             </Button>
-          </div>
+            <IconButton
+              color="error"
+              onClick={() => handleDelete(pdf.id)}
+            >
+              <DeleteIcon />
+            </IconButton>
+          </Box>
         ))
       ) : (
         <p>Nenhum exame arquivado encontrado.</p>
