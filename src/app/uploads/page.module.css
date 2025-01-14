@@ -4,7 +4,9 @@
     text-align: center;
     overflow: auto;
     scroll-behavior: smooth;
+    justify-content: center;
     margin: 0 auto;
+
 }
 
 .main h1 {
@@ -12,7 +14,6 @@
     text-align: center;
     font-size: 1.7rem;
     padding: 1rem 0 2rem 0;
-
 }
 
 .main::-webkit-scrollbar {
@@ -41,7 +42,12 @@
 }
 
 @media (max-width: 768px) {
-    .main{
+    .main {
         padding: 1rem;
+        width: 95%;
+    }
+
+    .pdfsDiv {
+        width: 100%;
     }
 }

@@ -63,11 +63,8 @@ export async function POST(req: NextRequest) {
       });
 
       if (req.body) {
-        // Converter o Web Stream para Buffer
         const buffer = await convertWebStreamToBuffer(req.body);
-        // Criar um Node.js Readable Stream a partir do Buffer
         const nodeStream = Readable.from(buffer);
-        // Agora podemos usar pipe
         nodeStream.pipe(busboy);
       } else {
         reject(new Error('Request body is empty'));

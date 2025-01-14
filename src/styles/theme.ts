@@ -5,7 +5,7 @@ declare module '@mui/material/styles' {
         custom: {
             white: string;
             superLightGray: string;
-            lightGray: string;
+            superLightPurple: string;
             gray: string;
             purple: string;
             purpleHover: string;
@@ -16,7 +16,7 @@ declare module '@mui/material/styles' {
         custom: {
             white: string;
             superLightGray: string;
-            lightGray: string;
+            superLightPurple: string;
             gray: string;
             purple: string;
             purpleHover: string;
@@ -30,7 +30,7 @@ export const theme = createTheme({
         custom: {
             white: '#FAFAFA',
             superLightGray: '#efefef00',
-            lightGray: '#E2E1E1',
+            superLightPurple: '#cfc2eb33',
             gray: '#CECBCB',
             purple: '#3E0649',
             purpleHover: '#3e0649',
@@ -51,6 +51,7 @@ export const theme = createTheme({
                     maxHeight: '100%',
                     backgroundImage: 'url(/assets/axiom-pattern.png)',
                     fontFamily: '"Afacad Flux", "Itim", "Playwrite DE Grund", sans-serif',
+                    backgroundColor: "#cfc2eb33"
                 },
                 '*': {
                     boxSizing: 'border-box',
@@ -79,19 +80,19 @@ export const theme = createTheme({
                 contained: {
                     '&.login-button': {
                         padding: '0.5rem 0.8rem',
-                        backgroundColor: '#3E0649',
-                        fontSize: '1.1rem',
+                        backgroundColor: '#6A2A85',
                         color: '#FAFAFA',
+                        fontSize: '1.1rem',
                         '&:hover': {
-                            backgroundColor: '#E2E1E1',
-                            color: '#388B8B',
+                            backgroundColor: '#813599',
+                            color: '#FAFAFA',
                         },
                     },
                     '&.menu-button': {
+                        backgroundColor: '#6A2A85',
+                        color: '#FAFAFA',
                         padding: '1.5rem',
                         width: '25rem',
-                        backgroundColor: '#E2E1E1',
-                        color: '#3E0649',
                         fontWeight: 'bold',
                         display: 'flex',
                         alignItems: 'center',
@@ -101,14 +102,11 @@ export const theme = createTheme({
                         boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
                         transition: 'all 0.3s ease',
                         margin: '1rem',
-                        '& .MuiSvgIcon-root': {
-                            color: '#388B8B',
-                        },
                         '&:hover': {
-                            backgroundColor: '#3e0649',
+                            backgroundColor: '#813599',
                             color: '#FAFAFA',
                             '& .MuiSvgIcon-root': {
-                                color: '#388B8B',
+                                color: '#FAFAFA',
                             },
                         },
                         '@media (max-width: 768px)': {
@@ -119,22 +117,25 @@ export const theme = createTheme({
                         },
                     },
                     '&.pdf-button': {
-                        backgroundColor: '#E2E1E1',
+                        backgroundColor: '#cfc2eb33',
                         color: '#3E0649',
-                        width: '80%',
+                        width: '100%',
                         margin: '0.8rem 0',
                         padding: '0.5rem 1.5rem',
                         fontSize: '1.3rem',
                         justifyContent: 'start',
-                        overflow: 'hidden', 
-                        textOverflow: 'ellipsis', 
-                        whiteSpace: 'nowrap', 
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
                         '& .MuiSvgIcon-root': {
                             color: '#388B8B',
                         },
                         '&:hover': {
-                            backgroundColor: '#3e0649',
+                            backgroundColor: '#6A2A85',
                             color: '#FAFAFA',
+                            '& .MuiSvgIcon-root': {
+                                color: '#FAFAFA',
+                            },
                         },
                         '@media (max-width: 768px)': {
                             width: '100%',
@@ -142,16 +143,25 @@ export const theme = createTheme({
                     },
                     '&.basicButton': {
                         padding: '0.6rem 1.2rem',
-                        backgroundColor: '#E2E1E1',
-                        color: '#3E0649',
+                        backgroundColor: '#6A2A85',
+                        color: '#FAFAFA',
                         fontSize: '1.2rem',
                         '&:hover': {
-                            backgroundColor: '#3E0649',
-                            color: "white"
+                            backgroundColor: '#813599',
+                            color: '#FAFAFA',
+                            '& .MuiSvgIcon-root': {
+                                color: '#FAFAFA',
+                            },
                         },
-                        '& .MuiSvgIcon-root': {
-                            color: '#388B8B',
-                        },
+
+                    },
+                    '&.backButton': {
+                        backgroundColor: '#6A2A85',
+                        color: '#FAFAFA',
+                        '&:hover': {
+                            backgroundColor: '#813599',
+                            color: '#FAFAFA',
+                        }
                     },
                 },
             },

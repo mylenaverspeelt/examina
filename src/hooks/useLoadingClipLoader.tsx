@@ -8,7 +8,6 @@ export const useLoadingClipLoader = () => {
     try {
       await asyncCallback();
     } catch (error) {
-      console.error('Erro ao executar tarefa assíncrona:', error);
     } finally {
       setLoading(false);
     }

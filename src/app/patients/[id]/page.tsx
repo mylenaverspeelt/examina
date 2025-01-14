@@ -1,140 +1,16 @@
-'use client';
-import { useEffect, useState, useRef } from 'react';
-import { useRouter, useParams } from 'next/navigation';
-import ClipLoader from 'react-spinners/ClipLoader';
-import { Line } from 'react-chartjs-2';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
+import React from 'react';
 import styles from './page.module.css';
-import ErrorAlert from '@/components/ErrorAlert/ErrorAlert';
-import { useSingleRequest } from '@/hooks/useSingleRequest';
+import LoadingComponent from '@/components/LoadingComponent/LoadingComponent';
+import PatientDetails from '@/components/PatientDetails/PatientDetails';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
-
-interface Patient {
-  id: number;
-  name: string;
-  age: string;
-  birthDate: string;
-}
-
-interface GlucoseRecord {
-  createdAt: string;
-  result: number;
-}
-
-export default function PatientDetailPage() {
-  const [patient, setPatient] = useState<Patient | null>(null);
-  const [glucoseRecords, setGlucoseRecords] = useState<GlucoseRecord[]>([]);
-  const [loading, setLoading] = useState(true);
-  const chartRef = useRef(null);
-  const router = useRouter();
-  const params = useParams();
-  const executeSingleRequest = useSingleRequest();
-
-  useEffect(() => {
-    const fetchPatientAndGlucoseData = async () => {
-      try {
-        if (!params || !params.id) {
-          throw new Error('Parâmetros inválidos');
-        }
-
-        const patientResponse = await fetch(`/api/patients/${params.id}`);
-        if (!patientResponse.ok) {
-          throw new Error('Paciente não encontrado');
-        }
-        const patientData = await patientResponse.json();
-        setPatient(patientData.patient);
-
-        const glucoseResponse = await fetch(`/api/patients/${params.id}/glucoseRecords`);
-        if (!glucoseResponse.ok) {
-          throw new Error('Erro ao buscar registros de glicose');
-        }
-        const glucoseData = await glucoseResponse.json();
-        setGlucoseRecords(glucoseData.records);
-      } catch (error) {
-        ErrorAlert({ message: 'Erro ao buscar dados do paciente' });
-        router.push('/');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    executeSingleRequest(fetchPatientAndGlucoseData);
-  }, [params, router, executeSingleRequest]);
-
-  if (loading) {
-    return (
-      <div className={styles.loadingContainer}>
-        <ClipLoader color="#388B8B" size={50} />
-      </div>
-    );
-  }
-
-  if (!patient) {
-    return <div>Paciente não encontrado</div>;
-  }
-
-  const chartData = {
-    labels: glucoseRecords.map(record => new Date(record.createdAt).toLocaleDateString()),
-    datasets: [
-      {
-        label: 'Glicose',
-        data: glucoseRecords.map(record => record.result),
-        borderColor: '#3E0649',
-        fill: false,
-      },
-    ],
-  };
-
-  const chartOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: 'top' as const,
-      },
-      title: {
-        display: true,
-        text: 'Histórico de Exames de Glicose',
-      },
-    },
-    layout: {
-      padding: {
-        top: 20,
-        left: 10,
-        right: 10,
-        bottom: 10,
-      },
-    },
-  };
+export default async function PatientDetailPage({ params }: { params: { id: string } }) {
+  const { id } = params;
 
   return (
     <div className={styles.container}>
-      <div className={styles.infosDiv}>
-        <h1 className={styles.patientName}>{patient.name}</h1>
-        <p>Idade: {patient.age}</p>
-        <p>Data de Nascimento: {patient.birthDate}</p>
-      </div>
-      <div className={styles.chartDiv} ref={chartRef} style={{ height: '80vh', width: '100%' }}>
-        <Line data={chartData} options={chartOptions} />
-      </div>
+      <LoadingComponent>
+        <PatientDetails patientId={id} />
+      </LoadingComponent>
     </div>
   );
 }
