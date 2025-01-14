@@ -1,4 +1,3 @@
-// app/not-found.tsx
 'use client';
 
 import { Box, Button, Typography } from '@mui/material';
@@ -21,7 +20,7 @@ export default function NotFound() {
         A página que você está procurando não existe.
       </Typography>
       <Link href="/" passHref>
-        <Button variant="contained" color="secondary" size="large">
+        <Button variant="contained" className="backButton" size="large">
           Voltar para Home
         </Button>
       </Link>

@@ -1,56 +1,16 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import GlucoseChart from '@/components/GlucoseChart/GlcoseChart';
+import React from 'react';
 import styles from './page.module.css';
-import { ClipLoader } from 'react-spinners';
-import ModalAlert from '@/components/ModalAlert/ModalAlert';
-import { useSingleRequest } from '@/hooks/useSingleRequest';
+import LoadingComponent from '@/components/LoadingComponent/LoadingComponent';
+import GlucoseChart from '@/components/GlucoseChart/GlcoseChart';
 
-interface GlucoseData {
-  normalCount: number;
-  preDiabetesCount: number;
-  diabetesCount: number;
-}
-
-export default function Analytics() {
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState<GlucoseData | null>(null);
-  const executeSingleRequest = useSingleRequest();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const result = await executeSingleRequest(async () => {
-          const response = await fetch('/api/getGlucose');
-          return response.json();
-        });
-        setData(result);
-      } catch {
-        ModalAlert({ message: 'Não foi possível carregar os dados de glicose.' });
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [executeSingleRequest]);
-
-  if (loading || !data) {
-    return (
-      <div className={styles.loadingContainer}>
-        <ClipLoader color="#388B8B" size={50} />
-      </div>
-    );
-  }
+export default async function Analytics() {
 
   return (
-    <div className={styles.chartDiv}>
-      <GlucoseChart
-        normalCount={data.normalCount}
-        preDiabetesCount={data.preDiabetesCount}
-        diabetesCount={data.diabetesCount}
-      />
-    </div>
+    <LoadingComponent>
+      <div className={styles.main}>
+        <GlucoseChart />
+      </div>
+    </LoadingComponent>
+
   );
 }

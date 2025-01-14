@@ -80,7 +80,7 @@ export const theme = createTheme({
                 contained: {
                     '&.login-button': {
                         padding: '0.5rem 0.8rem',
-                        backgroundColor: '#6A2A85         ',
+                        backgroundColor: '#6A2A85',
                         color: '#FAFAFA',
                         fontSize: '1.1rem',
                         '&:hover': {
@@ -89,7 +89,7 @@ export const theme = createTheme({
                         },
                     },
                     '&.menu-button': {
-                        backgroundColor: '#6A2A85         ',
+                        backgroundColor: '#6A2A85',
                         color: '#FAFAFA',
                         padding: '1.5rem',
                         width: '25rem',
@@ -143,7 +143,7 @@ export const theme = createTheme({
                     },
                     '&.basicButton': {
                         padding: '0.6rem 1.2rem',
-                        backgroundColor: '#6A2A85         ',
+                        backgroundColor: '#6A2A85',
                         color: '#FAFAFA',
                         fontSize: '1.2rem',
                         '&:hover': {
@@ -154,6 +154,14 @@ export const theme = createTheme({
                             },
                         },
 
+                    },
+                    '&.backButton': {
+                        backgroundColor: '#6A2A85',
+                        color: '#FAFAFA',
+                        '&:hover': {
+                            backgroundColor: '#813599',
+                            color: '#FAFAFA',
+                        }
                     },
                 },
             },

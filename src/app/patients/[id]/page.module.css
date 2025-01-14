@@ -1,16 +1,4 @@
-.loadingContainer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.8);
-    z-index: 1000;
-}
-
+ 
 .container {
     width: 100%;
     display: flex;
@@ -18,45 +6,9 @@
     justify-content: space-evenly;
 }
 
-.chartDiv {
-    display: flex;
-    justify-content: center;
-    margin: 0 auto;
-    height: 60%;
-    max-height: 60%;
-    max-width: 70%;
-    cursor: pointer;
-}
-
-.infosDiv {
-    background-color: var(--super-light-gray);
-    border-radius: var(--border-radius);
-    width: 80%;
-    margin: 0 auto;
-    padding: 1rem 2rem;
-    border: 1px solid var(--light-gray);
-}
-
-.patientName {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    max-width: 90%;
-}
-
-
 @media only screen and (max-width: 768px) {
-    .chartDiv {
-        height: 100%;
-        width: 95%;
-    }
-
-    .infosDiv {
-        width: 95%;
-    }
-
     .container {
         height: 80%;
     }
 
-}
+} 
