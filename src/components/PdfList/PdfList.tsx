@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import styles from "./PdfList.module.css";
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Button, IconButton } from '@mui/material';
-import ClipLoader from "react-spinners/ClipLoader";
 import ModalAlert from '@/components/ModalAlert/ModalAlert';
 import { useSingleRequest } from '@/hooks/useSingleRequest';
+import LoadingComponent from '../LoadingComponent/LoadingComponent';
 
 interface Pdf {
   id: number;
@@ -19,11 +19,9 @@ interface Pdf {
 
 export default function PdfList() {
   const [pdfs, setPdfs] = useState<Pdf[]>([]);
-  const [loading, setLoading] = useState(false);
   const executeSingleRequest = useSingleRequest();
 
   const fetchPdfs = async () => {
-    setLoading(true);
     try {
       const data = await executeSingleRequest(async () => {
         const response = await fetch('/api/getAllPdfs');
@@ -40,7 +38,6 @@ export default function PdfList() {
     } catch {
       ModalAlert({ message: 'Erro ao carregar PDFs.', type: 'error', title: 'Erro' });
     } finally {
-      setLoading(false);
     }
   };
 
@@ -103,39 +100,33 @@ export default function PdfList() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className={styles.loadingContainer}>
-        <ClipLoader color="#388B8B" size={50} />
-      </div>
-    );
-  }
-
   return (
-    <div className={styles.pdfsDiv}>
-      {pdfs.length > 0 ? (
-        pdfs.map((pdf) => (
-          <div key={pdf.id} className={styles.pdfRow}>
-            <Button
-              variant="contained"
-              className={`${styles.pdfButton} pdf-button`}
-              startIcon={<PictureAsPdfIcon sx={{ width: 30, height: 30 }} />}
-              onClick={() => handlePdfClick(pdf)}
-            >
-              {pdf.fileName}
-            </Button>
-            <IconButton
-              className={styles.deleteButton}
-              color="error"
-              onClick={() => handleDelete(pdf.id)}
-            >
-              <DeleteIcon />
-            </IconButton>
-          </div>
-        ))
-      ) : (
-        <p>Nenhum exame arquivado encontrado.</p>
-      )}
-    </div>
+    <Suspense fallback={<LoadingComponent />}>
+      <div className={styles.pdfsDiv}>
+        {pdfs.length > 0 ? (
+          pdfs.map((pdf) => (
+            <div key={pdf.id} className={styles.pdfRow}>
+              <Button
+                variant="contained"
+                className={`${styles.pdfButton} pdf-button`}
+                startIcon={<PictureAsPdfIcon sx={{ width: 30, height: 30 }} />}
+                onClick={() => handlePdfClick(pdf)}
+              >
+                {pdf.fileName}
+              </Button>
+              <IconButton
+                className={styles.deleteButton}
+                color="error"
+                onClick={() => handleDelete(pdf.id)}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </div>
+          ))
+        ) : (
+          <p>Nenhum exame arquivado encontrado.</p>
+        )}
+      </div>
+    </Suspense>
   );
 }
