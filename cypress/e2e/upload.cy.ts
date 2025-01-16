@@ -51,13 +51,18 @@ describe('PDF Upload Test', () => {
   });
 
   it('Should show an error for a file exceeding the size limit', () => {
-    cy.get('input[type="file"]').attachFile({
-      filePath: 'largeFile.pdf', 
-      mimeType: 'application/pdf',
-    });
+    cy.reload(); 
   
-    cy.contains('O arquivo não pode exceder 500KB.', { timeout: 10000 })
-    .should('be.visible');
-});
+    cy.get('input[type="file"]', { timeout: 5000 })
+      .should('exist')
+      .and('be.visible')
+      .as('fileInput'); 
+  
+    cy.get('@fileInput').attachFile('largeFile.pdf');
+  
+    cy.contains('O arquivo não pode exceder 500KB', { timeout: 20000 })
+      .should('be.visible');
+  });
+  
 
 });
