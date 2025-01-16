@@ -5,8 +5,7 @@ import { FilePond, registerPlugin } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
-import Swal from 'sweetalert2';
-import { Button } from '@mui/material'; 
+import { Button } from '@mui/material';
 import FolderCopyIcon from '@mui/icons-material/FolderCopy';
 import ModalAlert from '../ModalAlert/ModalAlert';
 import styles from './FileUpload.module.css';
@@ -30,15 +29,16 @@ const FilePondUpload: React.FC = () => {
         server={{
           process: (fieldName, file, metadata, load, error, progress, abort) => {
             if (file.type !== 'application/pdf') {
+              console.log('Chamando ModalAlert com erro de tipo inválido');
               error('O arquivo deve ser um PDF.');
               ModalAlert({ message: 'Apenas arquivos PDF são permitidos.', type: 'error', title: 'Erro' });
               return;
             }
-
+            
             const maxSizeInBytes = 500 * 1024;
             if (file.size > maxSizeInBytes) {
               error('O arquivo não pode exceder 500KB.');
-              ModalAlert({ message: 'O arquivo não pode exceder 500KB.', type: 'error' , title: 'Erro'});
+              ModalAlert({ message: 'O arquivo não pode exceder 500KB.', type: 'error', title: 'Erro' });
               return;
             }
 
@@ -55,7 +55,9 @@ const FilePondUpload: React.FC = () => {
             })
               .then((response) => {
                 if (!response.ok) {
-                  throw new Error('Erro ao enviar o arquivo.');
+                  return response.json().then((data) => {
+                    throw new Error(data.message || 'Erro ao enviar o arquivo.');
+                  });
                 }
                 return response.json();
               })
@@ -63,18 +65,16 @@ const FilePondUpload: React.FC = () => {
                 if (data.success) {
                   load(file.name);
                   setIsUpload(true);
-
-                
-              ModalAlert({ message: 'Arquivo salvo com sucesso!', type: 'success', title:'Sucesso' });
-
+                  ModalAlert({ message: 'Arquivo salvo com sucesso!', type: 'success', title: 'Sucesso' });
                 } else {
-                  error(data.message || 'Erro ao enviar o arquivo. Tente novamente!');
-                  ModalAlert({ message: data.message || 'Erro ao enviar o arquivo. Tente novamente!', type: 'error', title: 'Erro'});
+                  error(data.message || 'Erro ao enviar o arquivo.');
+                  ModalAlert({ message: data.message || 'Erro ao enviar o arquivo.', type: 'error', title: 'Erro' });
                 }
               })
               .catch((err) => {
-                error(err.message);
-                ModalAlert({ message: err.message || 'Erro ao enviar o arquivo. Tente novamente!', type: 'error' , title: 'Erro'});
+                const errorMessage = typeof err.message === 'string' ? err.message : 'Erro desconhecido.';
+                error(errorMessage);
+                ModalAlert({ message: errorMessage, type: 'error', title: 'Erro' });
               });
 
             return {
@@ -91,10 +91,10 @@ const FilePondUpload: React.FC = () => {
       {isUpload && (
         <div className={styles.buttonsDiv}>
           <Button
-            variant="contained" 
-            className="basicButton" 
+            variant="contained"
+            className="basicButton"
             startIcon={<FolderCopyIcon fontSize="large" />}
-            href="/uploads" 
+            href="/uploads"
           >
             Exames Arquivados
           </Button>
