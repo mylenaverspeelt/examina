@@ -10,7 +10,7 @@ on:
 
 jobs:
   test:
-    name: Run Jest Tests
+    name: Run Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -28,7 +28,23 @@ jobs:
       - name: Generate Prisma Client
         run: npx prisma generate
 
-      - name: Run tests
+      - name: Run Jest tests
         run: npm run test:ci
 
- 
+      - name: Install Cypress dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v6
+        with:
+          build: npm run build
+          start: npm start
+          wait-on: 'http://localhost:3000'
+          browser: chrome
+          headless: true
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          NEXTAUTH_URL: http://localhost:3000

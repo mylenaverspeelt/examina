@@ -62,7 +62,6 @@ describe('PDF Upload Test', () => {
   
     cy.contains('O arquivo não pode exceder 500KB', { timeout: 20000 })
       .should('be.visible');
-  });
-  
+  });  
 
 });
