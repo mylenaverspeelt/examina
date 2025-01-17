@@ -1,0 +1,8 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+      "types": ["cypress", "node", "cypress-file-upload"],
+      "isolatedModules": false
+    },
+    "include": ["**/*.ts"]
+  }

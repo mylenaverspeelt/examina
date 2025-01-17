@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import styles from './page.module.css';
 import LoadingComponent from '@/components/LoadingComponent/LoadingComponent';
 import PatientDetails from '@/components/PatientDetails/PatientDetails';
@@ -8,9 +8,9 @@ export default async function PatientDetailPage({ params }: { params: { id: stri
 
   return (
     <div className={styles.container}>
-      <LoadingComponent>
+      <Suspense fallback={<LoadingComponent />}>
         <PatientDetails patientId={id} />
-      </LoadingComponent>
+      </Suspense>
     </div>
   );
 }

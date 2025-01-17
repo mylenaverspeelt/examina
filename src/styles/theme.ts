@@ -49,7 +49,6 @@ export const theme = createTheme({
                 },
                 body: {
                     maxHeight: '100%',
-                    backgroundImage: 'url(/assets/axiom-pattern.png)',
                     fontFamily: '"Afacad Flux", "Itim", "Playwrite DE Grund", sans-serif',
                     backgroundColor: "#cfc2eb33"
                 },

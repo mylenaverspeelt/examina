@@ -1,16 +1,17 @@
-import React from 'react';
+'use client';
+import React, { Suspense } from 'react';
 import styles from './page.module.css';
-import LoadingComponent from '@/components/LoadingComponent/LoadingComponent';
 import GlucoseChart from '@/components/GlucoseChart/GlcoseChart';
+import LoadingComponent from '@/components/LoadingComponent/LoadingComponent';
 
-export default async function Analytics() {
 
+
+export default function Analytics() {
   return (
-    <LoadingComponent>
+    <Suspense fallback={<LoadingComponent />}>
       <div className={styles.main}>
         <GlucoseChart />
       </div>
-    </LoadingComponent>
-
+    </Suspense>
   );
 }

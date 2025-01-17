@@ -4,7 +4,7 @@
     "lib": [
       "dom",
       "esnext"
-    ], 
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -24,7 +24,9 @@
     },
     "types": [
       "node",
-      "jest"
+      "jest",
+      "cypress",
+      "cypress-file-upload"
     ],
     "plugins": [
       {
@@ -36,7 +38,8 @@
     "next-env.d.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "cypress/**/*.ts"
   ],
   "exclude": [
     "node_modules",
