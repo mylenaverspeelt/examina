@@ -141,7 +141,7 @@ export const theme = createTheme({
                         },
                     },
                     '&.basicButton': {
-                        padding: '0.6rem 1.2rem',
+                        padding: '0.8rem 1.5rem',
                         backgroundColor: '#6A2A85',
                         color: '#FAFAFA',
                         fontSize: '1.2rem',
@@ -162,6 +162,32 @@ export const theme = createTheme({
                             color: '#FAFAFA',
                         }
                     },
+                    '&.upload-pdf-button': {
+                        backgroundColor: '#3E0649', 
+                        color: '#FAFAFA', 
+                        padding: '0.8rem 1.5rem',
+                        fontSize: '1.2rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        width: '15rem',
+                        margin: '0 auto',
+                        justifyContent: 'center',
+                        transition: 'all 0.3s ease-in-out',
+                        '& .MuiSvgIcon-root': {
+                            color: '#388B8B', 
+                        },
+                        '&:hover': {
+                            backgroundColor: '#6A2A85', 
+                            '& .MuiSvgIcon-root': {
+                                color: '#FAFAFA', 
+                            },
+                        },
+                        '&:disabled': {
+                            backgroundColor: '#CCC',
+                            color: '#888',
+                            cursor: 'not-allowed',
+                        },
+                    }
                 },
             },
         },
