@@ -13,51 +13,59 @@ import {
   Legend,
 } from 'chart.js';
 import styles from './PatientDetails.module.css';
+import { GlucoseRecordDTO } from '@/dto/glucose/patientIdGlucose.dto';
+import { useSingleRequest } from '@/hooks/useSingleRequest';
+import LoadingComponent from '../LoadingComponent/LoadingComponent';
+
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
-
-interface Patient {
-  id: number;
-  name: string;
-  age: string;
-  birthDate: string;
-}
-
-interface GlucoseRecord {
-  createdAt: string;
-  result: number;
-}
 
 interface PatientDetailsProps {
   patientId: string;
 }
 
-const fetchPatientData = async (patientId: string) => {
-  const patientResponse = await fetch(`/api/patients/${patientId}`);
-  if (!patientResponse.ok) throw new Error('Paciente não encontrado');
-  const patientData = await patientResponse.json();
+const PatientDetailsContent: React.FC<PatientDetailsProps> = ({ patientId }) => {
+  const [data, setData] = React.useState<{
+    patient: any;
+    glucoseRecords: GlucoseRecordDTO[];
+  } | null>(null);
+  const executeSingleRequest = useSingleRequest();
 
-  const glucoseResponse = await fetch(`/api/patients/${patientId}/glucoseRecords`);
-  if (!glucoseResponse.ok) throw new Error('Erro ao buscar registros de glicose');
-  const glucoseData = await glucoseResponse.json();
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await executeSingleRequest(async () => {
+          const patientResponse = await fetch(`/api/patients/${patientId}`);
+          if (!patientResponse.ok) throw new Error('Paciente não encontrado');
+          const patientData = await patientResponse.json();
 
-  return {
-    patient: patientData.patient,
-    glucoseRecords: glucoseData.records,
-  };
-};
+          const glucoseResponse = await fetch(`/api/patients/${patientId}/glucoseRecords`);
+          if (!glucoseResponse.ok) throw new Error('Erro ao buscar registros de glicose');
+          const glucoseData = await glucoseResponse.json();
 
-const PatientDetailsContent: React.FC<PatientDetailsProps> = async ({ patientId }) => {
-  const { patient, glucoseRecords } = await fetchPatientData(patientId);
+          return {
+            patient: patientData.patient,
+            glucoseRecords: glucoseData.records,
+          };
+        });
+        setData(result);
+      } catch (error) {
+      }
+    };
+
+    fetchData();
+  }, [patientId, executeSingleRequest]);
+
+  if (!data) return <LoadingComponent />;
 
   const chartData = {
-    labels: glucoseRecords.map((record: GlucoseRecord) =>
+    labels: data.glucoseRecords.map((record: GlucoseRecordDTO) =>
       new Date(record.createdAt).toLocaleDateString()
     ),
     datasets: [
       {
         label: 'Glicose',
-        data: glucoseRecords.map((record: GlucoseRecord) => record.result),
+        data: data.glucoseRecords.map((record: GlucoseRecordDTO) => record.result),
         borderColor: '#3E0649',
         fill: false,
       },
@@ -89,9 +97,9 @@ const PatientDetailsContent: React.FC<PatientDetailsProps> = async ({ patientId 
   return (
     <div className={styles.container}>
       <div className={styles.infosDiv}>
-        <h1 className={styles.patientName}>{patient.name}</h1>
-        <p>Idade: {patient.age}</p>
-        <p>Data de Nascimento: {patient.birthDate}</p>
+        <h1 className={styles.patientName}>{data.patient.name}</h1>
+        <p>Idade: {data.patient.age}</p>
+        <p>Data de Nascimento: {data.patient.birthDate}</p>
       </div>
       <div className={styles.chartDiv} style={{ height: '80vh', width: '100%' }}>
         <Line data={chartData} options={chartOptions} />
@@ -99,12 +107,6 @@ const PatientDetailsContent: React.FC<PatientDetailsProps> = async ({ patientId 
     </div>
   );
 };
-
-const LoadingComponent: React.FC = () => (
-  <div className={styles.loadingContainer}>
-    <p>Carregando...</p>
-  </div>
-);
 
 const PatientDetails: React.FC<PatientDetailsProps> = ({ patientId }) => {
   return (

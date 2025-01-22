@@ -1,5 +1,6 @@
 'use client';
-import { useState, useEffect } from 'react';
+
+import { useState, useEffect, useCallback } from 'react';
 import styles from './SearchBar.module.css';
 import Link from 'next/link';
 import SearchIcon from '@mui/icons-material/Search';
@@ -17,37 +18,41 @@ export default function SearchBar() {
   const [cache, setCache] = useState<Record<string, Patient[]>>({});
   const executeSingleRequest = useSingleRequest();
 
-  const fetchPatients = async (term: string) => {
+  const fetchPatients = useCallback(async (term: string) => {
     if (cache[term]) {
       setFilteredPatients(cache[term]);
       return;
     }
 
     try {
-      const response = await fetch(`/api/patients?query=${term}`);
-      if (!response.ok) {
-        throw new Error('Erro ao buscar pacientes');
-      }
-      const data = await response.json();
-      setCache((prev) => ({ ...prev, [term]: data.patients || [] }));
-      setFilteredPatients(data.patients || []);
-    } catch {
-      ModalAlert({ message: 'Paciente não encontrado', type: 'info' , title: 'Ops'});
+      const result = await executeSingleRequest(async () => {
+        const response = await fetch(`/api/patients?query=${term}`);
+        if (!response.ok) {
+          throw new Error('Erro ao buscar pacientes');
+        }
+        const data = await response.json();
+        return data.patients || [];
+      });
+
+      setCache((prev) => ({ ...prev, [term]: result }));
+      setFilteredPatients(result);
+    } catch (error) {
+      ModalAlert({ message: 'Paciente não encontrado', type: 'info', title: 'Ops' });
       setFilteredPatients([]);
     }
-  };
+  }, [cache, executeSingleRequest]);
 
   useEffect(() => {
-    if (searchTerm) {
-      const delayDebounce = setTimeout(() => {
-        executeSingleRequest(() => fetchPatients(searchTerm));
-      }, 300);
+    const delayDebounce = setTimeout(() => {
+      if (searchTerm) {
+        fetchPatients(searchTerm);
+      } else {
+        setFilteredPatients([]);
+      }
+    }, 300);
 
-      return () => clearTimeout(delayDebounce);
-    } else {
-      setFilteredPatients([]);
-    }
-  }, [searchTerm, executeSingleRequest]);
+    return () => clearTimeout(delayDebounce);
+  }, [searchTerm, fetchPatients]);
 
   return (
     <div className={styles.searchContainer}>
