@@ -13,7 +13,7 @@ import {
   Legend,
 } from 'chart.js';
 import styles from './PatientDetails.module.css';
-import { GlucoseRecordDTO } from '@/dto/glucose/patientIdGlucose.dto';
+import { GlucoseRecordDTO } from '@/dto/glucose/glucose.dto';
 import { useSingleRequest } from '@/hooks/useSingleRequest';
 import LoadingComponent from '../LoadingComponent/LoadingComponent';
 

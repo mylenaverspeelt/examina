@@ -2,25 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import { UploadPdfService } from '@/services/pdfs/uploadPdf.service';
 import Busboy from 'busboy';
 import { Readable } from 'stream';
+import convertWebStreamToBuffer from '@/utils/convertWebStreamToBuffer';
 
 export const config = {
   api: {
     bodyParser: false,
   },
 };
-
-async function convertWebStreamToBuffer(webStream: ReadableStream): Promise<Buffer> {
-  const chunks: Uint8Array[] = [];
-  const reader = webStream.getReader();
-
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    chunks.push(value);
-  }
-
-  return Buffer.concat(chunks);
-}
 
 export async function POST(req: NextRequest) {
   try {

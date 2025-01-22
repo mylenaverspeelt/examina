@@ -20,7 +20,7 @@
  *                 example: "Erro ao buscar registros de glicose"
  */
 import prisma from '@/utils/prisma/prisma';
-import { GlucoseRecordsResponseDTO, GlucoseRecordDTO } from '@/dto/glucose/patientIdGlucose.dto';
+import { GlucoseRecordDTO, GlucoseRecordsResponseDTO } from '@/dto/glucose/glucose.dto';
 
 export class PatientIdGlucoseService {
   static async getGlucoseRecordsByPatientId(patientId: number): Promise<GlucoseRecordsResponseDTO> {
