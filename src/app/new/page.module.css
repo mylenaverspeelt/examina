@@ -1,29 +1,10 @@
-.title {
-    color: #3E0649;
-    text-align: center;
-    font-size: 1.7rem;
-    padding-bottom: 2rem;
-}
-
 .main {
-    height: 100%;
-    width: 80%;
     margin: 0 auto;
 }
 
-.main h1{
-    padding: 2rem 0;
+.title {
+    color: #3E0649;
+    text-align: center;
+    width: 100%;
+    font-size: 1.7rem;
 }
-
-.buttonsDiv {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-
-}
-
-.uploadDiv {
-    height: 80%;
-}
-

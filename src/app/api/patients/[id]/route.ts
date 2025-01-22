@@ -3,7 +3,7 @@ import { PatientIdService } from '@/services/patients/patientId.service';
 
 export async function GET(req: NextRequest, context: { params: { id: string } }) {
   try {
-    const { id } = await context.params; 
+    const { id } = context.params; 
 
     if (!id || isNaN(Number(id))) {
       return NextResponse.json(
