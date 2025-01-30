@@ -15,21 +15,21 @@
  *         description: Erro interno do servidor
  */
 
-import prisma from '@/utils/prisma/prisma';
-import { GlucoseDTO } from '@/dto/glucose/glucose.dto';
+import prisma from "@/utils/prisma/prisma"
+import { GlucoseDTO } from "@/dto/glucose/glucose.dto"
 
 export class GlucoseService {
-  static async getGlucoseCounts(): Promise<GlucoseDTO> {
-    const glucoses = await prisma.glucose.findMany({
-      select: {
-        result: true,
-      },
-    });
+	static async getGlucoseCounts(): Promise<GlucoseDTO> {
+		const glucoses = await prisma.glucose.findMany({
+			select: {
+				result: true,
+			},
+		})
 
-    return {
-      normalCount: glucoses.filter((g) => g.result <= 99).length,
-      preDiabetesCount: glucoses.filter((g) => g.result >= 100 && g.result <= 125).length,
-      diabetesCount: glucoses.filter((g) => g.result >= 126).length,
-    };
-  }
+		return {
+			normalCount: glucoses.filter((g) => g.result <= 99).length,
+			preDiabetesCount: glucoses.filter((g) => g.result >= 100 && g.result <= 125).length,
+			diabetesCount: glucoses.filter((g) => g.result >= 126).length,
+		}
+	}
 }

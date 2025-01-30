@@ -47,20 +47,20 @@
  *                   type: string
  *                   example: "Erro ao excluir PDF"
  */
-import { NextRequest, NextResponse } from 'next/server';
-import { DeleteService } from '@/services/pdfs/deletePdf.service';
+import { NextRequest, NextResponse } from "next/server"
+import { DeleteService } from "@/services/pdfs/deletePdf.service"
 
 export async function DELETE(req: NextRequest) {
-  try {
-    const { id } = await req.json();
+	try {
+		const { id } = await req.json()
 
-    if (!id) {
-      return NextResponse.json({ message: 'ID é necessário' }, { status: 400 });
-    }
+		if (!id) {
+			return NextResponse.json({ message: "ID é necessário" }, { status: 400 })
+		}
 
-    const message = await DeleteService.deletePDF({ id: Number(id) });
-    return NextResponse.json({ message }, { status: 200 });
-  } catch (error:unknown) {
-    return NextResponse.json({ message: 'Erro ao excluir PDF' + error }, { status: 500 });
-  }
+		const message = await DeleteService.deletePDF({ id: Number(id) })
+		return NextResponse.json({ message }, { status: 200 })
+	} catch (error:unknown) {
+		return NextResponse.json({ message: "Erro ao excluir PDF" + error }, { status: 500 })
+	}
 }

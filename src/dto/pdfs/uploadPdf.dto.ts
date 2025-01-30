@@ -30,7 +30,7 @@ export interface PdfUploadResponse {
     message: string;
   }
   
-  export interface PdfUploadErrorResponse {
+export interface PdfUploadErrorResponse {
     success: boolean;
     message: string;
     details?: string;

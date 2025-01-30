@@ -24,17 +24,17 @@
  *                 example: "Erro ao excluir PDF"
  */
 
-import prisma from '@/utils/prisma/prisma';
-import { DeleteDTO } from '@/dto/pdfs/deletePdf.dto';
+import prisma from "@/utils/prisma/prisma"
+import { DeleteDTO } from "@/dto/pdfs/deletePdf.dto"
 
 export class DeleteService {
-  static async deletePDF(data: DeleteDTO): Promise<string> {
-    const { id } = data;
+	static async deletePDF(data: DeleteDTO): Promise<string> {
+		const { id } = data
 
-    await prisma.storage.delete({
-      where: { id },
-    });
+		await prisma.storage.delete({
+			where: { id },
+		})
 
-    return 'PDF excluído com sucesso';
-  }
+		return "PDF excluído com sucesso"
+	}
 }
