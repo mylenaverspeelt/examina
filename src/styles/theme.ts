@@ -1,42 +1,31 @@
 import { createTheme } from '@mui/material/styles';
 
-declare module '@mui/material/styles' {
-    interface Palette {
-        custom: {
-            white: string;
-            superLightGray: string;
-            superLightPurple: string;
-            gray: string;
-            purple: string;
-            purpleHover: string;
-            teal: string;
-        };
-    }
-    interface PaletteOptions {
-        custom: {
-            white: string;
-            superLightGray: string;
-            superLightPurple: string;
-            gray: string;
-            purple: string;
-            purpleHover: string;
-            teal: string;
-        };
-    }
-}
+// declare module '@mui/material/styles' {
+//     interface PaletteOptions {
+//         custom: {
+//             white: string;
+//             superLightGray: string;
+//             superLightPurple: string;
+//             gray: string;
+//             purple: string;
+//             purpleHover: string;
+//             teal: string;
+//         };
+//     }
+// }
 
 export const theme = createTheme({
-    palette: {
-        custom: {
-            white: '#FAFAFA',
-            superLightGray: '#efefef00',
-            superLightPurple: '#cfc2eb33',
-            gray: '#CECBCB',
-            purple: '#3E0649',
-            purpleHover: '#3e0649',
-            teal: '#388B8B',
-        },
-    },
+    // palette: {
+    //     custom: {
+    //         white: '#FAFAFA',
+    //         superLightGray: '#efefef00',
+    //         superLightPurple: '#cfc2eb33',
+    //         gray: '#CECBCB',
+    //         purple: '#3E0649',
+    //         purpleHover: '#3e0649',
+    //         teal: '#388B8B',
+    //     },
+    // },
     typography: {
         fontFamily: '"Afacad Flux", "Itim", "Playwrite DE Grund", sans-serif',
     },
@@ -61,6 +50,42 @@ export const theme = createTheme({
                     textDecoration: 'none',
                 },
             },
+        },
+        MuiContainer: {
+            styleOverrides: {
+                root: {
+                    '&.custom-container': {
+                        backgroundColor: '#388B8B',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        padding: '1rem',
+                        height: '80vh',
+                        margin: '3rem auto',
+                        boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
+                        borderRadius: '2rem',
+                        '& .container-main': {
+                            backgroundColor: '#FAFAFA',
+                            padding: '3rem',
+                            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
+                            borderRadius: '2rem',
+                            height: '100%',
+                            width: '100%',
+                            display: 'flex',
+                        },
+                        '@media (max-width: 768px)': {
+                            width: '90%',
+                            padding: '1rem',
+                            '& .container-main': {
+                                flexDirection: 'column',
+                                padding: 0,
+                                height: '100%',
+                                justifyContent: 'space-around',
+                            }
+                        }
+                    }
+                }
+            }
         },
         MuiButton: {
             styleOverrides: {
@@ -152,7 +177,6 @@ export const theme = createTheme({
                                 color: '#FAFAFA',
                             },
                         },
-
                     },
                     '&.backButton': {
                         backgroundColor: '#6A2A85',
@@ -163,8 +187,8 @@ export const theme = createTheme({
                         }
                     },
                     '&.upload-pdf-button': {
-                        backgroundColor: '#3E0649', 
-                        color: '#FAFAFA', 
+                        backgroundColor: '#3E0649',
+                        color: '#FAFAFA',
                         padding: '0.8rem 1.5rem',
                         fontSize: '1.2rem',
                         display: 'flex',
@@ -174,12 +198,12 @@ export const theme = createTheme({
                         justifyContent: 'center',
                         transition: 'all 0.3s ease-in-out',
                         '& .MuiSvgIcon-root': {
-                            color: '#388B8B', 
+                            color: '#388B8B',
                         },
                         '&:hover': {
-                            backgroundColor: '#6A2A85', 
+                            backgroundColor: '#6A2A85',
                             '& .MuiSvgIcon-root': {
-                                color: '#FAFAFA', 
+                                color: '#FAFAFA',
                             },
                         },
                         '&:disabled': {
