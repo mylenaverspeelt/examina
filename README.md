@@ -11,14 +11,15 @@ Examina é uma plataforma desenvolvida para facilitar o armazenamento e recupera
 
 ## Tecnologias Utilizadas
 
-- **Next.js** para o desenvolvimento do front-end e back-end.
-- **FilePond** e **React-FilePond** para upload de arquivos PDF.
+- **Next.js 15.1.0** para o desenvolvimento do front-end e back-end.
+- **Material-UI (MUI) 6.3.1** para componentes de interface do usuário.
 - **SweetAlert2** para exibição de alertas amigáveis.
 - **React-Chartjs-2** para geração de gráficos dinâmicos.
 - **PDF2JSON** para extração de dados dos PDFs.
-- **Prisma** para modelagem e interação com o banco de dados.
+- **Prisma 6.1.0** para modelagem e interação com o banco de dados.
 - **UUID** para geração de identificadores únicos.
-- **Jest** para testes unitários.
+- **Jest 29.7.0** para testes unitários.
+- **Cypress 13.17.0** para testes end-to-end.
 - **Vercel** para deploy contínuo e hospedagem do projeto.
 - **GitHub Actions** para automação utilizado para realizar fluxo de integração contínua (CI). 
 - **PostgreSQL**: Hospedado no [Neon](https://console.neon.tech/app/projects).
@@ -61,27 +62,20 @@ O modelo do laudo para upload esta disponível pra download [aqui](https://drive
 
 ## Testes Unitários
 
-O projeto utiliza **Jest** para os testes unitários, garantindo a qualidade do código e funcionamento esperado das funcionalidades.
-
-### Rodando os Testes
-
-Para executar os testes, utilize o seguinte comando:
-
+O projeto utiliza **Jest** para os testes unitários, garantindo a qualidade do código e funcionamento esperado das funcionalidades. Basta executar no terminal:
 ```bash
 npm run test
 ```
 
-Se quiser executar os testes no modo contínuo ou em pipelines de CI, você pode usar:
-
+## Testes E2E
+O projeto utiliza **Cypress** para realizar testes end-to-end (E2E), garantindo que o fluxo da aplicação esteja funcionando corretamente de ponta a ponta. Basta executar no terminal:
 ```bash
-npm run test:ci
+npm run test:e2e
 ```
-
-Os testes estão configurados para rodar automaticamente antes de cada push no repositório.
 
 ## Integração Contínua (CI)
 
-Foi configurado um sistema de Integração Contínua (CI) que executa automaticamente os testes unitários toda vez que você faz um push para o repositório. Isso garante que o código enviado está funcionando corretamente e atende aos critérios estabelecidos antes de ser integrado ao projeto.
+Foi configurado um sistema de Integração Contínua (CI) que executa automaticamente os testes unitários e e2e toda vez que é feito um push ou PR para a branch main. Isso garante que o código enviado está funcionando corretamente e atende aos critérios estabelecidos antes de ser integrado ao projeto.
 
 O CI está configurado no arquivo `.github/workflows/test.yml` e utiliza GitHub Actions para automação.
 
@@ -91,6 +85,10 @@ O CI está configurado no arquivo `.github/workflows/test.yml` e utiliza GitHub 
 - `build`: Gera o build de produção.
 - `start`: Inicia o servidor em modo de produção.
 - `test`: Executa os testes unitários.
+- `test`: Executa os testes unitários.
+- `test:ci`: Executa os testes unitários em modo CI.
+- `test:e2e`: Executa os testes E2E em modo headless.
+- `test:e2e:dev`: Executa os testes E2E em modo interativo.
 - `lint`: Executa o linter para verificar a padronização do código.
 
 ## Estrutura do Projeto
