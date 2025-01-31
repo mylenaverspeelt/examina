@@ -48,11 +48,11 @@ export interface PatientDTO {
     name: string;
   }
   
-  export interface PatientSearchResponseDTO {
+export interface PatientSearchResponseDTO {
     patients: PatientDTO[];
   }
   
-  export interface PatientDetailsDTO {
+export interface PatientDetailsDTO {
     id: number;
     name: string;
     age: number;

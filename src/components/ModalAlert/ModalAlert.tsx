@@ -1,17 +1,17 @@
-'use client';
-import Swal from 'sweetalert2';
+"use client"
+import Swal from "sweetalert2"
 
 interface ModalAlertProps {
   title: string;
   message: string;
-  type?: 'error' | 'success' | 'warning' | 'info';
+  type?: "error" | "success" | "warning" | "info";
 }
 
 export default function ModalAlert({title, type, message }: ModalAlertProps) {
-  return Swal.fire({
-    icon: type,
-    title,
-    text: message,
-    confirmButtonText: 'OK',
-  });
+	return Swal.fire({
+		icon: type,
+		title,
+		text: message,
+		confirmButtonText: "OK",
+	})
 }

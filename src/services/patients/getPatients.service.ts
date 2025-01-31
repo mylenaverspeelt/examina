@@ -30,29 +30,29 @@
  *                 example: "Erro ao buscar pacientes"
  */
 
-import prisma from '@/utils/prisma/prisma';
-import { PatientSearchResponseDTO } from '@/dto/patients/patient.dto';
+import prisma from "@/utils/prisma/prisma"
+import { PatientSearchResponseDTO } from "@/dto/patients/patient.dto"
 
 export class PatientService {
-  static async searchPatients(query: string): Promise<PatientSearchResponseDTO | null> {
-    const patients = await prisma.patient.findMany({
-      where: {
-        name: {
-          contains: query,
-          mode: 'insensitive',
-        },
-      },
-      select: {
-        id: true,
-        name: true,
-      },
-    });
+	static async searchPatients(query: string): Promise<PatientSearchResponseDTO | null> {
+		const patients = await prisma.patient.findMany({
+			where: {
+				name: {
+					contains: query,
+					mode: "insensitive",
+				},
+			},
+			select: {
+				id: true,
+				name: true,
+			},
+		})
 
-    if (patients.length === 0) {
-      throw new Error('Nenhum paciente encontrado com o termo de busca fornecido.');
-    }
+		if (patients.length === 0) {
+			throw new Error("Nenhum paciente encontrado com o termo de busca fornecido.")
+		}
 
-    return { patients };
-  }
+		return { patients }
+	}
 }
 

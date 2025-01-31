@@ -1,16 +1,16 @@
-import React, { ReactNode } from 'react';
-import { Container as MuiContainer } from '@mui/material';
+import React, { ReactNode } from "react"
+import { Container as MuiContainer } from "@mui/material"
 
 interface ContainerProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 export default function Container({ children }: ContainerProps) {
-  return (
-    <MuiContainer className="custom-container">
-      <div className="container-main">
-        {children}
-      </div>
-    </MuiContainer>
-  );
+	return (
+		<MuiContainer className="custom-container">
+			<div className="container-main">
+				{children}
+			</div>
+		</MuiContainer>
+	)
 }

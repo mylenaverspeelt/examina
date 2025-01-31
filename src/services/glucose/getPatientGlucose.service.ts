@@ -19,25 +19,25 @@
  *                 type: string
  *                 example: "Erro ao buscar registros de glicose"
  */
-import prisma from '@/utils/prisma/prisma';
-import { GlucoseRecordDTO, GlucoseRecordsResponseDTO } from '@/dto/glucose/glucose.dto';
+import prisma from "@/utils/prisma/prisma"
+import { GlucoseRecordDTO, GlucoseRecordsResponseDTO } from "@/dto/glucose/glucose.dto"
 
 export class PatientIdGlucoseService {
-  static async getGlucoseRecordsByPatientId(patientId: number): Promise<GlucoseRecordsResponseDTO> {
-    const records = await prisma.glucose.findMany({
-      where: { patientId },
-      select: {
-        createdAt: true,
-        result: true,
-      },
-      orderBy: { createdAt: 'asc' },
-    });
+	static async getGlucoseRecordsByPatientId(patientId: number): Promise<GlucoseRecordsResponseDTO> {
+		const records = await prisma.glucose.findMany({
+			where: { patientId },
+			select: {
+				createdAt: true,
+				result: true,
+			},
+			orderBy: { createdAt: "asc" },
+		})
 
-    const formattedRecords: GlucoseRecordDTO[] = records.map(record => ({
-      createdAt: record.createdAt.toISOString(), 
-      result: record.result,
-    }));
+		const formattedRecords: GlucoseRecordDTO[] = records.map(record => ({
+			createdAt: record.createdAt.toISOString(), 
+			result: record.result,
+		}))
 
-    return { records: formattedRecords };
-  }
+		return { records: formattedRecords }
+	}
 }

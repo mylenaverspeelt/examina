@@ -24,14 +24,14 @@
  *                   example: "Erro ao buscar PDFs: ..."
  */
 
-import { NextResponse } from 'next/server';
-import { PdfService } from '@/services/pdfs/getAllPdfs.service';
+import { NextResponse } from "next/server"
+import { PdfService } from "@/services/pdfs/getAllPdfs.service"
 
 export async function GET() {
-  try {
-    const pdfs = await PdfService.getAllPdfs();
-    return NextResponse.json(pdfs);
-  } catch (error:unknown) {
-    return NextResponse.json({ error: `Erro ao buscar PDFs: ` + error }, { status: 500 });
-  }
+	try {
+		const pdfs = await PdfService.getAllPdfs()
+		return NextResponse.json(pdfs)
+	} catch (error:unknown) {
+		return NextResponse.json({ error: "Erro ao buscar PDFs: " + error }, { status: 500 })
+	}
 }
