@@ -7,7 +7,7 @@ Cypress.on('uncaught:exception', (err) => {
     return true;
 });
 
-describe('PDF List Page Tests', () => {
+describe('Uploads Page Tests', () => {
     beforeEach(() => {
         cy.intercept('GET', '/api/getAllPdfs', {
             statusCode: 200,
@@ -43,9 +43,7 @@ describe('PDF List Page Tests', () => {
 
     it('Should display the list of PDFs', () => {
         cy.wait('@getPdfs');
-    
         cy.get('.pdf-button').should('have.length', 2);
-    
         cy.contains('.pdf-button', 'test1.pdf').should('exist');
         cy.contains('.pdf-button', 'test2.pdf').should('exist');
     });
@@ -63,9 +61,7 @@ describe('PDF List Page Tests', () => {
 
     it('Should handle PDF deletion', () => {
         cy.wait('@getPdfs');
-
         cy.get('.MuiIconButton-colorError').first().click();
-
         cy.wait('@deletePdf');
 
         cy.get('.swal2-html-container')
@@ -81,7 +77,6 @@ describe('PDF List Page Tests', () => {
 
         cy.wait('@getPdfs');
         cy.get('.MuiIconButton-colorError').first().click();
-
         cy.wait('@deleteError');
         cy.get('.swal2-html-container')
             .should('be.visible')
@@ -100,7 +95,6 @@ describe('PDF List Page Tests', () => {
         });
 
         cy.get('.pdf-button').first().click();
-
         cy.window().its('open').should('be.called');
     });
 });
